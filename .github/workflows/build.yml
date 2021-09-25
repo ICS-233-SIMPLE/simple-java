@@ -7,7 +7,7 @@ on:
   # Triggers the workflow on pull request events
   pull_request_target:
     branches:
-      - master
+      - main
   push:
     branches:
       - '**'
@@ -31,28 +31,3 @@ jobs:
         run: |
               mkdir build
               javac -cp src src/edu/manipal/icas/Main.java -d build
-              
-  package:
-    #if: ${{ github.event.pull_request.merged == true }}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2.3.0
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-          
-      - name: Copy manifest to /build
-        working-directory: ./SIMPLE
-        run: cp manifest.mf build/manifest.mf
-        
-      - name: Package built .class files into JAR
-        working-directory: ./SIMPLE/build
-        run: jar cmf manifest.mf simple.jar *
-        
-      - name: Publish to artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: simple.jar
-          path: ./SIMPLE/build/simple.jar
