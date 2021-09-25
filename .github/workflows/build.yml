@@ -33,7 +33,7 @@ jobs:
               javac -cp src src/edu/manipal/icas/Main.java -d build
               
   package:
-    if: ${{ github.event_name == 'push' && github.event.pull_request.merged == true }}
+    #if: ${{ github.event.pull_request.merged == true }}
     needs: build
     runs-on: ubuntu-latest
     steps:
