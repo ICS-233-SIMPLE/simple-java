@@ -21,6 +21,7 @@ jobs:
       - uses: actions/setup-java@v2.3.0
 
       - name: Build sources
+        working-directory: ./SIMPLE
         run: |
               mkdir build
-              javac -cp ./src ./src/edu/manipal/icas/Main.java -d ./build
+              javac -cp src src/edu/manipal/icas/Main.java -d build
