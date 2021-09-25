@@ -4,9 +4,6 @@ name: Java Package and Publish JAR
 
 # Controls when the workflow will run
 on:
-  pull_request_target:
-    branches:
-      - main
   push:
     branches: [ main ]
 
@@ -15,7 +12,6 @@ on:
 
 jobs:        
   package:
-    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
