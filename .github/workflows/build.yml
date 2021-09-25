@@ -5,8 +5,11 @@ name: Java Build
 # Controls when the workflow will run
 on:
   # Triggers the workflow on pull request events
-  pull_request:
-    branches: 
+  pull_request_target:
+    branches:
+      - master
+  push:
+    branches:
       - '**'
 
   # Allows you to run this workflow manually from the Actions tab
