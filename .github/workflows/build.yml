@@ -31,4 +31,4 @@ jobs:
         working-directory: ./SIMPLE
         run: |
               mkdir build
-              javac -cp src src/edu/manipal/icas/Main.java -d build
+              javac -cp src src/edu/manipal/icas/simple/Main.java -d build
