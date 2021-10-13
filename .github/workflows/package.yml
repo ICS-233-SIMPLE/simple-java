@@ -4,9 +4,6 @@ name: Java Package and Publish JAR
 
 # Controls when the workflow will run
 on:
-  pull_request_target:
-    branches:
-      - main
   push:
     branches: [ main ]
 
@@ -27,11 +24,18 @@ jobs:
         working-directory: ./SIMPLE
         run: |
               mkdir build
-              javac -cp src src/edu/manipal/icas/simple/Main.java -d build
+              javac -cp "src:lib/*" src/edu/manipal/icas/simple/Main.java -d build
           
       - name: Copy manifest to /build
         working-directory: ./SIMPLE
         run: cp manifest.mf build/manifest.mf
+
+      - name: Copy libs to /build
+        working-directory: ./SIMPLE
+        run: |
+              mkdir build/lib
+              cp lib/*.jar build/lib
+              for f in build/lib; do java xf $f; done
         
       - name: Package built .class files into JAR
         working-directory: ./SIMPLE/build
