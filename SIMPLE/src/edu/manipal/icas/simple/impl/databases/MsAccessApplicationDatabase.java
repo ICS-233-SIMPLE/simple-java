@@ -23,14 +23,14 @@ import edu.manipal.icas.simple.models.ApplicationType;
  */
 public class MsAccessApplicationDatabase extends MsAccessDatabase implements ApplicationDatabase {
 
-	private static final MsAccessApplicationDatabase INSTANCE = new MsAccessApplicationDatabase();
+	private static final MsAccessApplicationDatabase DATABASE = new MsAccessApplicationDatabase();
 
 	private MsAccessApplicationDatabase() {
 		super("Applications");
 	}
 
-	public static MsAccessApplicationDatabase getInstance() {
-		return INSTANCE;
+	public static MsAccessApplicationDatabase getDatabase() {
+		return DATABASE;
 	}
 
 	@Override
