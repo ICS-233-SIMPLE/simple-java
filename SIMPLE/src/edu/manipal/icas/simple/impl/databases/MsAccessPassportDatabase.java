@@ -38,7 +38,7 @@ public class MsAccessPassportDatabase extends MsAccessDatabase implements Passpo
 	public Integer createPassport(String photographName, String birthAddress, String permanentAddress,
 			String nameOfFather, String nameOfMother, Date expiryDate, String ownerId) throws IOException {
 		return (Integer) table.addRow(Column.AUTO_NUMBER, photographName, birthAddress, permanentAddress, nameOfFather,
-				nameOfMother, expiryDate, ownerId)[0];
+				nameOfMother, expiryDate, PassportStatus.PENDING_STAMP, ownerId)[0];
 
 	}
 
