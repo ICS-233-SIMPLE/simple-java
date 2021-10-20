@@ -1,5 +1,7 @@
 package edu.manipal.icas.simple.databases;
 
+import java.io.IOException;
+
 import edu.manipal.icas.simple.session.Session;
 
 /**
@@ -46,7 +48,7 @@ public interface SessionDatabase {
 	 * @param session the Session object to save
 	 * @throws Exception if a session was already active
 	 */
-	void startSession(Session session) throws Exception;
+	void startSession(Session session) throws IOException;
 
 	/**
 	 * Ends the current session and forces the user to start a new session should
@@ -54,7 +56,7 @@ public interface SessionDatabase {
 	 * 
 	 * @throws Exception if there was no session to end
 	 */
-	void endCurrentSession() throws Exception;
+	void endCurrentSession() throws IOException;
 
 	/**
 	 * Gets the current session, if available.
