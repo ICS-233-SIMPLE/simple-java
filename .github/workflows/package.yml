@@ -37,6 +37,7 @@ jobs:
               cp lib/*.jar build/lib
               cd build
               for f in lib/*.jar; do jar xf "$f"; done
+              rm -r lib
         
       - name: Package built .class files into JAR
         working-directory: ./SIMPLE/build
