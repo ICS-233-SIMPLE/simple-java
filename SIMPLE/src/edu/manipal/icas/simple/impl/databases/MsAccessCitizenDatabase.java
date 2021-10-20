@@ -95,13 +95,13 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 	@Override
 	public void saveContactNumber(String emailAddress, Long contactNumber) throws IOException {
 		Row row = getRow(emailAddress);
-		row.put(FIELD_CONTACT_NUMBER, contactNumber);
+		row.put(FIELD_CONTACT_NUMBER, Double.parseDouble("" + contactNumber));
 		table.updateRow(row);
 	}
 
 	@Override
 	public Long fetchContactNumber(String emailAddress) throws IOException {
-		return Long.parseLong(Double.toString(getRow(emailAddress).getDouble(FIELD_CONTACT_NUMBER)));
+		return Long.parseLong(getRow(emailAddress).get(FIELD_CONTACT_NUMBER) + "");
 	}
 
 	@Override
