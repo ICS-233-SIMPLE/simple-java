@@ -75,6 +75,7 @@ public interface PassportOfficeDatabase {
 	 * @param officeId ID of the passport office
 	 * @return list of officer IDs, each of which map to one
 	 *         {@link edu.manipal.icas.simple.models.PassportOfficer}
+	 * @throws IOException if no passport was found for the passed ID
 	 */
-	List<Integer> fetchOfficers(Integer officeId);
+	List<Integer> fetchOfficers(Integer officeId) throws IOException;
 }
