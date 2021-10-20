@@ -22,7 +22,7 @@ public interface CitizenDatabase {
 	static final String FIELD_PASSWORD = "PASSWORD";
 
 	/** Column associated with the name of the citizen */
-	static final String FIELD_NAME = "NAME";
+	static final String FIELD_NAME = "C_NAME";
 
 	/** Column associated with the gender of the citizen */
 	static final String FIELD_GENDER = "GENDER";
@@ -53,6 +53,12 @@ public interface CitizenDatabase {
 	 * {@link edu.manipal.icas.simple.databases.PassportDatabase}
 	 */
 	static final String FIELD_PASSPORT_IDS = "PASSPORT_IDS";
+
+	/**
+	 * Column associated with a list of applications submitted by the user. Each
+	 * item in the list is a foreign key from {@link ApplicationDatabase}
+	 */
+	static final String FIELD_APPLICATION_IDS = "APPLICATION_IDS";
 
 	/**
 	 * Creates a new citizen entry in the database given a unique email address
@@ -209,7 +215,7 @@ public interface CitizenDatabase {
 	 *                     passport
 	 * @throws IOException if no citizen entry was found for the email address
 	 */
-	void savePassportIds(String emailAddress, List<String> passportIds) throws IOException;
+	void savePassportIds(String emailAddress, List<Integer> passportIds) throws IOException;
 
 	/**
 	 * Fetches a list of passport IDs belonging to the citizen from the database.
@@ -218,5 +224,24 @@ public interface CitizenDatabase {
 	 * @return list of unique passport IDs
 	 * @throws IOException if no citizen entry was found for the email address
 	 */
-	List<String> fetchPassportIds(String emailAddress) throws IOException;
+	List<Integer> fetchPassportIds(String emailAddress) throws IOException;
+
+	/**
+	 * Saves a list of IDs of applications submitted by a citizen.
+	 * 
+	 * @param emailAddress   email of the citizen
+	 * @param applicationIds list of IDs, each of which corresponds to a unique
+	 *                       application
+	 * @throws IOException if no citizen entry was found for the email address
+	 */
+	void saveApplicationIds(String emailAddress, List<String> applicationIds) throws IOException;
+
+	/**
+	 * Fetches a list of application IDs belonging to the citizen from the database.
+	 * 
+	 * @param emailAddress email of the citizen whose passports are to be fetched
+	 * @return list of unique application IDs
+	 * @throws IOException if no citizen entry was found for the email address
+	 */
+	List<String> fetchApplicationIds(String emailAddress) throws IOException;
 }

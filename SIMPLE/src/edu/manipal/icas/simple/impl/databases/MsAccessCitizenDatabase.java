@@ -130,13 +130,15 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 
 	@Override
 	public void savePassportIds(String emailAddress, List<String> passportIds) throws IOException {
+	public void saveApplicationIds(String emailAddress, List<String> applicationIds) throws IOException {
 		Row row = getRow(emailAddress);
-		row.put(FIELD_PASSPORT_IDS, String.join(",", passportIds));
+		row.put(FIELD_PASSPORT_IDS, String.join(",", applicationIds));
 		table.updateRow(row);
+
 	}
 
 	@Override
-	public List<String> fetchPassportIds(String emailAddress) throws IOException {
-		return Arrays.asList(getRow(emailAddress).getString(FIELD_PASSPORT_IDS).split(","));
+	public List<String> fetchApplicationIds(String emailAddress) throws IOException {
+		return Arrays.asList(getRow(emailAddress).getString(FIELD_APPLICATION_IDS).split(","));
 	}
 }
