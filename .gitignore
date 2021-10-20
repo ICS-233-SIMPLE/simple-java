@@ -12,7 +12,7 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+/SIMPLE/src/*.jar
 *.war
 *.nar
 *.ear
