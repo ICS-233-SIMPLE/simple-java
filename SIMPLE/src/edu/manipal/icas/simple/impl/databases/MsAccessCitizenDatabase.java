@@ -3,6 +3,7 @@ package edu.manipal.icas.simple.impl.databases;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,8 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 		if (citizenExists(emailAddress)) {
 			throw new IOException("Duplicate row for citizen " + emailAddress);
 		}
-		table.addRow(emailAddress);
+		// order is: password | name | email | ...
+		table.addRow("", "", emailAddress);
 	}
 
 	@Override
@@ -129,7 +131,28 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 	}
 
 	@Override
-	public void savePassportIds(String emailAddress, List<String> passportIds) throws IOException {
+	public void savePassportIds(String emailAddress, List<Integer> passportIds) throws IOException {
+		List<String> serialisedStrings = new ArrayList<>();
+		for (Integer pId : passportIds) {
+			serialisedStrings.add(pId + "");
+		}
+
+		Row row = getRow(emailAddress);
+		row.put(FIELD_PASSPORT_IDS, String.join(",", serialisedStrings));
+		table.updateRow(row);
+	}
+
+	@Override
+	public List<Integer> fetchPassportIds(String emailAddress) throws IOException {
+		List<String> deserialisedStrings = Arrays.asList(getRow(emailAddress).getString(FIELD_PASSPORT_IDS).split(","));
+		List<Integer> pIds = new ArrayList<>();
+		for (String string : deserialisedStrings) {
+			pIds.add(Integer.parseInt(string));
+		}
+		return pIds;
+	}
+
+	@Override
 	public void saveApplicationIds(String emailAddress, List<String> applicationIds) throws IOException {
 		Row row = getRow(emailAddress);
 		row.put(FIELD_PASSPORT_IDS, String.join(",", applicationIds));
