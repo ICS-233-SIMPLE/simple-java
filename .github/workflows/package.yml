@@ -35,7 +35,7 @@ jobs:
         run: |
               mkdir build/lib
               cp lib/*.jar build/lib
-              for f in build/lib; do jar xf $f; done
+              for f in build/lib/*.jar; do jar xf "$f"; done
         
       - name: Package built .class files into JAR
         working-directory: ./SIMPLE/build
