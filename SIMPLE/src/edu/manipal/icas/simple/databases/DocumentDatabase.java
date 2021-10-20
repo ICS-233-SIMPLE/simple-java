@@ -14,7 +14,7 @@ public interface DocumentDatabase {
 	 * Column that holds a unique name for each document row. To be used as the
 	 * primary key.
 	 */
-	static final String FIELD_NAME = "NAME";
+	static final String FIELD_NAME = "D_NAME";
 
 	/** Column that holds the binary/blob content of the document. */
 	static final String FIELD_CONTENT = "CONTENT";
@@ -22,11 +22,13 @@ public interface DocumentDatabase {
 	/**
 	 * Creates a new document entry in the database.
 	 * 
-	 * @param name    unique name corresponding to this document
-	 * @param content the binary content of the document that is to be saved
+	 * @param name           unique name corresponding to this document
+	 * @param pathToDocument the path to the document that is to be linked with the
+	 *                       database. Can be either a full path or a path relative
+	 *                       to the CWD of the program
 	 * @throws IOException if the passed name was not unique
 	 */
-	void createDocument(String name, byte[] content) throws IOException;
+	void createDocument(String name, String pathToDocument) throws IOException;
 
 	/**
 	 * Checks whether a document of a given name exists in the database.
