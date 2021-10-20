@@ -61,9 +61,13 @@ public class MsAccessPassportOfficeDatabase extends MsAccessDatabase implements 
 	}
 
 	@Override
-	public List<Integer> fetchOfficers(Integer officeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> fetchOfficers(Integer officeId) throws IOException {
+		List<String> deserialisedStrings = Arrays.asList(getRow(officeId).getString(FIELD_OFFICERS).split(","));
+		List<Integer> officers = new ArrayList<>();
+		for(String string : deserialisedStrings) {
+			officers.add(Integer.parseInt(string));
+		}
+		return officers;
 	}
 
 }
