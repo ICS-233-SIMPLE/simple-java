@@ -20,18 +20,12 @@ public final class ResourceConstants {
 	 */
 	public static final ImageIcon IMAGE_CITIZEN_LOGIN_ICON = new ImageIcon("res/images/citizen_login_icon.png");
 
-	/**
-	 * Stores the font style of headings that appear in the view.
-	 */
+	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
 
-	/**
-	 * Holds the font style of sub headings in the view.
-	 */
+	/** Holds the font style of sub headings in the view. */
 	public static final Font FONT_TEXT_PLAIN = new Font("Roboto", Font.PLAIN, 12);
-	
-	/**
-	 * Contains the font style of labels that appear in the view.
-	 */
+
+	/** Contains the font style of labels that appear in the view. */
 	public static final Font FONT_TEXT_BOLD = new Font("Roboto", Font.BOLD, 13);
 }
