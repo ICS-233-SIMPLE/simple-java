@@ -28,4 +28,7 @@ public final class ResourceConstants {
 
 	/** Contains the font style of labels that appear in the view. */
 	public static final Font FONT_LABEL_BOLD = new Font("Roboto", Font.BOLD, 13);
+
+	/** Holds the font style of buttons in the view. */
+	public static final Font FONT_BUTTON_PLAIN = new Font("Roboto", Font.PLAIN, 12);
 }

@@ -144,10 +144,10 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		container.add(new JLabel(), c);
 
 		staffLoginRedirectButton.setBackground(new Color(240, 240, 240));
-		staffLoginRedirectButton.setFont(ResourceConstants.FONT_TEXT_PLAIN);
 		JPanel redirectToStaffLoginPortalPanel = new JPanel();
 		redirectToStaffLoginPortalPanel.setLayout(new GridLayout(1, 3));
 		redirectToStaffLoginPortalPanel.add(staffLoginRedirectButton);
+		officerLoginRedirectButton.setFont(ResourceConstants.FONT_BUTTON_PLAIN);
 
 		c.gridy = 14;
 		c.gridx = 3;
