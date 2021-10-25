@@ -31,7 +31,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	private JPasswordField passwordPasswordField;
 	private JButton loginButton;
 	private JButton createProfileButton;
-	private JButton staffLoginRedirectButton;
+	private JButton officerLoginRedirectButton;
 
 	/**
 	 * Instantiates all the required fields and buttons that are to be displayed in
@@ -43,7 +43,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		passwordPasswordField = new JPasswordField();
 		loginButton = new JButton("Login");
 		createProfileButton = new JButton("Create Profile");
-		staffLoginRedirectButton = new JButton("Go to staff login");
+		officerLoginRedirectButton = new JButton("Go to staff login");
 		initialiseUi();
 	}
 
@@ -143,18 +143,18 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		c.ipady = 40;
 		container.add(new JLabel(), c);
 
-		staffLoginRedirectButton.setBackground(new Color(240, 240, 240));
-		JPanel redirectToStaffLoginPortalPanel = new JPanel();
-		redirectToStaffLoginPortalPanel.setLayout(new GridLayout(1, 3));
-		redirectToStaffLoginPortalPanel.add(staffLoginRedirectButton);
+		officerLoginRedirectButton.setBackground(new Color(240, 240, 240));
 		officerLoginRedirectButton.setFont(ResourceConstants.FONT_BUTTON_PLAIN);
+		JPanel redirectToOfficerLoginPortalPanel = new JPanel();
+		redirectToOfficerLoginPortalPanel.setLayout(new GridLayout(1, 3));
+		redirectToOfficerLoginPortalPanel.add(officerLoginRedirectButton);
 
 		c.gridy = 14;
 		c.gridx = 3;
 		c.gridwidth = 1;
 		c.ipady = -10;
 		c.gridheight = 5;
-		container.add(redirectToStaffLoginPortalPanel, c);
+		container.add(redirectToOfficerLoginPortalPanel, c);
 
 		container.setBackground(new Color(255, 255, 255));
 
@@ -181,8 +181,8 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	}
 
 	@Override
-	public JButton getRedirectToStaffLoginViewButton() {
-		return staffLoginRedirectButton;
+	public JButton getRedirectToOfficerLoginViewButton() {
+		return officerLoginRedirectButton;
 	}
 
 	@Override

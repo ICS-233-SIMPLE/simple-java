@@ -25,12 +25,12 @@ public interface CitizenLoginView extends View {
 	JButton getLoginButton();
 
 	/**
-	 * Gets the button that the staff click on to be redirected to their internal
+	 * Gets the button that the officers click on to be redirected to their internal
 	 * login portals.
 	 * 
 	 * @return the redirect button
 	 */
-	JButton getRedirectToStaffLoginViewButton();
+	JButton getRedirectToOfficerLoginViewButton();
 
 	/**
 	 * Gets the text field in which the citizen enters their email address.
