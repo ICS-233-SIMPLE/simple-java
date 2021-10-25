@@ -24,8 +24,8 @@ public final class ResourceConstants {
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
 
 	/** Holds the font style of sub headings in the view. */
-	public static final Font FONT_TEXT_PLAIN = new Font("Roboto", Font.PLAIN, 12);
+	public static final Font FONT_SUBHEADING_PLAIN = new Font("Roboto", Font.PLAIN, 12);
 
 	/** Contains the font style of labels that appear in the view. */
-	public static final Font FONT_TEXT_BOLD = new Font("Roboto", Font.BOLD, 13);
+	public static final Font FONT_LABEL_BOLD = new Font("Roboto", Font.BOLD, 13);
 }
