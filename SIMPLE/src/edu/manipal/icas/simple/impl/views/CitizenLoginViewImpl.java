@@ -1,10 +1,7 @@
 package edu.manipal.icas.simple.impl.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -90,7 +87,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 
 		JLabel emailLabel = new JLabel("Email");
 		emailLabel.setFont(ResourceConstants.FONT_TEXT_BOLD);
-		;
+
 		c.gridy = 4;
 		c.ipady = 0;
 		container.add(emailLabel, c);
