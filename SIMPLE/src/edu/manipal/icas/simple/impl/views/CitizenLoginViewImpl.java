@@ -73,7 +73,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		JLabel productNameLabel = new JLabel(StringConstants.PRODUCT_NAME, JLabel.CENTER);
 		productNameLabel.setFont(ResourceConstants.FONT_HEADING_BOLD);
 		JLabel welcomeLabel = new JLabel("Welcome back! Login to continue", JLabel.CENTER);
-		welcomeLabel.setFont(ResourceConstants.FONT_TEXT_PLAIN);
+		welcomeLabel.setFont(ResourceConstants.FONT_SUBHEADING_PLAIN);
 		c.gridx = 1;
 		c.gridy = 1;
 		c.gridwidth = 3;
@@ -86,7 +86,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		container.add(new JLabel(), c);
 
 		JLabel emailLabel = new JLabel("Email");
-		emailLabel.setFont(ResourceConstants.FONT_TEXT_BOLD);
+		emailLabel.setFont(ResourceConstants.FONT_LABEL_BOLD);
 
 		c.gridy = 4;
 		c.ipady = 0;
@@ -100,7 +100,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		container.add(new JLabel(), c);
 
 		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setFont(ResourceConstants.FONT_TEXT_BOLD);
+		passwordLabel.setFont(ResourceConstants.FONT_LABEL_BOLD);
 		;
 		c.gridy = 7;
 		c.ipady = 0;
@@ -122,7 +122,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		container.add(new JLabel(), c);
 
 		JLabel signUpLabel = new JLabel("Don't have a profile?");
-		signUpLabel.setFont(ResourceConstants.FONT_TEXT_PLAIN);
+		signUpLabel.setFont(ResourceConstants.FONT_SUBHEADING_PLAIN);
 		c.gridy = 12;
 		c.ipady = 0;
 		c.ipadx = 5;
