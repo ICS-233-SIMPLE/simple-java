@@ -46,4 +46,12 @@ public interface CitizenLoginView extends View {
 	 */
 	JPasswordField getPasswordPasswordField();
 
+	/**
+	 * Gets the button that redirects a new citizen candidate to the profile
+	 * creation view
+	 * 
+	 * @return the redirect button
+	 */
+	JButton getRedirectToCreateProfileViewButton();
+
 }
