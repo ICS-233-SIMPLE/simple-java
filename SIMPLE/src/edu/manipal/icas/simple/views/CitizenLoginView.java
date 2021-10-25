@@ -30,7 +30,7 @@ public interface CitizenLoginView extends View {
 	 * 
 	 * @return the redirect button
 	 */
-	JButton getRedirectToStaffLoginPortalButton();
+	JButton getRedirectToStaffLoginViewButton();
 
 	/**
 	 * Gets the text field in which the citizen enters their email address.

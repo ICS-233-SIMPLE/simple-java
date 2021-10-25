@@ -34,7 +34,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	private JPasswordField passwordPasswordField;
 	private JButton loginButton;
 	private JButton createProfileButton;
-	private JButton redirectToStaffLoginPortalButton;
+	private JButton staffLoginRedirectButton;
 
 	/**
 	 * Instantiates all the required fields and buttons that are to be displayed in
@@ -46,7 +46,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		passwordPasswordField = new JPasswordField();
 		loginButton = new JButton("Login");
 		createProfileButton = new JButton("Create Profile");
-		redirectToStaffLoginPortalButton = new JButton("Redirect to staff login");
+		staffLoginRedirectButton = new JButton("Go to staff login");
 		initialiseUi();
 	}
 
@@ -183,8 +183,8 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	}
 
 	@Override
-	public JButton getRedirectToStaffLoginPortalButton() {
-		return redirectToStaffLoginPortalButton;
+	public JButton getRedirectToStaffLoginViewButton() {
+		return staffLoginRedirectButton;
 	}
 
 	@Override
