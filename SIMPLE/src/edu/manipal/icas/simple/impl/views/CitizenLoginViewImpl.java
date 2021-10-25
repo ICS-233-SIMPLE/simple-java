@@ -110,7 +110,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		container.add(passwordPasswordField, c);
 
 		c.gridy = 9;
-		c.ipady = 20;
+		c.ipady = 15;
 		container.add(new JLabel(), c);
 
 		c.gridy = 10;
@@ -121,38 +121,39 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		c.ipady = 28;
 		container.add(new JLabel(), c);
 
-		JLabel signUpLabel = new JLabel("Don't have a profile? Sign up.");
+		JLabel signUpLabel = new JLabel("Don't have a profile?");
 		signUpLabel.setFont(ResourceConstants.FONT_TEXT_PLAIN);
-		c.gridy = 11;
+		c.gridy = 12;
 		c.ipady = 0;
+		c.ipadx = 5;
+		c.gridx = 1;
+		c.gridwidth = 1;
 		container.add(signUpLabel, c);
 
+		createProfileButton.setBackground(Color.WHITE);
 		c.gridy = 12;
 		c.ipady = 0;
+		c.ipadx = 0;
+		c.gridx = 2;
+		c.gridwidth = 2;
 		container.add(createProfileButton, c);
-
-		c.gridy = 12;
-		c.gridx = 0;
-		c.gridwidth = 5;
-		c.ipady = 0;
-		c.gridheight = 10;
-
-		redirectToStaffLoginPortalButton.setBackground(new Color(240, 240, 240));
-		redirectToStaffLoginPortalButton.setFont(ResourceConstants.FONT_TEXT_PLAIN);
-		JPanel redirectToStaffLoginPortalPanel = new JPanel();
-		redirectToStaffLoginPortalPanel.setBackground(new Color(255, 255, 255));
-		redirectToStaffLoginPortalPanel.setLayout(new GridLayout(1, 3));
-
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.fill = GridBagConstraints.LAST_LINE_END;
-		c.ipady = 0;
-		c.weighty = 2.0;
-		c.anchor = GridBagConstraints.PAGE_END;
-		redirectToStaffLoginPortalPanel.add(redirectToStaffLoginPortalButton);
-		c.insets = new Insets(1, 3, 3, 1);
-		c.gridx = 3;
-		c.gridwidth = 4;
+		
 		c.gridy = 13;
+		c.gridx = 1;
+		c.ipady = 40;
+		container.add(new JLabel(), c);
+
+		staffLoginRedirectButton.setBackground(new Color(240, 240, 240));
+		staffLoginRedirectButton.setFont(ResourceConstants.FONT_TEXT_PLAIN);
+		JPanel redirectToStaffLoginPortalPanel = new JPanel();
+		redirectToStaffLoginPortalPanel.setLayout(new GridLayout(1, 3));
+		redirectToStaffLoginPortalPanel.add(staffLoginRedirectButton);
+
+		c.gridy = 14;
+		c.gridx = 3;
+		c.gridwidth = 1;
+		c.ipady = -10;
+		c.gridheight = 5;
 		container.add(redirectToStaffLoginPortalPanel, c);
 
 		container.setBackground(new Color(255, 255, 255));
@@ -192,6 +193,11 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	@Override
 	public JPasswordField getPasswordPasswordField() {
 		return passwordPasswordField;
+	}
+	
+	@Override
+	public JButton getRedirectToCreateProfileViewButton() {
+		return createProfileButton;
 	}
 
 	@Override
