@@ -1,6 +1,7 @@
 package edu.manipal.icas.simple.controllers;
 
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
+import edu.manipal.icas.simple.views.CitizenLoginView;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -15,9 +16,9 @@ import edu.manipal.icas.simple.impl.databases.MsAccessCitizenDatabase;
 
 
 public class CitizenController  {
-	private CitizenLoginViewImpl citizenView;
+	private CitizenLoginView citizenView;
 	
-	public CitizenController(CitizenLoginViewImpl citizenView)
+	public CitizenController(CitizenLoginView citizenView)
 	{
 		this.citizenView =citizenView;
 		this.citizenView.addLoginListener(new LoginListener());
