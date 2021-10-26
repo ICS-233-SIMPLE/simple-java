@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.utils.StringConstants;
@@ -203,6 +205,13 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	@Override
 	public JFrame getFrame() {
 		return this;
+	}
+	
+
+	public void addLoginListener(ActionListener listenForLoginButton) {
+		loginButton.addActionListener(listenForLoginButton);
+		// TODO Auto-generated method stub
+		
 	}
 
 }
