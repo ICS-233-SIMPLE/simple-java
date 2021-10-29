@@ -1,5 +1,7 @@
 package edu.manipal.icas.simple.session;
 
+import edu.manipal.icas.simple.controllers.Route;
+
 /**
  * Class representing a session. <br/>
  * A session is a duration between the logging in of a user and the end of a
@@ -43,4 +45,25 @@ public abstract class Session {
 	 * @return an ID that represents the user who initiated this session
 	 */
 	public abstract String getSessionId();
+
+	/**
+	 * Whether the initiator of the session has access to the requested route. This
+	 * method is used to restrict access to views based on the currently logged-in
+	 * user (actor authorisation).
+	 * 
+	 * @param route one of {@link Route} for which access authorisation is requested
+	 * @return {@code true} if the session can access the route, {@code false}
+	 *         otherwise
+	 */
+	public abstract Boolean hasAccess(Route route);
+
+	/**
+	 * Gets the default route to redirect the initiator of this session to in case a
+	 * 403 (unauthorised) or 404 (not found) was encountered. <br/>
+	 * Make sure the session has access to the route being returned, else the
+	 * application will run into a loop of unauthorised redirects.
+	 * 
+	 * @return one of {@link Route} which is the default route for the session.
+	 */
+	public abstract Route getDefaultRoute();
 }
