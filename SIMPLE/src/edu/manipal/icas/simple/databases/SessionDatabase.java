@@ -64,4 +64,11 @@ public interface SessionDatabase {
 	 * @return a Session object if available, {@code null} otherwise
 	 */
 	Session getCurrentSession();
+
+	/**
+	 * Ends the current session if it has expired (been active for > 1h).
+	 * 
+	 * @throws Exception if there was no session to end
+	 */
+	void endExpiredSession() throws IOException;
 }
