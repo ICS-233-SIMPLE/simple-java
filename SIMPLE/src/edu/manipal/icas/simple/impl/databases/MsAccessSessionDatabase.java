@@ -46,6 +46,7 @@ public class MsAccessSessionDatabase extends MsAccessDatabase implements Session
 	@Override
 	public Session getCurrentSession() {
 		try {
+			endExpiredSession();
 			table.getDefaultCursor().reset();
 			Row row = null;
 			for (int i = 0; i <= table.getRowCount(); ++i) {
@@ -54,19 +55,14 @@ public class MsAccessSessionDatabase extends MsAccessDatabase implements Session
 					break;
 				}
 			}
+
 			if (row == null) {
 				return null;
 			}
-			
-			if (LocalDateTime.now().compareTo(row.getLocalDateTime(FIELD_TIMESTAMP).minus(1, ChronoUnit.HOURS)) > 0) {
-				row.put(FIELD_ACTIVE, false);
-				table.updateRow(row);
-				return null;
-			}
+
 			switch (SessionType.valueOf(row.getString(FIELD_SESSION_TYPE))) {
 			case CITIZEN:
 				return new CitizenSession(new Citizen(row.getString(FIELD_SESSION_ID)));
-
 			default:
 				break;
 			}
@@ -74,6 +70,24 @@ public class MsAccessSessionDatabase extends MsAccessDatabase implements Session
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	@Override
+	public void endExpiredSession() throws IOException {
+		table.getDefaultCursor().reset();
+		Row row = null;
+		for (int i = 0; i < table.getRowCount(); ++i) {
+			row = table.getNextRow();
+		}
+
+		if (row == null) {
+			return;
+		}
+
+		if (LocalDateTime.now().compareTo(row.getLocalDateTime(FIELD_TIMESTAMP).minus(1, ChronoUnit.HOURS)) > 0) {
+			row.put(FIELD_ACTIVE, false);
+			table.updateRow(row);
 		}
 	}
 
