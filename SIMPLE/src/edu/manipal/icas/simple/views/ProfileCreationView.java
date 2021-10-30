@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.github.lgooddatepicker.components.DatePicker;
+
 /**
  * A view that enables a citizen to set up their profile. The citizen is
  * expected to enter their email address and set up a password. They are then
@@ -15,6 +17,7 @@ import javax.swing.JTextField;
  * passport office branch.
  * 
  * @author Rea Mammen (rea.mammen@learner.manipal.edu)
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
 public interface ProfileCreationView {
@@ -63,7 +66,6 @@ public interface ProfileCreationView {
 	 * 
 	 * @return the email address text field
 	 */
-
 	JTextField getEmailAddressTextField();
 
 	/**
@@ -109,6 +111,13 @@ public interface ProfileCreationView {
 	 * @return the gender text field
 	 */
 	JTextField getGenderTextField();
+
+	/**
+	 * Gets the date picker in which the citizen enters their DOB.
+	 * 
+	 * @return the date picker
+	 */
+	DatePicker getDateOfBirthDatePicker();
 
 	/**
 	 * Gets the text field in which the citizen enters their contact number.
