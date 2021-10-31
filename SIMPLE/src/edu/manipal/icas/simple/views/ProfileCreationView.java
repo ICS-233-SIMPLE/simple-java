@@ -20,7 +20,7 @@ import com.github.lgooddatepicker.components.DatePicker;
  * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
-public interface ProfileCreationView {
+public interface ProfileCreationView extends View{
 	/**
 	 * Gets the panel that contains all the steps in this creation wizard.
 	 * 
