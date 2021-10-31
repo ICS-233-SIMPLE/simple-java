@@ -424,12 +424,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	}
 
 	@Override
-	public JLabel getErrorMessageLabel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public JFrame getFrame() {
 		return this;
 	}
