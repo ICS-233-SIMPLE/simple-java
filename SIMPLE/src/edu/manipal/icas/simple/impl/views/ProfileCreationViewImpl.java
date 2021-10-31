@@ -240,7 +240,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the step 3 panel
 	 */
 	private JPanel initialiseStep3Panel() {
-		JPanel step3Panel = new JPanel();
 		step3Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -307,7 +306,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the step 4 panel
 	 */
 	private JPanel initialiseStep4Panel() {
-		JPanel step4Panel = new JPanel();
 		step4Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -341,27 +339,27 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 
 	@Override
 	public JPanel getStepsContainerPanel() {
-		return initialiseStepsContainerPanel();
+		return stepsContainerPanel;
 	}
 
 	@Override
 	public JPanel getStep1Panel() {
-		return initialiseStep1Panel();
+		return step1Panel;
 	}
 
 	@Override
 	public JPanel getStep2Panel() {
-		return initialiseStep2Panel();
+		return step2Panel;
 	}
 
 	@Override
 	public JPanel getStep3Panel() {
-		return initialiseStep3Panel();
+		return step3Panel;
 	}
 
 	@Override
 	public JPanel getStep4Panel() {
-		return initialiseStep4Panel();
+		return step4Panel;
 	}
 
 	@Override
