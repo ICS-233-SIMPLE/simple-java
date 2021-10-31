@@ -57,7 +57,7 @@ jobs:
 
       - name: Create release name
         run: |
-              echo "RELEASE_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ)" >> ${GITHUB_ENV}
+              echo "RELEASE_DATE=$(date -u +\"%Y-%m-%dT%H:%M:%SZ)\"" >> ${GITHUB_ENV}
      
       - name: Create release
         id: create_release
