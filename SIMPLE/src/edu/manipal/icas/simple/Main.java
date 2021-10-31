@@ -1,26 +1,12 @@
 package edu.manipal.icas.simple;
 
-import edu.manipal.icas.simple.views.CitizenLoginView;  
+import edu.manipal.icas.simple.controllers.RouteController;
+import edu.manipal.icas.simple.controllers.Route;
 
-import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
-import edu.manipal.icas.simple.views.CitizenLoginView;
-import edu.manipal.icas.simple.controllers.CitizenController;
+public class Main {
 
-public class Main  {
-
-	
 	public static void main(String[] args) {
-		System.out.println("SIMPLE");
-
-		CitizenLoginView view = new CitizenLoginViewImpl();
-		view.getFrame().setVisible(true);
-		CitizenController czControl = new CitizenController(view);
-		
-		
-		
-		
+		RouteController.getController().routeTo(Route.CITIZEN_LOGIN);
 	}
-	
-	
 
 }
