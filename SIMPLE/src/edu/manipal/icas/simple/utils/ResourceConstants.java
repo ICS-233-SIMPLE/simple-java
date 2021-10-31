@@ -31,6 +31,12 @@ public final class ResourceConstants {
 	 */
 	public static final ImageIcon IMAGE_ERROR_ICON = new ImageIcon("res/images/error_icon.png");
 	
+  /**
+	 * Stores the login icon that appears above the product name in the officer
+	 * login view.
+	 */
+	public static final ImageIcon IMAGE_OFFICER_LOGIN_ICON = new ImageIcon("res/images/officer_login_icon.png");
+
 	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
 
