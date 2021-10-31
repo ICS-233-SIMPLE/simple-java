@@ -148,12 +148,4 @@ public interface ProfileCreationView extends View{
 	 * @return the finish button
 	 */
 	JButton getFinishButton();
-
-	/**
-	 * Gets the label that displays an error message to the citizen if they enter
-	 * incorrect details.
-	 * 
-	 * @return the error message label
-	 */
-	JLabel getErrorMessageLabel();
 }
