@@ -15,13 +15,23 @@ public final class ResourceConstants {
 	private ResourceConstants() {
 	}
 
-	/**
-	 * Stores the login icon that appears above the product name in the citizen
-	 * login view.
-	 */
+	/** Stores the login icon that appears above the product name in the login view. */
 	public static final ImageIcon IMAGE_CITIZEN_LOGIN_ICON = new ImageIcon("res/images/citizen_login_icon.png");
 
 	/**
+	 * Holds the create citizen profile icon that appears above the product name in
+	 * the create citizen profile view.
+	 */
+	public static final ImageIcon IMAGE_CREATE_CITIZEN_PROFILE_ICON = new ImageIcon(
+			"res/images/create_citizen_profile_icon.png");
+
+	/**
+	 * Stores the error icon that appears when an error occurs while filling in
+	 * various details in the view.
+	 */
+	public static final ImageIcon IMAGE_ERROR_ICON = new ImageIcon("res/images/error_icon.png");
+	
+  /**
 	 * Stores the login icon that appears above the product name in the officer
 	 * login view.
 	 */
