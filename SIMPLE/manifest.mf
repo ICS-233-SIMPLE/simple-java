@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: edu.manipal.icas.simple.Main
-Class-Path: res/
+Class-Path: ../res/
 
