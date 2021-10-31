@@ -57,7 +57,7 @@ jobs:
 
       - name: Create release name
         run: |
-              echo "RELEASE_DATE=$(date --rfc-3339=minutes)" >> ${GITHUB_ENV}
+              echo "RELEASE_DATE=$(date --rfc-3339=seconds)" >> ${GITHUB_ENV}
      
       - name: Create release
         id: create_release
