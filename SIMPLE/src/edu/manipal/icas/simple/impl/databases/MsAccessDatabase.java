@@ -17,7 +17,7 @@ import com.healthmarketscience.jackcess.Table;
  *
  */
 public abstract class MsAccessDatabase {
-	private static final String DB_NAME = "SimpleDB.accdb";
+	private static final String DB_NAME = "res/db/SimpleDB.accdb";
 
 	protected Database database;
 	protected Table table;
