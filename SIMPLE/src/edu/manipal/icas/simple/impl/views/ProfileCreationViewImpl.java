@@ -45,6 +45,11 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	private JButton nextButton;
 	private JComboBox<String> passportOfficeComboBox;
 	private JButton finishButton;
+	private JPanel stepsContainerPanel;
+	private JPanel step1Panel;
+	private JPanel step2Panel;
+	private JPanel step3Panel;
+	private JPanel step4Panel;
 
 	/**
 	 * Instantiates all the required fields and buttons that are to be displayed in
@@ -66,6 +71,11 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		nextButton = new JButton("Next");
 		passportOfficeComboBox = new JComboBox();
 		finishButton = new JButton("Create citizen profile");
+		stepsContainerPanel = new JPanel();
+		step1Panel = new JPanel();
+		step2Panel = new JPanel();
+		step3Panel = new JPanel();
+		step4Panel = new JPanel();
 		initializeUi();
 	}
 
@@ -149,7 +159,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the steps conatiner panel
 	 */
 	private JPanel initialiseStepsContainerPanel() {
-		JPanel stepsContainerPanel = new JPanel();
 		stepsContainerPanel.setLayout(new BoxLayout(stepsContainerPanel, BoxLayout.LINE_AXIS));
 		stepsContainerPanel.add(initialiseStep1Panel());
 		return stepsContainerPanel;
@@ -162,8 +171,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the step 1 panel
 	 */
 	private JPanel initialiseStep1Panel() {
-		JPanel step1Panel = new JPanel();
-		step1Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridy = 0;
@@ -196,7 +203,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the step 2 panel
 	 */
 	private JPanel initialiseStep2Panel() {
-		JPanel step2Panel = new JPanel();
 		step2Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
