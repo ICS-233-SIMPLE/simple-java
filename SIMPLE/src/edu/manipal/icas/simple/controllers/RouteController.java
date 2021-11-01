@@ -3,6 +3,7 @@ package edu.manipal.icas.simple.controllers;
 import edu.manipal.icas.simple.databases.SessionDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
+import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -51,6 +52,10 @@ public final class RouteController {
 		case CITIZEN_LOGIN:
 			View citizenLoginView = new CitizenLoginViewImpl();
 			citizenLoginView.getFrame().setVisible(true);
+			break;
+			case OFFICER_LOGIN:
+			View officerLoginView = new OfficerLoginViewImpl();
+			officerLoginView.getFrame().setVisible(true);
 			break;
 		// TODO: Add other routes as they come
 		default:
