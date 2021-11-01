@@ -30,6 +30,11 @@ jobs:
               mkdir build
               javac -d build -cp "src:lib/*" src/edu/manipal/icas/simple/tests/TestSuite.java
 
+      - name: Copy resources to /build
+        working-directory: ./SIMPLE
+        run: |
+              cp -a src/edu/manipal/icas/simple/resources/. build/edu/manipal/icas/simple/resources
+
       - name: Run Tests
         working-directory: ./SIMPLE
         run: java -cp "build:lib/*" org.junit.runner.JUnitCore edu.manipal.icas.simple.tests.TestSuite

@@ -9,6 +9,8 @@ import com.healthmarketscience.jackcess.DatabaseBuilder;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
 
+import edu.manipal.icas.simple.resources.Resources;
+
 /**
  * Abstract class that defines common methods used by concrete implementations
  * that interact with Microsoft Access using Jackcess.
@@ -17,7 +19,7 @@ import com.healthmarketscience.jackcess.Table;
  *
  */
 public abstract class MsAccessDatabase {
-	private static final String DB_NAME = "res/db/SimpleDB.accdb";
+	private static final String DB_NAME = Resources.getResourceUri("db/SimpleDB.accdb");
 
 	protected Database database;
 	protected Table table;

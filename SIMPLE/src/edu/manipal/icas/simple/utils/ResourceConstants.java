@@ -4,6 +4,8 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 
+import edu.manipal.icas.simple.resources.Resources;
+
 /**
  * A utility class that specifies all the images and fonts that are used to
  * create a rich user interface.
@@ -15,27 +17,31 @@ public final class ResourceConstants {
 	private ResourceConstants() {
 	}
 
-	/** Stores the login icon that appears above the product name in the login view. */
-	public static final ImageIcon IMAGE_CITIZEN_LOGIN_ICON = new ImageIcon("res/images/citizen_login_icon.png");
+	/**
+	 * Stores the login icon that appears above the product name in the login view.
+	 */
+	public static final ImageIcon IMAGE_CITIZEN_LOGIN_ICON = new ImageIcon(
+			Resources.getResourceUri("images/citizen_login_icon.png"));
 
 	/**
 	 * Holds the create citizen profile icon that appears above the product name in
 	 * the create citizen profile view.
 	 */
 	public static final ImageIcon IMAGE_CREATE_CITIZEN_PROFILE_ICON = new ImageIcon(
-			"res/images/create_citizen_profile_icon.png");
+			Resources.getResourceUri("images/create_citizen_profile_icon.png"));
 
 	/**
 	 * Stores the error icon that appears when an error occurs while filling in
 	 * various details in the view.
 	 */
-	public static final ImageIcon IMAGE_ERROR_ICON = new ImageIcon("res/images/error_icon.png");
-	
-  /**
+	public static final ImageIcon IMAGE_ERROR_ICON = new ImageIcon(Resources.getResourceUri("images/error_icon.png"));
+
+	/**
 	 * Stores the login icon that appears above the product name in the officer
 	 * login view.
 	 */
-	public static final ImageIcon IMAGE_OFFICER_LOGIN_ICON = new ImageIcon("res/images/officer_login_icon.png");
+	public static final ImageIcon IMAGE_OFFICER_LOGIN_ICON = new ImageIcon(
+			Resources.getResourceUri("images/officer_login_icon.png"));
 
 	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
