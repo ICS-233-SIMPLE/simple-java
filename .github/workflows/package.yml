@@ -42,7 +42,7 @@ jobs:
       - name: Copy resources to /build
         working-directory: ./SIMPLE
         run: |
-              cp -a src/edu/manipal/icas/simple/resources. build/edu/manipal/icas/simple/resources
+              cp -a src/edu/manipal/icas/simple/resources/. build/edu/manipal/icas/simple/resources
         
       - name: Package built .class files into JAR
         working-directory: ./SIMPLE/build
