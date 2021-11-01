@@ -38,13 +38,11 @@ jobs:
               cd build
               for f in lib/*.jar; do jar xf "$f"; done
               rm -r lib
-              rm -r "META-INF"
 
       - name: Copy resources to /build
         working-directory: ./SIMPLE
         run: |
-              mkdir build/res
-              cp -a res/. build/res
+              cp -a src/edu/manipal/icas/simple/resources. build/edu/manipal/icas/simple/resources
         
       - name: Package built .class files into JAR
         working-directory: ./SIMPLE/build
