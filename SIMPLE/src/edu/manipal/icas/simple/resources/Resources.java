@@ -39,13 +39,13 @@ public final class Resources {
 	 *                     {@link Resources} class
 	 * @return absolute path of the resource in AppData/Roaming
 	 */
-	public static final String getResourceUri(String resourceName) {
+	public static String getResourceUri(String resourceName) {
 		try {
 			if (copiedFiles.containsKey(resourceName)) {
 				return copiedFiles.get(resourceName);
 			}
 			URL inputUrl = Resources.class.getResource(resourceName);
-			File destination = new File(System.getenv("APPDATA") + "/" + DIR_NAME + "/" + resourceName);
+			File destination = new File(getPathToAppData() + "/" + DIR_NAME + "/" + resourceName);
 
 			// Copy from the jar to AppData only if the file previously did not exist.
 			if (!destination.exists())
@@ -56,5 +56,18 @@ public final class Resources {
 			e.printStackTrace();
 			return "";
 		}
+	}
+
+	/**
+	 * Gets the path to the AppData folder if on Windows, or the absolute path to
+	 * the user/home directory on *NIX systems.
+	 * 
+	 * @return path to app data folder
+	 */
+	private static String getPathToAppData() {
+		if (System.getProperty("os.name").toUpperCase().contains("WIN")) {
+			return System.getenv("APPDATA");
+		}
+		return System.getProperty("user.home");
 	}
 }
