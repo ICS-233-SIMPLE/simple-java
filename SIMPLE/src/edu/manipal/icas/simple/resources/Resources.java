@@ -46,8 +46,6 @@ public final class Resources {
 			}
 			URL inputUrl = Resources.class.getResource(resourceName);
 			File destination = new File(getPathToAppData() + "/" + DIR_NAME + "/" + resourceName);
-			System.out.println(destination.getAbsolutePath());
-			System.out.println(inputUrl.toString());
 			// Copy from the jar to AppData only if the file previously did not exist.
 			if (!destination.exists())
 				FileUtils.copyURLToFile(inputUrl, destination);
