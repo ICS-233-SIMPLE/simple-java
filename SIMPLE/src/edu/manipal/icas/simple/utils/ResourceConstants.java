@@ -44,6 +44,13 @@ public final class ResourceConstants {
 			Resources.getResourceUri("images/officer_login_icon.png"));
 
 	/**
+	 * Holds the verification icon that appears in the verification officer's
+	 * dashboard.
+	 */
+	public static final ImageIcon IMAGE_VERIFICATION_ICON = new ImageIcon(
+			Resources.getResourceUri("images/verification_icon.png"));
+
+	/**
 	 * Holds the button icon that is used for displaying an arrow pointing to the
 	 * left, that may be selected in order to return to the previous page.
 	 */
