@@ -4,6 +4,8 @@ import edu.manipal.icas.simple.databases.SessionDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
+import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
+import edu.manipal.icas.simple.views.CitizenLoginView;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -17,7 +19,14 @@ public final class RouteController {
 	private static final RouteController CONTROLLER = new RouteController();
 	private final SessionDatabase sessions = MsAccessSessionDatabase.getDatabase();
 
+	private View currentView;
+	private View citizenLoginView;
+	private LoginController loginController;
+
 	private RouteController() {
+		citizenLoginView = new CitizenLoginViewImpl();
+		loginController = new LoginController((CitizenLoginView) citizenLoginView);
+		currentView = null;
 	}
 
 	/**
@@ -48,14 +57,23 @@ public final class RouteController {
 			return;
 		}
 
+		if (currentView != null)
+			currentView.getFrame().setVisible(false);
+		
 		switch (route) {
 		case CITIZEN_LOGIN:
-			View citizenLoginView = new CitizenLoginViewImpl();
+			currentView = citizenLoginView;
 			citizenLoginView.getFrame().setVisible(true);
 			break;
-			case OFFICER_LOGIN:
+		case PROFILE_CREATION:
+			View profileCreationView = new ProfileCreationViewImpl();
+			profileCreationView.getFrame().setVisible(true);
+			currentView = profileCreationView;
+			break;
+		case OFFICER_LOGIN:
 			View officerLoginView = new OfficerLoginViewImpl();
 			officerLoginView.getFrame().setVisible(true);
+			currentView = officerLoginView;
 			break;
 		// TODO: Add other routes as they come
 		default:
