@@ -1,13 +1,10 @@
 package edu.manipal.icas.simple.views;
 
-
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-
 
 /**
  * A view that enables the citizen to access their citizen profile. The citizen
@@ -58,7 +55,5 @@ public interface CitizenLoginView extends View {
 	 * @return the redirect button
 	 */
 	JButton getRedirectToCreateProfileViewButton();
-
-	public void addLoginListener(ActionListener listenForLoginButton);
 
 }
