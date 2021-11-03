@@ -18,4 +18,10 @@ public interface BiometricOfficerView extends View{
 	JButton getSubmitScanButton();
 	
 	JTextField getApplicationIDTextField();
+	
+	JButton getPrevButton();
+	
+	JButton getNextButton();
+
+	JButton getLogoutButton();
 }
