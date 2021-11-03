@@ -24,4 +24,6 @@ public interface BiometricOfficerView extends View{
 	JButton getNextButton();
 
 	JButton getLogoutButton();
+
+	JComboBox getApplicationIDComboBox();
 }
