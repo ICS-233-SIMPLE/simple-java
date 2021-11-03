@@ -43,6 +43,20 @@ public final class ResourceConstants {
 	public static final ImageIcon IMAGE_OFFICER_LOGIN_ICON = new ImageIcon(
 			Resources.getResourceUri("images/officer_login_icon.png"));
 
+	/**
+	 * Holds the button icon that is used for displaying an arrow pointing to the
+	 * left, that may be selected in order to return to the previous page.
+	 */
+	public static final ImageIcon IMAGE_PREVIOUS_BUTTON_ICON = new ImageIcon(
+			Resources.getResourceUri("images/previous_button_icon.png"));
+
+	/**
+	 * Holds the button icon that is used for displaying an arrow pointing to the
+	 * right, that may be selected in order to go to the next page.
+	 */
+	public static final ImageIcon IMAGE_NEXT_BUTTON_ICON = new ImageIcon(
+			Resources.getResourceUri("images/next_button_icon.png"));
+
 	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
 
