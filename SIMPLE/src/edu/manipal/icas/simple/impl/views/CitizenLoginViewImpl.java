@@ -5,18 +5,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.utils.StringConstants;
@@ -47,6 +41,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		createProfileButton = new JButton("Create Profile");
 		officerLoginRedirectButton = new JButton("Go to staff login");
 		initialiseUi();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -139,7 +134,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		c.gridx = 2;
 		c.gridwidth = 2;
 		container.add(createProfileButton, c);
-		
+
 		c.gridy = 13;
 		c.gridx = 1;
 		c.ipady = 40;
@@ -165,16 +160,6 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 		setSize(new Dimension(300, 400));
 		setLocationRelativeTo(null);
 		setResizable(false);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
-
 	}
 
 	@Override
@@ -196,7 +181,7 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	public JPasswordField getPasswordPasswordField() {
 		return passwordPasswordField;
 	}
-	
+
 	@Override
 	public JButton getRedirectToCreateProfileViewButton() {
 		return createProfileButton;
@@ -205,13 +190,6 @@ public class CitizenLoginViewImpl extends JFrame implements CitizenLoginView {
 	@Override
 	public JFrame getFrame() {
 		return this;
-	}
-	
-
-	public void addLoginListener(ActionListener listenForLoginButton) {
-		loginButton.addActionListener(listenForLoginButton);
-		// TODO Auto-generated method stub
-		
 	}
 
 }
