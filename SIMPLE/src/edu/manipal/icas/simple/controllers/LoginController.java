@@ -21,7 +21,7 @@ import edu.manipal.icas.simple.views.View;
 /**
  * Controller that handles citizen and officer login use-cases.
  * 
- * @author
+ * @author Mehsheed(syed.ahmed2@learner.manipal.edu)
  * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
