@@ -1,11 +1,8 @@
 package edu.manipal.icas.simple.controllers;
 
-import edu.manipal.icas.simple.databases.SessionDatabase;
-import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
-import edu.manipal.icas.simple.views.CitizenLoginView;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -17,7 +14,7 @@ import edu.manipal.icas.simple.views.View;
  */
 public final class RouteController {
 	private static final RouteController CONTROLLER = new RouteController();
-	private final SessionDatabase sessions = MsAccessSessionDatabase.getDatabase();
+	private final SessionController sessions = SessionController.getController();
 
 	private View currentView;
 	private LoginController loginController;

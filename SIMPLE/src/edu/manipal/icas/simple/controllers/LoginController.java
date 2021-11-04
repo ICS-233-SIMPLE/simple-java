@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
@@ -49,16 +48,15 @@ public class LoginController {
 					if (Citizen.authenticate(email, password)) {
 						// TODO: Replace direct db access with controller
 						Session session = SessionFactory.getFactory().getSession(SessionType.CITIZEN, email);
-						MsAccessSessionDatabase.getDatabase().startSession(session);
-						RouteController.getController().routeTo(session.getDefaultRoute());
+						if (SessionController.getController().startSession(session))
+							RouteController.getController().routeTo(session.getDefaultRoute());
+						else
+							showError("An internal error has occurred. Please try again later.");
 					} else {
 						showError("Email address and/or password are incorrect!");
 					}
 				} catch (IllegalArgumentException e) {
 					showError("Citizen does not exist. Create a new citizen profile to be able to log in");
-				} catch (IOException e) {
-					showError("An internal error occurred. Please try again later.");
-					e.printStackTrace();
 				}
 			}
 		});
