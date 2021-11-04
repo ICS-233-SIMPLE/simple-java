@@ -20,7 +20,7 @@ import com.github.lgooddatepicker.components.DatePicker;
  * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
-public interface ProfileCreationView extends View{
+public interface ProfileCreationView extends View {
 	/**
 	 * Gets the panel that contains all the steps in this creation wizard.
 	 * 
@@ -125,6 +125,34 @@ public interface ProfileCreationView extends View{
 	 * @return the contact number text field
 	 */
 	JTextField getContactNumberTextField();
+
+	/**
+	 * Gets the button the user clicks to save their name.
+	 * 
+	 * @return save button
+	 */
+	JButton getSaveNameButton();
+
+	/**
+	 * Gets the button the user clicks to save their gender.
+	 * 
+	 * @return save button
+	 */
+	JButton getSaveGenderButton();
+
+	/**
+	 * Gets the button the user clicks to save their date of birth.
+	 * 
+	 * @return save button
+	 */
+	JButton getSaveDateOfBirthButton();
+
+	/**
+	 * Gets the button the user clicks to save their contact number.
+	 * 
+	 * @return save button
+	 */
+	JButton getSaveContactNumberButton();
 
 	/**
 	 * Gets the button that the citizen clicks on to proceed to the next step of

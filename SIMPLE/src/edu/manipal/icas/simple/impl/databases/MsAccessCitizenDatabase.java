@@ -91,6 +91,8 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 	@Override
 	public Date fetchDateOfBirth(String emailAddress) throws IOException {
 		LocalDateTime dateTime = getRow(emailAddress).getLocalDateTime(FIELD_DATE_OF_BIRTH);
+		if (dateTime == null)
+			return null;
 		return Date.from(dateTime.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
