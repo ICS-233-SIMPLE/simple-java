@@ -117,7 +117,6 @@ public class Citizen {
 		if (name == null || "".equals(name)) {
 			throw new IllegalArgumentException("Name cannot be empty!");
 		}
-
 		this.name = name;
 		try {
 			db.saveName(emailAddress, name);

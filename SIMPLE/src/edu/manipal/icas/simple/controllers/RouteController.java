@@ -20,6 +20,9 @@ public final class RouteController {
 	private LoginController loginController;
 	private CreateProfileController createProfileController;
 
+	private View currentView;
+	private LoginController loginController;
+
 	private RouteController() {
 		loginController = new LoginController(new CitizenLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());

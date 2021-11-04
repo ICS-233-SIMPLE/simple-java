@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
