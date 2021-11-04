@@ -7,14 +7,12 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
 import edu.manipal.icas.simple.session.SessionType;
+import edu.manipal.icas.simple.utils.DocumentAdapter;
 import edu.manipal.icas.simple.views.CitizenLoginView;
 import edu.manipal.icas.simple.views.View;
 
@@ -34,7 +32,7 @@ public class LoginController {
 		initCreateProfileRedirectHandler();
 		initTextFieldValueChangeHandlers();
 	}
-	
+
 	public View getCitizenLoginView() {
 		return citizenLoginView;
 	}
@@ -45,19 +43,22 @@ public class LoginController {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				String email = citizenLoginView.getEmailTextField().getText();
-				String password = new String(citizenLoginView.getPasswordPasswordField().getPassword());
+				String email = citizenLoginView.getEmailTextField().getText().trim();
+				String password = new String(citizenLoginView.getPasswordPasswordField().getPassword()).trim();
 				try {
 					if (Citizen.authenticate(email, password)) {
 						// TODO: Replace direct db access with controller
 						Session session = SessionFactory.getFactory().getSession(SessionType.CITIZEN, email);
 						MsAccessSessionDatabase.getDatabase().startSession(session);
 						RouteController.getController().routeTo(session.getDefaultRoute());
+					} else {
+						showError("Email address and/or password are incorrect!");
 					}
 				} catch (IllegalArgumentException e) {
 					showError("Citizen does not exist. Create a new citizen profile to be able to log in");
 				} catch (IOException e) {
 					showError("An internal error occurred. Please try again later.");
+					e.printStackTrace();
 				}
 			}
 		});
@@ -78,29 +79,13 @@ public class LoginController {
 		JPasswordField passwordField = citizenLoginView.getPasswordPasswordField();
 
 		// Enables the login button only if both text fields are filled
-		DocumentListener textChangeListener = new DocumentListener() {
-
+		DocumentAdapter textChangeListener = new DocumentAdapter() {
 			@Override
-			public void removeUpdate(DocumentEvent e) {
-				update();
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				update();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				update();
-			}
-
-			private void update() {
+			protected void update() {
 				citizenLoginView.getLoginButton().setEnabled(
-						!(emailField.getText().isEmpty() || new String(passwordField.getPassword()).isEmpty()));
+						!(emailField.getText().isBlank() || new String(passwordField.getPassword()).isBlank()));
 			}
 		};
-
 		emailField.getDocument().addDocumentListener(textChangeListener);
 		passwordField.getDocument().addDocumentListener(textChangeListener);
 	}
