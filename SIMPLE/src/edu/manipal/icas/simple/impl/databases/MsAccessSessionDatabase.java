@@ -11,6 +11,7 @@ import edu.manipal.icas.simple.databases.SessionDatabase;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.session.CitizenSession;
 import edu.manipal.icas.simple.session.Session;
+import edu.manipal.icas.simple.session.SessionFactory;
 import edu.manipal.icas.simple.session.SessionType;
 
 public class MsAccessSessionDatabase extends MsAccessDatabase implements SessionDatabase {
@@ -61,13 +62,7 @@ public class MsAccessSessionDatabase extends MsAccessDatabase implements Session
 				return null;
 			}
 
-			switch (SessionType.valueOf(row.getString(FIELD_SESSION_TYPE))) {
-			case CITIZEN:
-				return new CitizenSession(new Citizen(row.getString(FIELD_SESSION_ID)));
-			default:
-				break;
-			}
-			return null;
+			return SessionFactory.getFactory().getSession(SessionType.CITIZEN, FIELD_SESSION_ID);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
