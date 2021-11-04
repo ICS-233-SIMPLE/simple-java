@@ -111,8 +111,13 @@ public class Citizen {
 	 * Sets the name of the citizen
 	 * 
 	 * @param name new name
+	 * @throws IllegalArgumentException if the name is empty or null
 	 */
-	public void setName(String name) {
+	public void setName(String name) throws IllegalArgumentException {
+		if (name == null || "".equals(name)) {
+			throw new IllegalArgumentException("Name cannot be empty!");
+		}
+
 		this.name = name;
 		try {
 			db.saveName(emailAddress, name);
@@ -187,11 +192,13 @@ public class Citizen {
 
 	/**
 	 * Sets the contact number of the citizen.
+	 * 
 	 * @param contact new contact number
-	 * @throws IllegalArgumentException if the provided contact number is not 10 digits long
+	 * @throws IllegalArgumentException if the provided contact number is not 10
+	 *                                  digits long
 	 */
 	public void setContactNumber(Long contact) throws IllegalArgumentException {
-		if(contact < ((long) 10e8) || contact > ((long) 10e9)) {
+		if (contact < ((long) 10e8) || contact > ((long) 10e9)) {
 			throw new IllegalArgumentException("Contact number must be 10 digits long");
 		}
 		contactNumber = contact;
