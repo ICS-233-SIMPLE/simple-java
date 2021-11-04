@@ -21,9 +21,11 @@ public final class RouteController {
 
 	private View currentView;
 	private LoginController loginController;
+	private CreateProfileController createProfileController;
 
 	private RouteController() {
 		loginController = new LoginController(new CitizenLoginViewImpl());
+		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		currentView = null;
 	}
 
@@ -60,7 +62,7 @@ public final class RouteController {
 			displayView(loginController.getCitizenLoginView());
 			break;
 		case PROFILE_CREATION:
-			displayView(new ProfileCreationViewImpl());
+			displayView(createProfileController.getProfileCreationView());
 			break;
 		case OFFICER_LOGIN:
 			displayView(new OfficerLoginViewImpl());
