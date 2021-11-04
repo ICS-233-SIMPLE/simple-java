@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.time.DayOfWeek;
 
 import javax.swing.BoxLayout;
@@ -13,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -77,6 +74,7 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel = new JPanel();
 		step4Panel = new JPanel();
 		initializeUi();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**
@@ -138,18 +136,9 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		setIconImage(ResourceConstants.IMAGE_CREATE_CITIZEN_PROFILE_ICON.getImage());
 		container.setBackground(new Color(255, 255, 255));
 		add(container);
-		setSize(new Dimension(300, 400));
+		setSize(new Dimension(300, 450));
 		setLocationRelativeTo(null);
 		setResizable(false);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
 	}
 
 	/**
@@ -171,6 +160,7 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * @return the step 1 panel
 	 */
 	private JPanel initialiseStep1Panel() {
+		step1Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridy = 0;

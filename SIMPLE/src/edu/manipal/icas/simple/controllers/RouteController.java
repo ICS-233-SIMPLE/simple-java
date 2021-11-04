@@ -4,6 +4,8 @@ import edu.manipal.icas.simple.databases.SessionDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
+import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
+import edu.manipal.icas.simple.views.CitizenLoginView;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -17,7 +19,12 @@ public final class RouteController {
 	private static final RouteController CONTROLLER = new RouteController();
 	private final SessionDatabase sessions = MsAccessSessionDatabase.getDatabase();
 
+	private View currentView;
+	private LoginController loginController;
+
 	private RouteController() {
+		loginController = new LoginController(new CitizenLoginViewImpl());
+		currentView = null;
 	}
 
 	/**
@@ -50,12 +57,13 @@ public final class RouteController {
 
 		switch (route) {
 		case CITIZEN_LOGIN:
-			View citizenLoginView = new CitizenLoginViewImpl();
-			citizenLoginView.getFrame().setVisible(true);
+			displayView(loginController.getCitizenLoginView());
 			break;
-			case OFFICER_LOGIN:
-			View officerLoginView = new OfficerLoginViewImpl();
-			officerLoginView.getFrame().setVisible(true);
+		case PROFILE_CREATION:
+			displayView(new ProfileCreationViewImpl());
+			break;
+		case OFFICER_LOGIN:
+			displayView(new OfficerLoginViewImpl());
 			break;
 		// TODO: Add other routes as they come
 		default:
@@ -93,6 +101,18 @@ public final class RouteController {
 			return false;
 		}
 
+	}
+
+	/**
+	 * Displays a view to the user.
+	 * 
+	 * @param view the view that is to be displayed
+	 */
+	private void displayView(View view) {
+		if (currentView != null)
+			currentView.getFrame().setVisible(false);
+		currentView = view;
+		view.getFrame().setVisible(true);
 	}
 
 }
