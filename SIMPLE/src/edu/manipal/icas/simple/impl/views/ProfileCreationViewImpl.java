@@ -39,6 +39,10 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	private JTextField contactNumberTextField;
 	private DatePickerSettings dateSettings;
 	private DatePicker datePicker;
+	private JButton saveNameButton;
+	private JButton saveGenderButton;
+	private JButton saveDobButton;
+	private JButton saveContactButton;
 	private JButton nextButton;
 	private JComboBox<String> passportOfficeComboBox;
 	private JButton finishButton;
@@ -65,8 +69,12 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		dateSettings = new DatePickerSettings();
 		dateSettings.setFirstDayOfWeek(DayOfWeek.SUNDAY);
 		datePicker = new DatePicker(dateSettings);
+		saveNameButton = new JButton("Save");
+		saveGenderButton = new JButton("Save");
+		saveDobButton = new JButton("Save");
+		saveContactButton = new JButton("Save");
 		nextButton = new JButton("Next");
-		passportOfficeComboBox = new JComboBox();
+		passportOfficeComboBox = new JComboBox<String>();
 		finishButton = new JButton("Create citizen profile");
 		stepsContainerPanel = new JPanel();
 		step1Panel = new JPanel();
@@ -74,7 +82,7 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel = new JPanel();
 		step4Panel = new JPanel();
 		initializeUi();
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 
 	/**
@@ -145,21 +153,23 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	 * Initialises the steps container panel which contains only one panel at a
 	 * time.
 	 * 
-	 * @return the steps conatiner panel
+	 * @return the steps container panel
 	 */
 	private JPanel initialiseStepsContainerPanel() {
 		stepsContainerPanel.setLayout(new BoxLayout(stepsContainerPanel, BoxLayout.LINE_AXIS));
-		stepsContainerPanel.add(initialiseStep1Panel());
+		initialiseStep1Panel();
+		initialiseStep2Panel();
+		initialiseStep3Panel();
+		initialiseStep4Panel();
+		stepsContainerPanel.add(step1Panel);
 		return stepsContainerPanel;
 	}
 
 	/**
 	 * Initialises the step 1 panel which contains the email address text field and
 	 * a button which the citizen clicks on to proceed to the next step.
-	 * 
-	 * @return the step 1 panel
 	 */
-	private JPanel initialiseStep1Panel() {
+	private void initialiseStep1Panel() {
 		step1Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -183,16 +193,13 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step1Panel.add(verifyAndContinueButton, c);
 
 		step1Panel.setBackground(Color.WHITE);
-		return step1Panel;
 	}
 
 	/**
 	 * Initialises the step 2 panel which contains fields for the citizen to enter
 	 * and confirm their password.
-	 * 
-	 * @return the step 2 panel
 	 */
-	private JPanel initialiseStep2Panel() {
+	private void initialiseStep2Panel() {
 		step2Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -226,21 +233,18 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step2Panel.add(continueButton, c);
 
 		step2Panel.setBackground(Color.WHITE);
-		return step2Panel;
 	}
 
 	/**
 	 * Initialises the step 3 panel which contains fields for entering the name,
 	 * gender, DOB, and contact number.
-	 * 
-	 * @return the step 3 panel
 	 */
-	private JPanel initialiseStep3Panel() {
+	private void initialiseStep3Panel() {
 		step3Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridheight = 1;
-		c.gridwidth = 1;
+		c.gridwidth = 3;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
@@ -248,10 +252,17 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 
 		c.gridx = 0;
 		c.gridy = 1;
+		c.gridwidth = 1;
 		step3Panel.add(nameTextField, c);
+		
+		c.gridx = 1;
+		c.gridwidth = 1;
+		step3Panel.add(saveNameButton, c);
+		c.gridx = 0;
 
 		c.ipady = 15;
 		c.gridy = 2;
+		c.gridwidth = 3;
 		step3Panel.add(new JLabel(), c);
 
 		c.ipady = 0;
@@ -259,10 +270,17 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel.add(new JLabel("Gender"), c);
 
 		c.gridy = 4;
+		c.gridwidth = 1;
 		step3Panel.add(genderTextField, c);
+		
+		c.gridx = 1;
+		c.gridwidth = 1;
+		step3Panel.add(saveGenderButton, c);
+		c.gridx = 0;
 
 		c.ipady = 15;
 		c.gridy = 5;
+		c.gridwidth = 3;
 		step3Panel.add(new JLabel(), c);
 
 		c.ipady = 0;
@@ -270,7 +288,13 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel.add(new JLabel("Contact Number"), c);
 
 		c.gridy = 7;
+		c.gridwidth = 1;
 		step3Panel.add(contactNumberTextField, c);
+		
+		c.gridx = 1;
+		c.gridwidth = 1;
+		step3Panel.add(saveContactButton, c);
+		c.gridx = 0;
 
 		c.ipady = 15;
 		c.gridy = 8;
@@ -281,7 +305,13 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel.add(new JLabel("Date Of Birth"), c);
 
 		c.gridy = 10;
+		c.gridwidth = 1;
 		step3Panel.add(datePicker, c);
+		
+		c.gridx = 1;
+		c.gridwidth = 1;
+		step3Panel.add(saveDobButton, c);
+		c.gridx = 0;
 
 		c.ipady = 15;
 		c.gridy = 11;
@@ -292,16 +322,13 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step3Panel.add(nextButton, c);
 
 		step3Panel.setBackground(Color.WHITE);
-		return step3Panel;
 	}
 
 	/**
 	 * Initialises the step 4 panel which contains a combo box from which the
 	 * citizen can select the passport office branch.
-	 * 
-	 * @return the step 4 panel
 	 */
-	private JPanel initialiseStep4Panel() {
+	private void initialiseStep4Panel() {
 		step4Panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -330,7 +357,6 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 		step4Panel.add(finishButton, c);
 
 		step4Panel.setBackground(Color.WHITE);
-		return step4Panel;
 	}
 
 	@Override
@@ -421,6 +447,26 @@ public class ProfileCreationViewImpl extends JFrame implements ProfileCreationVi
 	@Override
 	public DatePicker getDateOfBirthDatePicker() {
 		return datePicker;
+	}
+
+	@Override
+	public JButton getSaveNameButton() {
+		return saveNameButton;
+	}
+
+	@Override
+	public JButton getSaveGenderButton() {
+		return saveGenderButton;
+	}
+
+	@Override
+	public JButton getSaveDateOfBirthButton() {
+		return saveDobButton;
+	}
+
+	@Override
+	public JButton getSaveContactNumberButton() {
+		return saveContactButton;
 	}
 
 }
