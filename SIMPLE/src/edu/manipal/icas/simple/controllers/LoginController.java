@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,7 +16,15 @@ import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
 import edu.manipal.icas.simple.session.SessionType;
 import edu.manipal.icas.simple.views.CitizenLoginView;
+import edu.manipal.icas.simple.views.View;
 
+/**
+ * Controller that handles citizen and officer login use-cases.
+ * 
+ * @author
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public class LoginController {
 	private CitizenLoginView citizenLoginView;
 
@@ -27,7 +33,10 @@ public class LoginController {
 		initCitizenLoginClickHandler();
 		initCreateProfileRedirectHandler();
 		initTextFieldValueChangeHandlers();
-
+	}
+	
+	public View getCitizenLoginView() {
+		return citizenLoginView;
 	}
 
 	private void initCitizenLoginClickHandler() {
@@ -35,18 +44,19 @@ public class LoginController {
 		citizenLoginView.getLoginButton().addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				String email = citizenLoginView.getEmailTextField().getText();
 				String password = new String(citizenLoginView.getPasswordPasswordField().getPassword());
 				try {
 					if (Citizen.authenticate(email, password)) {
+						// TODO: Replace direct db access with controller
 						Session session = SessionFactory.getFactory().getSession(SessionType.CITIZEN, email);
 						MsAccessSessionDatabase.getDatabase().startSession(session);
 						RouteController.getController().routeTo(session.getDefaultRoute());
 					}
-				} catch (IllegalArgumentException e1) {
+				} catch (IllegalArgumentException e) {
 					showError("Citizen does not exist. Create a new citizen profile to be able to log in");
-				} catch (IOException e1) {
+				} catch (IOException e) {
 					showError("An internal error occurred. Please try again later.");
 				}
 			}
@@ -67,6 +77,7 @@ public class LoginController {
 		JTextField emailField = citizenLoginView.getEmailTextField();
 		JPasswordField passwordField = citizenLoginView.getPasswordPasswordField();
 
+		// Enables the login button only if both text fields are filled
 		DocumentListener textChangeListener = new DocumentListener() {
 
 			@Override

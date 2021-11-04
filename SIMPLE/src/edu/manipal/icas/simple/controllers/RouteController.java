@@ -20,12 +20,10 @@ public final class RouteController {
 	private final SessionDatabase sessions = MsAccessSessionDatabase.getDatabase();
 
 	private View currentView;
-	private View citizenLoginView;
 	private LoginController loginController;
 
 	private RouteController() {
-		citizenLoginView = new CitizenLoginViewImpl();
-		loginController = new LoginController((CitizenLoginView) citizenLoginView);
+		loginController = new LoginController(new CitizenLoginViewImpl());
 		currentView = null;
 	}
 
@@ -57,23 +55,15 @@ public final class RouteController {
 			return;
 		}
 
-		if (currentView != null)
-			currentView.getFrame().setVisible(false);
-		
 		switch (route) {
 		case CITIZEN_LOGIN:
-			currentView = citizenLoginView;
-			citizenLoginView.getFrame().setVisible(true);
+			displayView(loginController.getCitizenLoginView());
 			break;
 		case PROFILE_CREATION:
-			View profileCreationView = new ProfileCreationViewImpl();
-			profileCreationView.getFrame().setVisible(true);
-			currentView = profileCreationView;
+			displayView(new ProfileCreationViewImpl());
 			break;
 		case OFFICER_LOGIN:
-			View officerLoginView = new OfficerLoginViewImpl();
-			officerLoginView.getFrame().setVisible(true);
-			currentView = officerLoginView;
+			displayView(new OfficerLoginViewImpl());
 			break;
 		// TODO: Add other routes as they come
 		default:
@@ -111,6 +101,18 @@ public final class RouteController {
 			return false;
 		}
 
+	}
+
+	/**
+	 * Displays a view to the user.
+	 * 
+	 * @param view the view that is to be displayed
+	 */
+	private void displayView(View view) {
+		if (currentView != null)
+			currentView.getFrame().setVisible(false);
+		currentView = view;
+		view.getFrame().setVisible(true);
 	}
 
 }
