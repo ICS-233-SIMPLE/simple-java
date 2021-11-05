@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -41,6 +38,7 @@ public class OfficerLoginViewImpl extends JFrame implements OfficerLoginView {
 				"Police Officer" };
 		officerTypeComboBox = new JComboBox<>(officerType);
 		intializeOfficerLoginUi();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/** Initializes the UI that the officer uses to login. */
@@ -137,15 +135,6 @@ public class OfficerLoginViewImpl extends JFrame implements OfficerLoginView {
 		setSize(new Dimension(300, 400));
 		setLocationRelativeTo(null);
 		setResizable(false);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
 
 	}
 

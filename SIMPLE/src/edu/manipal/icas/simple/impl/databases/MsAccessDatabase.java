@@ -34,7 +34,11 @@ public abstract class MsAccessDatabase {
 	}
 
 	protected Row getRow(Object key) throws IOException {
-		return CursorBuilder.findRowByPrimaryKey(table, key);
+		Row row = CursorBuilder.findRowByPrimaryKey(table, key);
+		if (row == null) {
+			throw new IOException("Row does not exist");
+		}
+		return row;
 	}
 
 	protected Boolean rowExists(Object key) {
