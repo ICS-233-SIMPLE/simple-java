@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.util.PropertiesManager;
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.PassportGrantingOfficerDashboardView;
@@ -105,7 +110,6 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		ImageIcon scaledPassportGrantingIcon = getScaledImage(ResourceConstants.IMAGE_PASSPORT_GRANTING_ICON, 25, 25);
 		setIconImage(scaledPassportGrantingIcon.getImage());
 		containerPanel.setBackground(new Color(255, 255, 255));
-		setResizable(false);
 		setExtendedState(MAXIMIZED_BOTH);
 		add(containerPanel);
 		addWindowListener(new WindowAdapter() {
@@ -363,7 +367,27 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 
 	private JPanel initialiseBiometricsPanel() {
 		JPanel biometricsPanel = new JPanel();
-
+		biometricsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.weighty = 0;
+		c.weightx = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.LINE_START;
+		biometricsPanel.add(new JComboBox<String>(new String[] {"4 fingers (left)", "thumbs"}), c);
+		
+		c.weighty = 1;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		PropertiesManager properties = new PropertiesManager(System.getProperties(),
+				ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+		properties.setBoolean("application.viewerpreferences.hidetoolbar", Boolean.TRUE);
+		SwingViewBuilder factory = new SwingViewBuilder(new SwingController(), properties);
+		JPanel documentPreviewPanel = factory.buildViewerPanel();
+		biometricsPanel.add(documentPreviewPanel, c);
 		return biometricsPanel;
 	}
 
