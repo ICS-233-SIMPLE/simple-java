@@ -1,6 +1,9 @@
 package edu.manipal.icas.simple.session;
 
+import edu.manipal.icas.simple.models.BiometricsOfficer;
 import edu.manipal.icas.simple.models.Citizen;
+import edu.manipal.icas.simple.models.PassportGrantingOfficer;
+import edu.manipal.icas.simple.models.VerificationOfficer;
 
 /**
  * Singleton factory that creates new sessions.
@@ -30,6 +33,12 @@ public class SessionFactory {
 		switch (type) {
 		case CITIZEN:
 			return new CitizenSession(new Citizen(sessionId));
+		case VERIFICATION_OFFICER:
+			return new VerificationOfficerSession(new VerificationOfficer(Integer.parseInt(sessionId)));
+		case BIOMETRICS_OFFICER:
+			return new BiometricsOfficerSession(new BiometricsOfficer(Integer.parseInt(sessionId)));
+		case GRANTING_OFFICER:
+			return new PassportGrantingOfficerSession(new PassportGrantingOfficer(Integer.parseInt(sessionId)));
 
 		default:
 			throw new IllegalArgumentException("Unknown session type " + type);
