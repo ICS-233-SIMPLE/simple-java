@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import edu.manipal.icas.simple.models.ApplicationStatus;
-import edu.manipal.icas.simple.models.ApplicationType;
+import edu.manipal.icas.simple.models.application.ApplicationStatus;
+import edu.manipal.icas.simple.models.application.ApplicationType;
 
 /**
  * Interface that defines operations to be implemented in an API that persists
@@ -59,7 +59,7 @@ public interface ApplicationDatabase {
 
 	/**
 	 * Column corresponding to the type of the application Can be one of
-	 * {@link edu.manipal.icas.simple.models.ApplicationType}
+	 * {@link edu.manipal.icas.simple.models.application.ApplicationType}
 	 */
 	static final String FIELD_APPLICATION_TYPE = "APPLICATION_TYPE";
 
@@ -86,7 +86,7 @@ public interface ApplicationDatabase {
 
 	/**
 	 * Column associated with the current status of the application. Can be one of
-	 * {@link edu.manipal.icas.simple.models.ApplicationStatus}
+	 * {@link edu.manipal.icas.simple.models.application.ApplicationStatus}
 	 */
 	static final String FIELD_STATUS = "STATUS";
 
@@ -270,7 +270,7 @@ public interface ApplicationDatabase {
 	Date fetchDateOfAppointment(Integer applicationId) throws IOException;
 
 	/**
-	 * Saves the {@link edu.manipal.icas.simple.models.ApplicationType} of the
+	 * Saves the {@link edu.manipal.icas.simple.models.application.ApplicationType} of the
 	 * application in the database.
 	 * 
 	 * @param applicationId   ID of the application to be modified
@@ -283,7 +283,7 @@ public interface ApplicationDatabase {
 	 * Fetches the type of the application from the database.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return One of {@link edu.manipal.icas.simple.models.ApplicationType}
+	 * @return One of {@link edu.manipal.icas.simple.models.application.ApplicationType}
 	 * @throws IOException
 	 */
 	ApplicationType fetchApplicationType(Integer applicationId) throws IOException;
@@ -350,7 +350,7 @@ public interface ApplicationDatabase {
 	 * 
 	 * @param applicationId ID of the application to be modified
 	 * @param status        one of
-	 *                      {@link edu.manipal.icas.simple.models.ApplicationStatus}
+	 *                      {@link edu.manipal.icas.simple.models.application.ApplicationStatus}
 	 * @throws IOException if no application was found for the ID
 	 */
 	void saveStatus(Integer applicationId, ApplicationStatus status) throws IOException;
@@ -359,7 +359,7 @@ public interface ApplicationDatabase {
 	 * Fetches the status of an application.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return one of {@link edu.manipal.icas.simple.models.ApplicationStatus}
+	 * @return one of {@link edu.manipal.icas.simple.models.application.ApplicationStatus}
 	 * @throws IOException
 	 */
 	ApplicationStatus fetchStatus(Integer applicationId) throws IOException;
