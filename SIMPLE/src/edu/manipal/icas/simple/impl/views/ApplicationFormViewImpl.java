@@ -32,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.github.lgooddatepicker.components.DatePicker;
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
+import edu.manipal.icas.simple.utils.StringConstants;
 import edu.manipal.icas.simple.views.ApplicationFormView;
 
 public class ApplicationFormViewImpl extends JFrame implements ApplicationFormView {
@@ -372,15 +373,15 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.insets = new Insets(25,0,10,0);
 
-        JLabel quesOne = new JLabel("1) Provide the following details if there are any criminal proceedings pending against the applicant.");
+        JLabel quesOne = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.0));
         quesOne.setFont(ResourceConstants.FONT_LABEL_BOLD);
-        JLabel quesTwo = new JLabel("2) Provide the following details if the applicant has been convicted by a court in India.");
+        JLabel quesTwo = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.0));
         quesTwo.setFont(ResourceConstants.FONT_LABEL_BOLD);
-        JLabel quesThree = new JLabel("3) Provide the following details if the applicant has been refused/denied passport.");
+        JLabel quesThree = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.0));
         quesThree.setFont(ResourceConstants.FONT_LABEL_BOLD);
-        JLabel quesFour = new JLabel("4) Provide the following details if applicant has applied for or been granted foreign citizenship");
+        JLabel quesFour = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.0));
         quesFour.setFont(ResourceConstants.FONT_LABEL_BOLD);
-        JLabel quesFive = new JLabel("5) Provide the following details if applicant has returned to India on Emergency Certificate.");
+        JLabel quesFive = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.0));
         quesFive.setFont(ResourceConstants.FONT_LABEL_BOLD);
         
         place(quesOne,questionsPanel,0,0,false);
@@ -391,26 +392,26 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
         
         gbc.insets = new Insets(3,25,3,0);
 
-        place(new JLabel("Are any proceedings in respect of an offence alleged to have been committed by you pending before a criminal court in India?"),questionsPanel,1,0,true);
-        place(new JLabel("Has any warrant or summons for your appearance been issued and pending before a court under any law for the time being in force?"),questionsPanel,2,0,true);
-        place(new JLabel("Has a warrant for your arrest been issued by a court under any law for the time being in force?"),questionsPanel,3,0,true);
-        place(new JLabel("Has an order prohibiting your departure from India been made by any court?"),questionsPanel,4,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.1)),questionsPanel,1,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.2)),questionsPanel,2,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.3)),questionsPanel,3,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.4)),questionsPanel,4,0,true);
         
-        place(new JLabel("Have you, at any time during the period of five years immediately preceding the date of this application, been convicted by a court in India"),questionsPanel,6,0,true);
-        place(new JLabel("for any offence involving moral turpitude and sentenced in respect thereof to imprisonment for not less than two years?"),questionsPanel,7,0,true);
-        
-        place(new JLabel("Have you ever been refused/denied passport? "),questionsPanel,9,0,true);
-        place(new JLabel("Has your passport ever been impounded?"),questionsPanel,10,0,true);
-        place(new JLabel("Has your passport ever been revoked?"),questionsPanel,11,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.1).substring(0, 140)),questionsPanel,6,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.1).substring(141)),questionsPanel,7,0,true);
+    
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.1)),questionsPanel,9,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.2)),questionsPanel,10,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.3)),questionsPanel,11,0,true);
 
-        place(new JLabel("Have you ever been granted citizenship by any other country?"),questionsPanel,13,0,true);
-        place(new JLabel("Have you ever held the passport of any other country at any time?"),questionsPanel,14,0,true);
-        place(new JLabel("Have you ever surrendered your Indian passport?"),questionsPanel,15,0,true);
-        place(new JLabel("Have you ever applied for renunciation of Indian citizenship?"),questionsPanel,16,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.1)),questionsPanel,13,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.2)),questionsPanel,14,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.3)),questionsPanel,15,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.4)),questionsPanel,16,0,true);
 
-        place(new JLabel("Have you ever returned to India on Emergency Certificate (EC)?"),questionsPanel,18,0,true);
-        place(new JLabel("Have you ever been deported from any country?"),questionsPanel,19,0,true);
-        place(new JLabel("Have you ever been repatriated from any country back to India?"),questionsPanel,20,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.1)),questionsPanel,18,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.2)),questionsPanel,19,0,true);
+        place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.3)),questionsPanel,20,0,true);
 
 
         ButtonGroup quesOneA = new ButtonGroup();
