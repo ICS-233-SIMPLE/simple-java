@@ -25,7 +25,7 @@ public class CitizenSession extends Session {
 	public String getSessionId() {
 		return citizen.getEmailAddress();
 	}
-	
+
 	@Override
 	public Boolean hasAccess(Route route) {
 		switch (route) {
@@ -36,9 +36,13 @@ public class CitizenSession extends Session {
 			return false;
 		}
 	}
-	
+
 	@Override
-		public Route getDefaultRoute() {
-			return Route.CITIZEN_DASHBOARD;
-		}
+	public Route getDefaultRoute() {
+		return Route.CITIZEN_DASHBOARD;
+	}
+
+	public Citizen getCitizen() {
+		return citizen;
+	}
 }
