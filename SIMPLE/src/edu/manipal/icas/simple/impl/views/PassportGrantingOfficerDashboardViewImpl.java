@@ -1,7 +1,6 @@
 package edu.manipal.icas.simple.impl.views;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -17,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
@@ -35,6 +33,16 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	private JButton rejectButton;
 	private JPanel containerPanel;
 	private JButton requestPoliceVerificationButton;
+	private JLabel nameLabel;
+	private JLabel genderLabel;
+	private JLabel emailAddressLabel;
+	private JLabel dateOfBirthLabel;
+	private JLabel nameOfMotherLabel;
+	private JLabel nameOfFatherLabel;
+	private JLabel birthAddressLabel;
+	private JLabel permanentAddressLabel;
+	private JLabel presentAddressLabel;
+	private JLabel contactNumberLabel;
 
 	public PassportGrantingOfficerDashboardViewImpl() {
 		super("Passport Granting Officer");
@@ -50,6 +58,16 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		navigationBarPanel = new JPanel();
 		containerPanel = new JPanel();
 		requestPoliceVerificationButton = new JButton("Request police verification");
+		nameLabel = new JLabel();
+		genderLabel = new JLabel();
+		emailAddressLabel = new JLabel();
+		dateOfBirthLabel = new JLabel();
+		nameOfMotherLabel = new JLabel();
+		nameOfFatherLabel = new JLabel();
+		contactNumberLabel = new JLabel();
+		birthAddressLabel = new JLabel();
+		permanentAddressLabel = new JLabel();
+		presentAddressLabel = new JLabel();
 
 		initialiseUi();
 	}
@@ -211,64 +229,88 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.anchor = GridBagConstraints.NORTHWEST;
 		personalDetailsPanel.add(new JLabel("Name"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 1200);
+		c.insets = new Insets(10, 0, 0, 0);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(nameLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 1;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Gender"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 1200);
+		c.insets = new Insets(10, 0, 0, 0);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(genderLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 2;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Date Of Birth"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(dateOfBirthLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 3;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Email Address"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(emailAddressLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 4;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Contact Number"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(contactNumberLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 5;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Birth Address"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(birthAddressLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 6;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Permanent Address"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(permanentAddressLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 7;
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Present Address"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(presentAddressLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 8;
@@ -277,8 +319,11 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Father's Name"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(nameOfFatherLabel, c);
 
 		c.gridx = 1;
 		c.gridy = 9;
@@ -287,8 +332,11 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.insets = new Insets(10, 10, 0, 0);
 		personalDetailsPanel.add(new JLabel("Mother's Name"), c);
 		c.gridx = 2;
-		c.insets = new Insets(9, 0, 0, 10);
+		c.insets = new Insets(10, 0, 0, 10);
 		personalDetailsPanel.add(new JLabel(":"), c);
+		c.gridx = 3;
+		c.insets = new Insets(10, 0, 0, 1150);
+		personalDetailsPanel.add(nameOfMotherLabel, c);
 
 		personalDetailsPanel.setBackground(Color.WHITE);
 		return personalDetailsPanel;
@@ -413,7 +461,52 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	}
 
 	@Override
-	public JTabbedPane getTabbedPane() {
-		return tabbedPane;
+	public JLabel getNameLabel() {
+		return nameLabel;
+	}
+
+	@Override
+	public JLabel getGenderLabel() {
+		return genderLabel;
+	}
+
+	@Override
+	public JLabel getEmailAddressLabel() {
+		return emailAddressLabel;
+	}
+
+	@Override
+	public JLabel getNameOfFatherLabel() {
+		return nameOfFatherLabel;
+	}
+
+	@Override
+	public JLabel getNameOfMotherLabel() {
+		return nameOfMotherLabel;
+	}
+
+	@Override
+	public JLabel getContactNumberLabel() {
+		return contactNumberLabel;
+	}
+
+	@Override
+	public JLabel getDateOfBirthLabel() {
+		return dateOfBirthLabel;
+	}
+
+	@Override
+	public JLabel getBirthAddressLabel() {
+		return birthAddressLabel;
+	}
+
+	@Override
+	public JLabel getPermanentAddressLabel() {
+		return permanentAddressLabel;
+	}
+
+	@Override
+	public JLabel getPresentAddressLabel() {
+		return presentAddressLabel;
 	}
 }
