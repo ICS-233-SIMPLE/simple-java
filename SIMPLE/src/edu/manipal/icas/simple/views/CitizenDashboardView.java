@@ -4,6 +4,7 @@
 package edu.manipal.icas.simple.views;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 /**
  * A view that enables user to Apply for a new passport,Apply for Re-Issue,Check their Application's status 
  * and check application procedure if they need any kind of clarification w.r.t application procedure/FAQ. 
@@ -54,6 +55,14 @@ public interface CitizenDashboardView extends View {
 	 */
 	
 	JComboBox<String> getApplicationIdComboBox();
+	/**
+	 * Gets the JLabel that holds application status.
+	 * 
+	 * @return the application status JLabel
+	 */
+	JLabel getApplicationStatus();
+	
+	
 	
 	
 	

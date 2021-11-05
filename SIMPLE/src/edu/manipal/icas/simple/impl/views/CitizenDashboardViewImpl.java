@@ -26,7 +26,7 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 	private JButton logOutButton;
 	
 	private JComboBox<String> appCombo;
-	
+	JLabel applicationStatus;
 	
 	private JButton checkApplicationStatusButton;
 	 private String response [] [] = 
@@ -107,10 +107,10 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		supportLab.setFont(ResourceConstants.FONT_HEADING_BOLD);
 		JLabel supportClab = new JLabel("For any information and suggestions on Passport services, please call at 1800-258-1800 (Toll Free)");
 		JLabel supportClickLab = new JLabel("To check application process/FAQ: ");
-		JLabel applicationStatus = new JLabel("Application Status: ");
-		JLabel appStatus = new JLabel("Initiated");
-		applicationStatus.setFont(ResourceConstants.FONT_HEADING_BOLD);
-		appStatus.setFont(ResourceConstants.FONT_HEADING_BOLD); 
+		JLabel status = new JLabel("Application Status: ");
+		applicationStatus = new JLabel("Initiated");
+		status.setFont(ResourceConstants.FONT_HEADING_BOLD);
+		applicationStatus.setFont(ResourceConstants.FONT_HEADING_BOLD); 
 		
 		
 		
@@ -145,11 +145,9 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		tcp.add(tLab,"span,center,wrap");
 		tcp.add(checkApply, "growx,split");
 		tcp.add(appCombo,"wrap");
-		tcp.add(applicationStatus,"split");
-		tcp.add(appStatus,"wrap");
+		tcp.add(status,"split");
+		tcp.add(applicationStatus,"wrap");
 		tcp.add(apptab);
-		
-		
 		tcp.add(apptab,"growx,growy,span");
 		
 		
@@ -244,6 +242,12 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 	public JComboBox<String> getApplicationIdComboBox() {
 		// TODO Auto-generated method stub
 		return appCombo;
+	}
+	
+	public JLabel  getApplicationStatus()
+	{
+		return applicationStatus;
+		
 	}
 	
 	
