@@ -21,6 +21,7 @@ import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
 
+import edu.manipal.icas.simple.utils.ImageUtils;
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.PassportGrantingOfficerDashboardView;
 
@@ -61,10 +62,10 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	 */
 	public PassportGrantingOfficerDashboardViewImpl() {
 		super("Passport Granting Officer");
-		previousApplicationIdButton = new JButton(getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
+		previousApplicationIdButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
 		String testData[] = { "000000", "000001" };
 		applicationIdComboBox = new JComboBox<>(testData);
-		nextApplicationIdButton = new JButton(getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
+		nextApplicationIdButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
 		officerIdLabel = new JLabel();
 		logoutButton = new JButton("Logout");
 		approveButton = new JButton("Approve");
@@ -89,30 +90,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		initialiseUi();
 	}
 
-	/**
-	 * Gets the scaled version of the image icon passed to it.
-	 * 
-	 * @param icon   the image icon that is to be scaled to the desired size
-	 * @param width  the width that the image should be scaled to
-	 * @param height the height that the image should be scaled to
-	 * @return the scaled image
-	 */
-	private ImageIcon getScaledImage(ImageIcon icon, int width, int height) {
-		int newWidth = icon.getIconWidth();
-		int newHeight = icon.getIconHeight();
-
-		if (newWidth > width) {
-			newWidth = width;
-			newHeight = (newWidth * icon.getIconHeight()) / icon.getIconWidth();
-		}
-
-		if (newHeight > height) {
-			newHeight = height;
-			newWidth = (icon.getIconWidth() * newHeight) / icon.getIconHeight();
-		}
-
-		return new ImageIcon(icon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT));
-	}
+	
 
 	/**
 	 * Initialises the passport granting officer dashboard view and populates it
@@ -141,7 +119,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.fill = GridBagConstraints.BOTH;
 		containerPanel.add(initialiseTabbedPane(), c);
 
-		ImageIcon scaledPassportGrantingIcon = getScaledImage(ResourceConstants.IMAGE_PASSPORT_GRANTING_ICON, 25, 25);
+		ImageIcon scaledPassportGrantingIcon = ImageUtils.getScaledImage(ResourceConstants.IMAGE_PASSPORT_GRANTING_ICON, 25, 25);
 		setIconImage(scaledPassportGrantingIcon.getImage());
 		containerPanel.setBackground(new Color(255, 255, 255));
 		setExtendedState(MAXIMIZED_BOTH);
