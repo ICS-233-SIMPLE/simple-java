@@ -181,8 +181,6 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		frame.add(tp,"growx,growy,span");
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
 		frame.pack();
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
