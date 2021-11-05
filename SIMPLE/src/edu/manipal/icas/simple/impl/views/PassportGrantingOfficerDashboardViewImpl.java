@@ -9,14 +9,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 
 import org.icepdf.ri.common.SwingController;
@@ -25,6 +23,13 @@ import org.icepdf.ri.util.PropertiesManager;
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.PassportGrantingOfficerDashboardView;
+
+/**
+ * Concrete class that defines the passport granting officer view.
+ * 
+ * @author Rea Mammen (rea.mammen@learner.manipal.edu)
+ *
+ */
 
 public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements PassportGrantingOfficerDashboardView {
 	private JTabbedPane tabbedPane;
@@ -48,7 +53,12 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	private JLabel permanentAddressLabel;
 	private JLabel presentAddressLabel;
 	private JLabel contactNumberLabel;
-
+	public SwingController pdfBiometricsController;
+	public SwingController pdfDocumentsController;
+	/**
+	 * Initialises all the required components that are to be displayed in the PGO
+	 * dashboard view.
+	 */
 	public PassportGrantingOfficerDashboardViewImpl() {
 		super("Passport Granting Officer");
 		previousApplicationIdButton = new JButton(getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
@@ -73,6 +83,8 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		birthAddressLabel = new JLabel();
 		permanentAddressLabel = new JLabel();
 		presentAddressLabel = new JLabel();
+		pdfDocumentsController = new SwingController();
+		pdfBiometricsController = new SwingController();
 
 		initialiseUi();
 	}
@@ -102,6 +114,10 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		return new ImageIcon(icon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT));
 	}
 
+	/**
+	 * Initialises the passport granting officer dashboard view and populates it
+	 * with the required panels.
+	 */
 	private void initialiseUi() {
 		containerPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -139,6 +155,14 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		});
 	}
 
+	/**
+	 * Initialises the navigation bar panel which enables the passport granting
+	 * officer to review all the documents of a citizen based on their application
+	 * ID, approve or reject the application, request police verification, and
+	 * logout.
+	 * 
+	 * @return the navigation bar panel
+	 */
 	private JPanel initialiseNavigationBarPanel() {
 		navigationBarPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -210,6 +234,12 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 
 	}
 
+	/**
+	 * Initialises the tabbed pane which has tabs for personal details, questions,
+	 * documents, and biometrics.
+	 * 
+	 * @return the tabbed pane
+	 */
 	private JTabbedPane initialiseTabbedPane() {
 		tabbedPane.addTab("Personal Details", initialisePersonalDetailsPanel());
 		tabbedPane.addTab("Questions", initialiseQuestionsPanel());
@@ -219,6 +249,12 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		return tabbedPane;
 	}
 
+	/**
+	 * Initialises hte personal details panel which displays the personal details of
+	 * the citizen.
+	 * 
+	 * @return the personal details panel
+	 */
 	private JPanel initialisePersonalDetailsPanel() {
 		JPanel personalDetailsPanel = new JPanel();
 		GridBagConstraints c = new GridBagConstraints();
@@ -352,67 +388,44 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		return questionsPanel;
 	}
 
+	/**
+	 * Initialises the documents panel which displays the documents of the citizen.
+	 * 
+	 * @return documents panel
+	 */
 	private JPanel initialiseDocumentsPanel() {
-		JPanel documentsContainerPanel = new JPanel();
-		documentsContainerPanel.setLayout(new GridBagLayout());
-
+		JPanel documentsPanel = new JPanel();
+		documentsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.gridy = 1;
-		c.weightx = 1;
-		c.ipady = 0;
-		c.gridwidth = 4;
-		c.weighty = 1;
-		c.anchor = GridBagConstraints.LINE_START;
-		c.fill = GridBagConstraints.VERTICAL;
-		documentsContainerPanel.add(createDocumentNamePanel(), c);
-		return documentsContainerPanel;
-	}
-
-	private JPanel createDocumentNamePanel() {
-		JPanel documentNamePanel = new JPanel();
-		documentNamePanel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipadx = 200;
-		c.anchor = GridBagConstraints.NORTHWEST;
-		c.insets = new Insets(10, 10, 0, 0);
-		c.gridx = 1;
-
-		JRadioButton panCardRadioButton = new JRadioButton("PAN Card");
-		panCardRadioButton.setForeground(Color.WHITE);
-		panCardRadioButton.setBackground(new Color(107, 107, 107));
-
-		JRadioButton driversLicenseRadioButton = new JRadioButton("Driving License");
-		driversLicenseRadioButton.setForeground(Color.WHITE);
-		driversLicenseRadioButton.setBackground(new Color(107, 107, 107));
-
-		JRadioButton aadharRadioButton = new JRadioButton("Aadhar Card");
-		aadharRadioButton.setForeground(Color.WHITE);
-		aadharRadioButton.setBackground(new Color(107, 107, 107));
-
-		ButtonGroup documents = new ButtonGroup();
-		documents.add(panCardRadioButton);
-		documents.add(driversLicenseRadioButton);
-		documents.add(aadharRadioButton);
-
+		c.gridx = 0;
 		c.gridy = 0;
-		documentNamePanel.add(panCardRadioButton, c);
-
-		c.gridy = 1;
-		c.weightx = 0;
+		c.gridheight = 1;
+		c.gridwidth = 1;
 		c.weighty = 0;
-		documentNamePanel.add(driversLicenseRadioButton, c);
-
-		c.gridy = 2;
 		c.weightx = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.LINE_START;
+		documentsPanel.add(new JComboBox<String>(
+				new String[] { "PAN Card", "Driving License", "Aadhar Card", "Voter ID", "Address Proof" }), c);
 		c.weighty = 1;
-		documentNamePanel.add(aadharRadioButton, c);
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		PropertiesManager properties = new PropertiesManager(System.getProperties(),
+				ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+		properties.setBoolean("application.viewerpreferences.hidetoolbar", Boolean.TRUE);
+		SwingViewBuilder factory = new SwingViewBuilder(pdfDocumentsController, properties);
+		JPanel documentPreviewPanel = factory.buildViewerPanel();
+		documentsPanel.add(documentPreviewPanel, c);
 
-		documentNamePanel.setBackground(new Color(107, 107, 107));
-
-		return documentNamePanel;
+		return documentsPanel;
 	}
 
+	/**
+	 * Initialises the biometrics panel which displays the biometrics of the
+	 * citizen.
+	 * 
+	 * @return biometrics panel
+	 */
 	private JPanel initialiseBiometricsPanel() {
 		JPanel biometricsPanel = new JPanel();
 		biometricsPanel.setLayout(new GridBagLayout());
@@ -425,15 +438,16 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.weightx = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.LINE_START;
-		biometricsPanel.add(new JComboBox<String>(new String[] {"4 fingers (left)", "thumbs"}), c);
-		
+		biometricsPanel.add(
+				new JComboBox<String>(new String[] { "4 fingers (left)", "4 fingers (right)", "Thumbs", "Photograph" }), c);
+
 		c.weighty = 1;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.BOTH;
 		PropertiesManager properties = new PropertiesManager(System.getProperties(),
 				ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
 		properties.setBoolean("application.viewerpreferences.hidetoolbar", Boolean.TRUE);
-		SwingViewBuilder factory = new SwingViewBuilder(new SwingController(), properties);
+		SwingViewBuilder factory = new SwingViewBuilder(pdfBiometricsController, properties);
 		JPanel documentPreviewPanel = factory.buildViewerPanel();
 		biometricsPanel.add(documentPreviewPanel, c);
 		return biometricsPanel;
@@ -532,5 +546,15 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	@Override
 	public JLabel getPresentAddressLabel() {
 		return presentAddressLabel;
+	}
+
+	@Override
+	public SwingController getPdfBiometricsController() {
+		return pdfBiometricsController;
+	}
+
+	@Override
+	public SwingController getPdfDocumentsController() {
+		return pdfDocumentsController;
 	}
 }

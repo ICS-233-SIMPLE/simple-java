@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import org.icepdf.ri.common.SwingController;
+
 public interface PassportGrantingOfficerDashboardView extends View {
 	/**
 	 * Gets the combo box that is populated with the application IDs of citizens.
@@ -133,5 +135,21 @@ public interface PassportGrantingOfficerDashboardView extends View {
 	 * @return the present address label
 	 */
 	JLabel getPresentAddressLabel();
+
+	/**
+	 * Gets the controller that is responsible for displaying PDFs in the biometrics
+	 * tab.
+	 * 
+	 * @return the PDF biometrics controller
+	 */
+	SwingController getPdfBiometricsController();
+
+	/**
+	 * Gets the controller that is responsible for displaying PDFs in the documents
+	 * tab.
+	 * 
+	 * @return the PDF documents controller
+	 */
+	SwingController getPdfDocumentsController();
 
 }
