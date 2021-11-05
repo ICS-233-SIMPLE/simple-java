@@ -11,8 +11,8 @@ import com.healthmarketscience.jackcess.Column;
 import com.healthmarketscience.jackcess.Row;
 
 import edu.manipal.icas.simple.databases.ApplicationDatabase;
-import edu.manipal.icas.simple.models.ApplicationStatus;
-import edu.manipal.icas.simple.models.ApplicationType;
+import edu.manipal.icas.simple.models.application.ApplicationStatus;
+import edu.manipal.icas.simple.models.application.ApplicationType;
 
 /**
  * Concrete class that implements persistence API operations from
