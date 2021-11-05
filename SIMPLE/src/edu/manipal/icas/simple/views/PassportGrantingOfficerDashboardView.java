@@ -65,9 +65,73 @@ public interface PassportGrantingOfficerDashboardView extends View {
 	JButton getLogoutButton();
 
 	/**
-	 * Gets the tabbed pane.
+	 * Gets the label that stores the name of the citizen.
 	 * 
-	 * @return the tabbed pane
+	 * @return the name label
 	 */
-	JTabbedPane getTabbedPane();
+	JLabel getNameLabel();
+
+	/**
+	 * Gets the label that stores the gender of the citizen.
+	 * 
+	 * @return the gender label
+	 */
+	JLabel getGenderLabel();
+
+	/**
+	 * Gets the label that stores the email address of the citizen.
+	 * 
+	 * @return the email address label
+	 */
+	JLabel getEmailAddressLabel();
+
+	/**
+	 * Gets the label that stores the citizen's father's name.
+	 * 
+	 * @return the name of father label
+	 */
+	JLabel getNameOfFatherLabel();
+
+	/**
+	 * Gets the label that stores the citizen's mother's name.
+	 * 
+	 * @return the name of mother label
+	 */
+	JLabel getNameOfMotherLabel();
+
+	/**
+	 * Gets the label that stores the contact number of the citizen.
+	 * 
+	 * @return the contact number label
+	 */
+	JLabel getContactNumberLabel();
+
+	/**
+	 * Gets the label that stores the date of birth of the citizen.
+	 * 
+	 * @return the date of birth label
+	 */
+	JLabel getDateOfBirthLabel();
+
+	/**
+	 * Gets the label that stores the birth address of the citizen.
+	 * 
+	 * @return the birth address label
+	 */
+	JLabel getBirthAddressLabel();
+
+	/**
+	 * Gets the label that stores the permanent address of the citizen.
+	 * 
+	 * @return the permanent address label
+	 */
+	JLabel getPermanentAddressLabel();
+
+	/**
+	 * Gets the label that stores the present address of the citizen.
+	 * 
+	 * @return the present address label
+	 */
+	JLabel getPresentAddressLabel();
+
 }
