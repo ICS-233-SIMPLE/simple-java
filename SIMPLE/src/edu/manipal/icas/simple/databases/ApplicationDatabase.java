@@ -2,8 +2,8 @@ package edu.manipal.icas.simple.databases;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-
+import edu.manipal.icas.simple.models.application.AcceptedBiometricType;
+import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
 import edu.manipal.icas.simple.models.application.ApplicationStatus;
 import edu.manipal.icas.simple.models.application.ApplicationType;
 
@@ -94,14 +94,14 @@ public interface ApplicationDatabase {
 	 * Column associated with a list of document names, each of which is a foreign
 	 * key from {@link edu.manipal.icas.simple.databases.DocumentDatabase}
 	 */
-	static final String FIELD_DOCUMENTS = "DOCUMENTS";
+	static final String FIELD_DOCUMENTS = "DOCUMENT_";
 
 	/**
 	 * Column associated with a list of document names representing biometrics data,
 	 * each of which is a foreign key from
 	 * {@link edu.manipal.icas.simple.databases.DocumentDatabase}
 	 */
-	static final String FIELD_BIOMETRICS = "BIOMETRICS";
+	static final String FIELD_BIOMETRICS = "BIOMETRICS_";
 
 	/**
 	 * Creates a new application in the database with a unique ID.
@@ -118,6 +118,15 @@ public interface ApplicationDatabase {
 	 * @return {@code true} if the application exists, {@code false} otherwise
 	 */
 	Boolean applicationExists(Integer applicationId);
+
+	/**
+	 * Gets the date the application was created in the database.
+	 * 
+	 * @param applicationId ID of the application to fetch the date of
+	 * @return the date (day + time) when the application was initiated
+	 * @throws IOException if no application was found for the ID
+	 */
+	Date fetchDateCreated(Integer applicationId) throws IOException;
 
 	/**
 	 * Saves the answer for a yes/no question for a given application in the
@@ -270,8 +279,8 @@ public interface ApplicationDatabase {
 	Date fetchDateOfAppointment(Integer applicationId) throws IOException;
 
 	/**
-	 * Saves the {@link edu.manipal.icas.simple.models.application.ApplicationType} of the
-	 * application in the database.
+	 * Saves the {@link edu.manipal.icas.simple.models.application.ApplicationType}
+	 * of the application in the database.
 	 * 
 	 * @param applicationId   ID of the application to be modified
 	 * @param applicationType type of the application to be set
@@ -283,7 +292,8 @@ public interface ApplicationDatabase {
 	 * Fetches the type of the application from the database.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return One of {@link edu.manipal.icas.simple.models.application.ApplicationType}
+	 * @return One of
+	 *         {@link edu.manipal.icas.simple.models.application.ApplicationType}
 	 * @throws IOException
 	 */
 	ApplicationType fetchApplicationType(Integer applicationId) throws IOException;
@@ -359,47 +369,55 @@ public interface ApplicationDatabase {
 	 * Fetches the status of an application.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return one of {@link edu.manipal.icas.simple.models.application.ApplicationStatus}
+	 * @return one of
+	 *         {@link edu.manipal.icas.simple.models.application.ApplicationStatus}
 	 * @throws IOException
 	 */
 	ApplicationStatus fetchStatus(Integer applicationId) throws IOException;
 
 	/**
-	 * Saves a list of document IDs associated with an application to the database.
+	 * Saves a document ID associated with an application to the database.
 	 * 
 	 * @param applicationId ID of the application to modify
-	 * @param documents     list of document names/IDs
+	 * @param documentType  type of the document, one of
+	 *                      {@link AcceptedDocumentType}
+	 * @param documentName  name of the document that is a foreign key from
+	 *                      {@link DocumentDatabase}
 	 * @throws IOException if no application was found for the ID
 	 */
-	void saveDocuments(Integer applicationId, List<String> documents) throws IOException;
+	void saveDocument(Integer applicationId, AcceptedDocumentType documentType, String documentName) throws IOException;
 
 	/**
-	 * Fetches the list of document names associated with an application.
+	 * Fetches the document name associated with an application.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return list of document names, each of which is a foreign key from
-	 *         {@link edu.manipal.icas.simple.databases.DocumentDatabase}
+	 * @return the document name for the given type, which is a foreign key from
+	 *         {@link DocumentDatabase}
 	 * @throws IOException if no application was found for the ID
 	 */
-	List<String> fetchDocuments(Integer applicationId) throws IOException;
+	String fetchDocument(Integer applicationId, AcceptedDocumentType documentType) throws IOException;
 
 	/**
-	 * Saves a list of biometrics document IDs associated with an application to the
+	 * Saves a biometrics document ID associated with an application to the
 	 * database.
 	 * 
 	 * @param applicationId ID of the application to modify
-	 * @param documents     list of biometrics document names/IDs
+	 * @param biometricType type of the document, one of
+	 *                      {@link AcceptedBiometricType}
+	 * @param biometricName name of the document that is a foreign key from
+	 *                      {@link DocumentDatabase}
 	 * @throws IOException if no application was found for the ID
 	 */
-	void saveBiometrics(Integer applicationId, List<String> documents) throws IOException;
+	void saveBiometric(Integer applicationId, AcceptedBiometricType biometricType, String biometricName)
+			throws IOException;
 
 	/**
-	 * Fetches the list of biometrics document names associated with an application.
+	 * Fetches the biometrics document name associated with an application.
 	 * 
 	 * @param applicationId ID of the application
-	 * @return list of biometrics document names, each of which is a foreign key
-	 *         from {@link edu.manipal.icas.simple.databases.DocumentDatabase}
+	 * @return biometrics document name, which is a foreign key from
+	 *         {@link DocumentDatabase}
 	 * @throws IOException if no application was found for the ID
 	 */
-	List<String> fetchBiometrics(Integer applicationId) throws IOException;
+	String fetchBiometric(Integer applicationId, AcceptedBiometricType biometricType) throws IOException;
 }

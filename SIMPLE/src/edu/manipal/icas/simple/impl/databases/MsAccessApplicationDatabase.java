@@ -3,14 +3,13 @@ package edu.manipal.icas.simple.impl.databases;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-
 import com.healthmarketscience.jackcess.Column;
 import com.healthmarketscience.jackcess.Row;
 
 import edu.manipal.icas.simple.databases.ApplicationDatabase;
+import edu.manipal.icas.simple.models.application.AcceptedBiometricType;
+import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
 import edu.manipal.icas.simple.models.application.ApplicationStatus;
 import edu.manipal.icas.simple.models.application.ApplicationType;
 
@@ -40,7 +39,17 @@ public class MsAccessApplicationDatabase extends MsAccessDatabase implements App
 
 	@Override
 	public Integer createApplication() throws IOException {
-		return (Integer) table.addRow(Column.AUTO_NUMBER)[0];
+		Integer appId = (Integer) table.addRow(Column.AUTO_NUMBER)[0];
+		Row row = getRow(appId);
+		row.put(FIELD_DATE_CREATED, new Date(System.currentTimeMillis()));
+		table.updateRow(row);
+		return appId;
+	}
+
+	@Override
+	public Date fetchDateCreated(Integer applicationId) throws IOException {
+		LocalDateTime dateTime = getRow(applicationId).getLocalDateTime(FIELD_DATE_CREATED);
+		return Date.from(dateTime.toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 
 	@Override
@@ -143,13 +152,13 @@ public class MsAccessApplicationDatabase extends MsAccessDatabase implements App
 	@Override
 	public void saveAnswerForQuestion(Integer applicationId, Double questionNumber, Boolean answer) throws IOException {
 		Row row = getRow(applicationId);
-		row.put(FIELD_QUESTION + questionNumber, answer);
+		row.put(FIELD_QUESTION + new String(questionNumber + "").replace('.', '-'), answer);
 		table.updateRow(row);
 	}
 
 	@Override
 	public Boolean fetchAnswerForQuestion(Integer applicationId, Double questionNumber) throws IOException {
-		return getRow(applicationId).getBoolean(FIELD_QUESTION + questionNumber);
+		return getRow(applicationId).getBoolean(FIELD_QUESTION + new String(questionNumber + "").replace('.', '-'));
 	}
 
 	@Override
@@ -201,28 +210,29 @@ public class MsAccessApplicationDatabase extends MsAccessDatabase implements App
 	}
 
 	@Override
-	public void saveDocuments(Integer applicationId, List<String> documents) throws IOException {
+	public void saveDocument(Integer applicationId, AcceptedDocumentType documentType, String name) throws IOException {
 		Row row = getRow(applicationId);
-		row.put(FIELD_DOCUMENTS, String.join(",", documents));
+		row.put(FIELD_DOCUMENTS + documentType.toString(), name);
 		table.updateRow(row);
 	}
 
 	@Override
-	public List<String> fetchDocuments(Integer applicationId) throws IOException {
-		return Arrays.asList(getRow(applicationId).getString(FIELD_DOCUMENTS).split(","));
+	public String fetchDocument(Integer applicationId, AcceptedDocumentType documentType) throws IOException {
+		return getRow(applicationId).getString(FIELD_DOCUMENTS + documentType.toString());
 	}
 
 	@Override
-	public void saveBiometrics(Integer applicationId, List<String> documents) throws IOException {
+	public void saveBiometric(Integer applicationId, AcceptedBiometricType biometricType, String name)
+			throws IOException {
 		Row row = getRow(applicationId);
-		row.put(FIELD_BIOMETRICS, String.join(",", documents));
+		row.put(FIELD_BIOMETRICS + biometricType.toString(), name);
 		table.updateRow(row);
 
 	}
 
 	@Override
-	public List<String> fetchBiometrics(Integer applicationId) throws IOException {
-		return Arrays.asList(getRow(applicationId).getString(FIELD_BIOMETRICS).split(","));
+	public String fetchBiometric(Integer applicationId, AcceptedBiometricType biometricType) throws IOException {
+		return getRow(applicationId).getString(FIELD_BIOMETRICS + biometricType.toString());
 	}
 
 }
