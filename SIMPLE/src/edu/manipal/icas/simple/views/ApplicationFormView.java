@@ -1,9 +1,13 @@
 package edu.manipal.icas.simple.views;
 
+import java.util.Map;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -12,6 +16,9 @@ import javax.swing.JTextField;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
+import edu.manipal.icas.simple.models.application.ApplicationQuestion;
+
 /**
  * View that enables a citizen to apply for a new passport.
  * 
@@ -19,27 +26,13 @@ import com.github.lgooddatepicker.components.DatePicker;
  *
  */
 public interface ApplicationFormView extends View {
-	public JTabbedPane getFormTabbedPane();
-
 	public JButton getSubmitButton();
 
 	public JButton getCancelButton();
 
 	// Personal Details Panel Getters
 
-	public JRadioButton getAppTypeFreshRadioButton();
-
-	public JRadioButton getAppTypeReissueRadioButton();
-
-	public JRadioButton getGenderMaleRadioButton();
-
-	public JRadioButton getGenderFemaleRadioButton();
-
-	public JRadioButton getGenderTransRadioButton();
-
-	public JTextField getNameTextField();
-
-	public DatePicker getDateOfBirthPicker();
+	public ButtonGroup getApplicationTypeButtonGroup();
 
 	public JTextField getPlaceOfBirthTextField();
 
@@ -53,101 +46,33 @@ public interface ApplicationFormView extends View {
 
 	public JTextField getEmergencyNameTextField();
 
-	public JTextArea getEmergencyAddressTextField();
-
 	public JTextField getEmergencyPhoneTextField();
 
 	public JTextField getEmergencyEmailTextField();
 
 	public JCheckBox getSelfDeclarationCheckBox();
+	
+	public JButton getFindCitizenButton();
 
 	// Questions Panel Getters
 
-	public JRadioButton getQuesOneAyesRadioButton();
-
-	public JRadioButton getQuesOneAnoRadioButton();
-
-	public JRadioButton getQuesOneByesRadioButton();
-
-	public JRadioButton getQuesOneBnoRadioButton();
-
-	public JRadioButton getQuesOneCyesRadioButton();
-
-	public JRadioButton getQuesOneCnoRadioButton();
-
-	public JRadioButton getQuesOneDyesRadioButton();
-
-	public JRadioButton getQuesOneDnoRadioButton();
-
-	public JRadioButton getQuesTwoAyesRadioButton();
-
-	public JRadioButton getQuesTwoAnoRadioButton();
-
-	public JRadioButton getQuesThreeAyesRadioButton();
-
-	public JRadioButton getQuesThreeAnoRadioButton();
-
-	public JRadioButton getQuesThreeByesRadioButton();
-
-	public JRadioButton getQuesThreeBnoRadioButton();
-
-	public JRadioButton getQuesThreeCyesRadioButton();
-
-	public JRadioButton getQuesThreeCnoRadioButton();
-
-	public JRadioButton getQuesFourAyesRadioButton();
-
-	public JRadioButton getQuesFourAnoRadioButton();
-
-	public JRadioButton getQuesFourByesRadioButton();
-
-	public JRadioButton getQuesFourBnoRadioButton();
-
-	public JRadioButton getQuesFourCyesRadioButton();
-
-	public JRadioButton getQuesFourCnoRadioButton();
-
-	public JRadioButton getQuesFourDyesRadioButton();
-
-	public JRadioButton getQuesFourDnoRadioButton();
-
-	public JRadioButton getQuesFiveAyesRadioButton();
-
-	public JRadioButton getQuesFiveAnoRadioButton();
-
-	public JRadioButton getQuesFiveByesRadioButton();
-
-	public JRadioButton getQuesFiveBnoRadioButton();
-
-	public JRadioButton getQuesFiveCyesRadioButton();
-
-	public JRadioButton getQuesFiveCnoRadioButton();
+	public Map<ApplicationQuestion, ButtonGroup> getApplicationQuestionButtonGroups();
 
 	// Document Panel Getters
 
-	public JButton getUploadAddressProofButton();
-
-	public JButton getUploadBirthProofButton();
-
-	public JButton getUploadOldPassportButton();
-
-	public JFileChooser getDocumentChooser();
-
+	public Map<AcceptedDocumentType, JButton> getDocumentUploadButtons();
+	
 	// Appointment Panel Getters
-
-	public JComboBox<String> getPassportOfficeComboBox();
 
 	public DatePicker getAppointmentDatePicker();
 
-	public JList<String> getSlotList();
-
-	public JButton getCheckSlotsButton();
+	public JButton getBookSlotButton();
 
 	// Payment Panel Getters & Setters
 
 	public JButton getPayButton();
 
-	public void setPayerName(String payerName);
-
-	public void setPaymentAmount(String paymentAmount);
+	public JLabel getPayerNameLabel();
+	
+	public JLabel getPaymentAmountLabel();
 }

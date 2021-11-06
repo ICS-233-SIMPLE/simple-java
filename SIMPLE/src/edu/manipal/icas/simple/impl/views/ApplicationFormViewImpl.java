@@ -6,6 +6,8 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -31,6 +33,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
+import edu.manipal.icas.simple.models.application.ApplicationQuestion;
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.utils.StringConstants;
 import edu.manipal.icas.simple.views.ApplicationFormView;
@@ -44,103 +48,50 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 
 	// Personal Details Panel Object Declaration
 
-	private JRadioButton appTypeFresh;
-	private JRadioButton appTypeReissue;
-	private JRadioButton genderMale;
-	private JRadioButton genderFemale;
-	private JRadioButton genderTrans;
-	private JTextField nameTextField;
-	private DatePicker dateOfBirthPicker;
+	private ButtonGroup appType;
 	private JTextField placeOfBirthTextField;
 	private JTextArea permanentAddressTextField;
 	private JTextArea presentAddressTextField;
 	private JTextField mothersNameTextField;
 	private JTextField fathersNameTextField;
 	private JTextField emergencyNameTextField;
-	private JTextArea emergencyAddressTextField;
 	private JTextField emergencyPhoneTextField;
 	private JTextField emergencyEmailTextField;
 	private JCheckBox selfDeclarationCheck;
+	private JButton findCitizenButton;
 
 	// Questions Panel Object Declaration
 
-	private JRadioButton quesOneAyes;
-	private JRadioButton quesOneAno;
-	private JRadioButton quesOneByes;
-	private JRadioButton quesOneBno;
-	private JRadioButton quesOneCyes;
-	private JRadioButton quesOneCno;
-	private JRadioButton quesOneDyes;
-	private JRadioButton quesOneDno;
-
-	private JRadioButton quesTwoAyes;
-	private JRadioButton quesTwoAno;
-
-	private JRadioButton quesThreeAyes;
-	private JRadioButton quesThreeAno;
-	private JRadioButton quesThreeByes;
-	private JRadioButton quesThreeBno;
-	private JRadioButton quesThreeCyes;
-	private JRadioButton quesThreeCno;
-
-	private JRadioButton quesFourAyes;
-	private JRadioButton quesFourAno;
-	private JRadioButton quesFourByes;
-	private JRadioButton quesFourBno;
-	private JRadioButton quesFourCyes;
-	private JRadioButton quesFourCno;
-	private JRadioButton quesFourDyes;
-	private JRadioButton quesFourDno;
-
-	private JRadioButton quesFiveAyes;
-	private JRadioButton quesFiveAno;
-	private JRadioButton quesFiveByes;
-	private JRadioButton quesFiveBno;
-	private JRadioButton quesFiveCyes;
-	private JRadioButton quesFiveCno;
+	private Map<ApplicationQuestion, ButtonGroup> questionButtonGroups;
 
 	// Documents Panel Object Declaration
 
-	private JButton uploadAddressProof;
-	private JButton uploadBirthProof;
-	private JButton uploadOldPassport;
-	private JFileChooser documentChooser;
+	private Map<AcceptedDocumentType, JButton> documentUploadButtons;
 
 	// Appointment Panel Object Declaration
 
-	private JComboBox<String> passportOfficeComboBox;
 	private DatePicker appointmentDatePicker;
-	private JList<String> slotList;
-	private JButton checkSlots;
+	private JButton bookSlotsButton;
 
 	// Appointment Panel Object Declaration
 
 	private JButton payButton;
-	private String payerName;
-	private String paymentAmount;
+	private JLabel payerNameLabel;
+	private JLabel paymentAmountLabel;
 
 	public ApplicationFormViewImpl() {
 		super("Application Form");
 		setExtendedState(Frame.MAXIMIZED_BOTH);
-		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setSize(1500, 1000);
 
-		submitButton = new JButton("Submit");
-		submitButton.setBackground(new Color(255, 80, 80, 200));
+		submitButton = new JButton("Submit details, questions, and documents");
+		submitButton.setBackground(new Color(0, 204, 0));
 		cancelButton = new JButton("Cancel");
 		gbc = new GridBagConstraints();
 
 		// Personal Details Panel Object Initialization
 
-		appTypeFresh = new JRadioButton("Fresh Passport");
-		appTypeReissue = new JRadioButton("Re-issue of Passport");
-
-		genderMale = new JRadioButton("Male");
-		genderFemale = new JRadioButton("Female");
-		genderTrans = new JRadioButton("Transgender");
-
-		nameTextField = new JTextField(20);
-		dateOfBirthPicker = new DatePicker();
 		placeOfBirthTextField = new JTextField(20);
 		permanentAddressTextField = new JTextArea(3, 30);
 		permanentAddressTextField.setLineWrap(true);
@@ -151,74 +102,28 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		mothersNameTextField = new JTextField(20);
 		fathersNameTextField = new JTextField(20);
 		emergencyNameTextField = new JTextField(20);
-		emergencyAddressTextField = new JTextArea(3, 30);
-		emergencyAddressTextField.setLineWrap(true);
-		emergencyAddressTextField.setWrapStyleWord(true);
 		emergencyPhoneTextField = new JTextField(20);
 		emergencyEmailTextField = new JTextField(20);
+		findCitizenButton = new JButton("Find citizen");
 
 		selfDeclarationCheck = new JCheckBox("I Agree");
 
-		// Questions Panel Object Initialization
-
-		quesOneAyes = new JRadioButton("Yes");
-		quesOneAno = new JRadioButton("No");
-		quesOneByes = new JRadioButton("Yes");
-		quesOneBno = new JRadioButton("No");
-		quesOneCyes = new JRadioButton("Yes");
-		quesOneCno = new JRadioButton("No");
-		quesOneDyes = new JRadioButton("Yes");
-		quesOneDno = new JRadioButton("No");
-
-		quesTwoAyes = new JRadioButton("Yes");
-		quesTwoAno = new JRadioButton("No");
-
-		quesThreeAyes = new JRadioButton("Yes");
-		quesThreeAno = new JRadioButton("No");
-		quesThreeByes = new JRadioButton("Yes");
-		quesThreeBno = new JRadioButton("No");
-		quesThreeCyes = new JRadioButton("Yes");
-		quesThreeCno = new JRadioButton("No");
-
-		quesFourAyes = new JRadioButton("Yes");
-		quesFourAno = new JRadioButton("No");
-		quesFourByes = new JRadioButton("Yes");
-		quesFourBno = new JRadioButton("No");
-		quesFourCyes = new JRadioButton("Yes");
-		quesFourCno = new JRadioButton("No");
-		quesFourDyes = new JRadioButton("Yes");
-		quesFourDno = new JRadioButton("No");
-
-		quesFiveAyes = new JRadioButton("Yes");
-		quesFiveAno = new JRadioButton("No");
-		quesFiveByes = new JRadioButton("Yes");
-		quesFiveBno = new JRadioButton("No");
-		quesFiveCyes = new JRadioButton("Yes");
-		quesFiveCno = new JRadioButton("No");
+		questionButtonGroups = new HashMap<ApplicationQuestion, ButtonGroup>();
 
 		// Documents Panel Object Initialization
 
-		uploadAddressProof = new JButton("Upload from Device");
-		uploadBirthProof = new JButton("Upload from Device");
-		uploadOldPassport = new JButton("Upload from Device");
-		documentChooser = new JFileChooser();
-		documentChooser.setFileFilter(new FileNameExtensionFilter("PDF Files", "pdf"));
+		documentUploadButtons = new HashMap<AcceptedDocumentType, JButton>();
 
 		// Appointment Panel Object Initializtion
 
-		passportOfficeComboBox = new JComboBox<>();
-		passportOfficeComboBox
-				.setPreferredSize(new Dimension(153, getPassportOfficeComboBox().getPreferredSize().height));
-		passportOfficeComboBox.setMinimumSize(passportOfficeComboBox.getPreferredSize());
 		appointmentDatePicker = new DatePicker();
-		checkSlots = new JButton("Check Available Slots");
-		slotList = new JList<>();
-		slotList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		slotList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		bookSlotsButton = new JButton("Book Slot");
 
 		// Payment Panel Object Initializtion
 
 		payButton = new JButton("Proceed to Payment");
+		payerNameLabel = new JLabel();
+		paymentAmountLabel = new JLabel();
 
 		tabbedPane = new JTabbedPane();
 		tabbedPane.addTab("Personal Details", new JScrollPane(createPersonalDetailsPanel()));
@@ -281,9 +186,6 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 
 		place(new JLabel("Applying for:"), personalDetailsPanel, 1, 0, true);
 
-		place(new JLabel("Name:"), personalDetailsPanel, 3, 0, true);
-		place(new JLabel("Gender:"), personalDetailsPanel, 4, 0, true);
-		place(new JLabel("Date of Birth:"), personalDetailsPanel, 5, 0, true);
 		place(new JLabel("Place of Birth (Village/Town/City):"), personalDetailsPanel, 6, 0, true);
 		place(new JLabel("Permanent Address:"), personalDetailsPanel, 7, 0, true);
 		place(new JLabel("Present Residential Address:"), personalDetailsPanel, 8, 0, true);
@@ -291,45 +193,39 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		place(new JLabel("Mother's Name:"), personalDetailsPanel, 10, 0, true);
 		place(new JLabel("Father's Name:"), personalDetailsPanel, 11, 0, true);
 
-		place(new JLabel("Name:"), personalDetailsPanel, 13, 0, true);
-		place(new JLabel("Address:"), personalDetailsPanel, 14, 0, true);
-		place(new JLabel("Phone Number:"), personalDetailsPanel, 15, 0, true);
-		place(new JLabel("Email ID:"), personalDetailsPanel, 16, 0, true);
+		place(new JLabel("Email address:"), personalDetailsPanel, 13, 0, true);
+		place(new JLabel("Name:"), personalDetailsPanel, 14, 0, true);
+		place(new JLabel("Contact Number:"), personalDetailsPanel, 15, 0, true);
 
-		ButtonGroup appType = new ButtonGroup();
-		appType.add(getAppTypeFreshRadioButton());
-		appType.add(getAppTypeReissueRadioButton());
-
-		ButtonGroup genderType = new ButtonGroup();
-		genderType.add(getGenderMaleRadioButton());
-		genderType.add(getGenderFemaleRadioButton());
-		genderType.add(getGenderTransRadioButton());
-
-		gbc.insets = new Insets(0, 100, 10, 0);
-
-		place(getAppTypeFreshRadioButton(), personalDetailsPanel, 1, 1, false);
-		place(getGenderMaleRadioButton(), personalDetailsPanel, 4, 1, false);
+		appType = new ButtonGroup();
+		JRadioButton freshAppRadioButton = new JRadioButton("Fresh Passport");
+		freshAppRadioButton.setMnemonic(0);
+		
+		JRadioButton reIssueAppRadioButton = new JRadioButton("Re-issue of Passport");
+		reIssueAppRadioButton.setMnemonic(1);
+		appType.add(freshAppRadioButton);
+		appType.add(reIssueAppRadioButton);
 
 		gbc.insets = new Insets(0, 50, 10, 0);
 
-		place(getAppTypeReissueRadioButton(), personalDetailsPanel, 1, 2, false);
-		place(getGenderFemaleRadioButton(), personalDetailsPanel, 4, 2, false);
-		place(getGenderTransRadioButton(), personalDetailsPanel, 4, 3, false);
+		place(freshAppRadioButton, personalDetailsPanel, 1, 1, false);
+		place(reIssueAppRadioButton, personalDetailsPanel, 1, 2, false);
 
 		gbc.gridwidth = 3;
 		gbc.insets = new Insets(0, 100, 10, 0);
 
-		place(getNameTextField(), personalDetailsPanel, 3, 1, true);
-		place(getDateOfBirthPicker(), personalDetailsPanel, 5, 1, true);
 		place(getPlaceOfBirthTextField(), personalDetailsPanel, 6, 1, true);
 		place(new JScrollPane(getPermanentAddressTextField()), personalDetailsPanel, 7, 1, true);
 		place(new JScrollPane(getPresentAddressTextField()), personalDetailsPanel, 8, 1, true);
 		place(getMothersNameTextField(), personalDetailsPanel, 10, 1, true);
 		place(getFathersNameTextField(), personalDetailsPanel, 11, 1, true);
-		place(getEmergencyNameTextField(), personalDetailsPanel, 13, 1, true);
-		place(new JScrollPane(getEmergencyAddressTextField()), personalDetailsPanel, 14, 1, true);
+		place(getEmergencyEmailTextField(), personalDetailsPanel, 13, 1, true);
+		place(getEmergencyNameTextField(), personalDetailsPanel, 14, 1, true);
 		place(getEmergencyPhoneTextField(), personalDetailsPanel, 15, 1, true);
-		place(getEmergencyEmailTextField(), personalDetailsPanel, 16, 1, true);
+		
+		gbc.insets = new Insets(0, 0, 0, 0);
+		gbc.gridwidth = 1;
+		place(findCitizenButton, personalDetailsPanel, 13, 3, false);
 
 		gbc.gridwidth = 4;
 		gbc.insets = new Insets(50, 0, 50, 0);
@@ -384,140 +280,36 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 		gbc.insets = new Insets(25, 0, 10, 0);
 
-		JLabel quesOne = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.0));
-		quesOne.setFont(ResourceConstants.FONT_LABEL_BOLD);
-		JLabel quesTwo = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.0));
-		quesTwo.setFont(ResourceConstants.FONT_LABEL_BOLD);
-		JLabel quesThree = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.0));
-		quesThree.setFont(ResourceConstants.FONT_LABEL_BOLD);
-		JLabel quesFour = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.0));
-		quesFour.setFont(ResourceConstants.FONT_LABEL_BOLD);
-		JLabel quesFive = new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.0));
-		quesFive.setFont(ResourceConstants.FONT_LABEL_BOLD);
+		int gridy = 0;
+		Double section = 0.0;
+		for (ApplicationQuestion question : StringConstants.APPLICATION_QUESTIONS.keySet()) {
+			if (question.number - section >= 1) {
+				section = Math.floor(question.number);
+				gbc.insets = new Insets(25, 0, 10, 0);
+				JLabel questionLabel = new JLabel(StringConstants.APPLICATION_QUESTION_HEADINGS.get(section));
+				questionLabel.setFont(ResourceConstants.FONT_LABEL_BOLD);
+				place(questionLabel, questionsPanel, gridy++, 0, false);
+			}
+			gbc.insets = new Insets(3, 25, 3, 0);
+			place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(question)), questionsPanel, gridy, 0, true);
 
-		place(quesOne, questionsPanel, 0, 0, false);
-		place(quesTwo, questionsPanel, 5, 0, false);
-		place(quesThree, questionsPanel, 8, 0, false);
-		place(quesFour, questionsPanel, 12, 0, false);
-		place(quesFive, questionsPanel, 17, 0, false);
+			ButtonGroup questionButtonGroup = new ButtonGroup();
+			JRadioButton yesButton = new JRadioButton("Yes");
+			yesButton.setMnemonic(1);
+			JRadioButton noButton = new JRadioButton("No");
+			noButton.setMnemonic(0);
+			
+			questionButtonGroup.add(yesButton);
+			questionButtonGroup.add(noButton);
 
-		gbc.insets = new Insets(3, 25, 3, 0);
+			gbc.insets = new Insets(0, 220, 0, 0);
+			place(yesButton, questionsPanel, gridy, 1, false);
+			gbc.insets = new Insets(0, 60, 0, 0);
+			place(noButton, questionsPanel, gridy, 2, false);
+			gridy++;
 
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.1)), questionsPanel, 1, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.2)), questionsPanel, 2, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.3)), questionsPanel, 3, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(1.4)), questionsPanel, 4, 0, true);
-
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.1).substring(0, 140)), questionsPanel, 6, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(2.1).substring(141)), questionsPanel, 7, 0, true);
-
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.1)), questionsPanel, 9, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.2)), questionsPanel, 10, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(3.3)), questionsPanel, 11, 0, true);
-
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.1)), questionsPanel, 13, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.2)), questionsPanel, 14, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.3)), questionsPanel, 15, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(4.4)), questionsPanel, 16, 0, true);
-
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.1)), questionsPanel, 18, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.2)), questionsPanel, 19, 0, true);
-		place(new JLabel(StringConstants.APPLICATION_QUESTIONS.get(5.3)), questionsPanel, 20, 0, true);
-
-		ButtonGroup quesOneA = new ButtonGroup();
-		quesOneA.add(getQuesOneAyesRadioButton());
-		quesOneA.add(getQuesOneAnoRadioButton());
-		ButtonGroup quesOneB = new ButtonGroup();
-		quesOneB.add(getQuesOneByesRadioButton());
-		quesOneB.add(getQuesOneBnoRadioButton());
-		ButtonGroup quesOneC = new ButtonGroup();
-		quesOneC.add(getQuesOneCyesRadioButton());
-		quesOneC.add(getQuesOneCnoRadioButton());
-		ButtonGroup quesOneD = new ButtonGroup();
-		quesOneD.add(getQuesOneDyesRadioButton());
-		quesOneD.add(getQuesOneDnoRadioButton());
-
-		ButtonGroup quesTwoA = new ButtonGroup();
-		quesTwoA.add(getQuesTwoAyesRadioButton());
-		quesTwoA.add(getQuesTwoAnoRadioButton());
-
-		ButtonGroup quesThreeA = new ButtonGroup();
-		quesThreeA.add(getQuesThreeAyesRadioButton());
-		quesThreeA.add(getQuesThreeAnoRadioButton());
-		ButtonGroup quesThreeB = new ButtonGroup();
-		quesThreeB.add(getQuesThreeByesRadioButton());
-		quesThreeB.add(getQuesThreeBnoRadioButton());
-		ButtonGroup quesThreeC = new ButtonGroup();
-		quesThreeC.add(getQuesThreeCyesRadioButton());
-		quesThreeC.add(getQuesThreeCnoRadioButton());
-
-		ButtonGroup quesFourA = new ButtonGroup();
-		quesFourA.add(getQuesFourAyesRadioButton());
-		quesFourA.add(getQuesFourAnoRadioButton());
-		ButtonGroup quesFourB = new ButtonGroup();
-		quesFourB.add(getQuesFourByesRadioButton());
-		quesFourB.add(getQuesFourBnoRadioButton());
-		ButtonGroup quesFourC = new ButtonGroup();
-		quesFourC.add(getQuesFourCyesRadioButton());
-		quesFourC.add(getQuesFourCnoRadioButton());
-		ButtonGroup quesFourD = new ButtonGroup();
-		quesFourD.add(getQuesFourDyesRadioButton());
-		quesFourD.add(getQuesFourDnoRadioButton());
-
-		ButtonGroup quesFiveA = new ButtonGroup();
-		quesFiveA.add(getQuesFiveAyesRadioButton());
-		quesFiveA.add(getQuesFiveAnoRadioButton());
-		ButtonGroup quesFiveB = new ButtonGroup();
-		quesFiveB.add(getQuesFiveByesRadioButton());
-		quesFiveB.add(getQuesFiveBnoRadioButton());
-		ButtonGroup quesFiveC = new ButtonGroup();
-		quesFiveC.add(getQuesFiveCyesRadioButton());
-		quesFiveC.add(getQuesFiveCnoRadioButton());
-
-		gbc.insets = new Insets(0, 220, 0, 0);
-
-		place(getQuesOneAyesRadioButton(), questionsPanel, 1, 1, false);
-		place(getQuesOneByesRadioButton(), questionsPanel, 2, 1, false);
-		place(getQuesOneCyesRadioButton(), questionsPanel, 3, 1, false);
-		place(getQuesOneDyesRadioButton(), questionsPanel, 4, 1, false);
-
-		place(getQuesTwoAyesRadioButton(), questionsPanel, 7, 1, false);
-
-		place(getQuesThreeAyesRadioButton(), questionsPanel, 9, 1, false);
-		place(getQuesThreeByesRadioButton(), questionsPanel, 10, 1, false);
-		place(getQuesThreeCyesRadioButton(), questionsPanel, 11, 1, false);
-
-		place(getQuesFourAyesRadioButton(), questionsPanel, 13, 1, false);
-		place(getQuesFourByesRadioButton(), questionsPanel, 14, 1, false);
-		place(getQuesFourCyesRadioButton(), questionsPanel, 15, 1, false);
-		place(getQuesFourDyesRadioButton(), questionsPanel, 16, 1, false);
-
-		place(getQuesFiveAyesRadioButton(), questionsPanel, 18, 1, false);
-		place(getQuesFiveByesRadioButton(), questionsPanel, 19, 1, false);
-		place(getQuesFiveCyesRadioButton(), questionsPanel, 20, 1, false);
-
-		gbc.insets = new Insets(0, 60, 0, 0);
-
-		place(getQuesOneAnoRadioButton(), questionsPanel, 1, 2, false);
-		place(getQuesOneBnoRadioButton(), questionsPanel, 2, 2, false);
-		place(getQuesOneCnoRadioButton(), questionsPanel, 3, 2, false);
-		place(getQuesOneDnoRadioButton(), questionsPanel, 4, 2, false);
-
-		place(getQuesTwoAnoRadioButton(), questionsPanel, 7, 2, false);
-
-		place(getQuesThreeAnoRadioButton(), questionsPanel, 9, 2, false);
-		place(getQuesThreeBnoRadioButton(), questionsPanel, 10, 2, false);
-		place(getQuesThreeCnoRadioButton(), questionsPanel, 11, 2, false);
-
-		place(getQuesFourAnoRadioButton(), questionsPanel, 13, 2, false);
-		place(getQuesFourBnoRadioButton(), questionsPanel, 14, 2, false);
-		place(getQuesFourCnoRadioButton(), questionsPanel, 15, 2, false);
-		place(getQuesFourDnoRadioButton(), questionsPanel, 16, 2, false);
-
-		place(getQuesFiveAnoRadioButton(), questionsPanel, 18, 2, false);
-		place(getQuesFiveBnoRadioButton(), questionsPanel, 19, 2, false);
-		place(getQuesFiveCnoRadioButton(), questionsPanel, 20, 2, false);
-
+			questionButtonGroups.put(question, questionButtonGroup);
+		}
 		return questionsPanel;
 	}
 
@@ -529,15 +321,17 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		gbc.insets = new Insets(0, 0, 70, 0);
 		place(new JLabel("Please upload the applicable documents."), documentsPanel, 0, 0, false);
 
-		gbc.insets = new Insets(0, 0, 30, 0);
-		place(new JLabel("Proof of Present Address:"), documentsPanel, 1, 0, true);
-		place(new JLabel("Proof of Date of Birth:"), documentsPanel, 2, 0, true);
-		place(new JLabel("Old Passport (first two and last two pages):"), documentsPanel, 3, 0, true);
-
-		gbc.insets = new Insets(0, 200, 0, 0);
-		place(getUploadAddressProofButton(), documentsPanel, 1, 1, false);
-		place(getUploadBirthProofButton(), documentsPanel, 2, 1, false);
-		place(getUploadOldPassportButton(), documentsPanel, 3, 1, false);
+		int gridy = 1;
+		for (AcceptedDocumentType documentType : AcceptedDocumentType.values()) {
+			gbc.insets = new Insets(0, 0, 30, 0);
+			place(new JLabel(StringConstants.ACCEPTED_DOCUMENT_TYPE_NAMES.get(documentType)), documentsPanel, gridy, 0, true);
+			
+			gbc.insets = new Insets(0, 200, 0, 0);
+			JButton uploadButton = new JButton("Upload document");
+			place(uploadButton, documentsPanel, gridy, 1, false);
+			documentUploadButtons.put(documentType, uploadButton);
+			gridy++;
+		}
 
 		return documentsPanel;
 	}
@@ -547,16 +341,14 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		gbcReset();
 		gbc.anchor = GridBagConstraints.NORTHWEST;
 
-		place(getPassportOfficeComboBox(), appointmentPanel, 0, 2, false);
 		place(getAppointmentDatePicker(), appointmentPanel, 1, 2, false);
 
 		gbc.insets = new Insets(0, 0, 30, 0);
-		place(new JLabel("Select Passport Office:"), appointmentPanel, 0, 0, true);
 		place(new JLabel("Select date of Appointment:"), appointmentPanel, 1, 0, true);
 
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets(30, 20, 0, 20);
-		place(getCheckSlotsButton(), appointmentPanel, 2, 1, false);
+		place(getBookSlotButton(), appointmentPanel, 2, 1, false);
 
 		return appointmentPanel;
 	}
@@ -587,8 +379,8 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		place(new JLabel("Amount to be paid:"), paymentPanel, 5, 0, true);
 
 		gbc.insets = new Insets(0, -100, 0, 0);
-		place(new JLabel(payerName), paymentPanel, 4, 1, true);
-		place(new JLabel(paymentAmount), paymentPanel, 5, 1, true);
+		place(payerNameLabel, paymentPanel, 4, 1, true);
+		place(paymentAmountLabel, paymentPanel, 5, 1, true);
 
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.insets = new Insets(100, 0, 0, 0);
@@ -618,6 +410,10 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.anchor = GridBagConstraints.CENTER;
 	}
+	
+	private JTabbedPane getFormTabbedPane() {
+		return tabbedPane;
+	}
 
 	@Override
 	public JButton getSubmitButton() {
@@ -629,46 +425,11 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 		return cancelButton;
 	}
 
-	@Override
-	public JTabbedPane getFormTabbedPane() {
-		return tabbedPane;
-	}
-
 	// Personal Details Panel Getters
 
 	@Override
-	public JRadioButton getAppTypeFreshRadioButton() {
-		return appTypeFresh;
-	}
-
-	@Override
-	public JRadioButton getAppTypeReissueRadioButton() {
-		return appTypeReissue;
-	}
-
-	@Override
-	public JRadioButton getGenderMaleRadioButton() {
-		return genderMale;
-	}
-
-	@Override
-	public JRadioButton getGenderFemaleRadioButton() {
-		return genderFemale;
-	}
-
-	@Override
-	public JRadioButton getGenderTransRadioButton() {
-		return genderTrans;
-	}
-
-	@Override
-	public JTextField getNameTextField() {
-		return nameTextField;
-	}
-
-	@Override
-	public DatePicker getDateOfBirthPicker() {
-		return dateOfBirthPicker;
+	public ButtonGroup getApplicationTypeButtonGroup() {
+		return appType;
 	}
 
 	@Override
@@ -702,11 +463,6 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 	}
 
 	@Override
-	public JTextArea getEmergencyAddressTextField() {
-		return emergencyAddressTextField;
-	}
-
-	@Override
 	public JTextField getEmergencyPhoneTextField() {
 		return emergencyPhoneTextField;
 	}
@@ -720,201 +476,36 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 	public JCheckBox getSelfDeclarationCheckBox() {
 		return selfDeclarationCheck;
 	}
+	
+	@Override
+	public JButton getFindCitizenButton() {
+		return findCitizenButton;
+	}
 
 	// Questions Panel Getters
-
+	
 	@Override
-	public JRadioButton getQuesOneAyesRadioButton() {
-		return quesOneAyes;
-	}
-
-	@Override
-	public JRadioButton getQuesOneAnoRadioButton() {
-		return quesOneAno;
-	}
-
-	@Override
-	public JRadioButton getQuesOneByesRadioButton() {
-		return quesOneByes;
-	}
-
-	@Override
-	public JRadioButton getQuesOneBnoRadioButton() {
-		return quesOneBno;
-	}
-
-	@Override
-	public JRadioButton getQuesOneCyesRadioButton() {
-		return quesOneCyes;
-	}
-
-	@Override
-	public JRadioButton getQuesOneCnoRadioButton() {
-		return quesOneCno;
-	}
-
-	@Override
-	public JRadioButton getQuesOneDyesRadioButton() {
-		return quesOneDyes;
-	}
-
-	@Override
-	public JRadioButton getQuesOneDnoRadioButton() {
-		return quesOneDno;
-	}
-
-	@Override
-	public JRadioButton getQuesTwoAyesRadioButton() {
-		return quesTwoAyes;
-	}
-
-	@Override
-	public JRadioButton getQuesTwoAnoRadioButton() {
-		return quesTwoAno;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeAyesRadioButton() {
-		return quesThreeAyes;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeAnoRadioButton() {
-		return quesThreeAno;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeByesRadioButton() {
-		return quesThreeByes;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeBnoRadioButton() {
-		return quesThreeBno;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeCyesRadioButton() {
-		return quesThreeCyes;
-	}
-
-	@Override
-	public JRadioButton getQuesThreeCnoRadioButton() {
-		return quesThreeCno;
-	}
-
-	@Override
-	public JRadioButton getQuesFourAyesRadioButton() {
-		return quesFourAyes;
-	}
-
-	@Override
-	public JRadioButton getQuesFourAnoRadioButton() {
-		return quesFourAno;
-	}
-
-	@Override
-	public JRadioButton getQuesFourByesRadioButton() {
-		return quesFourByes;
-	}
-
-	@Override
-	public JRadioButton getQuesFourBnoRadioButton() {
-		return quesFourBno;
-	}
-
-	@Override
-	public JRadioButton getQuesFourCyesRadioButton() {
-		return quesFourCyes;
-	}
-
-	@Override
-	public JRadioButton getQuesFourCnoRadioButton() {
-		return quesFourCno;
-	}
-
-	@Override
-	public JRadioButton getQuesFourDyesRadioButton() {
-		return quesFourDyes;
-	}
-
-	@Override
-	public JRadioButton getQuesFourDnoRadioButton() {
-		return quesFourDno;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveAyesRadioButton() {
-		return quesFiveAyes;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveAnoRadioButton() {
-		return quesFiveAno;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveByesRadioButton() {
-		return quesFiveByes;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveBnoRadioButton() {
-		return quesFiveBno;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveCyesRadioButton() {
-		return quesFiveCyes;
-	}
-
-	@Override
-	public JRadioButton getQuesFiveCnoRadioButton() {
-		return quesFiveCno;
+	public Map<ApplicationQuestion, ButtonGroup> getApplicationQuestionButtonGroups() {
+		return questionButtonGroups;
 	}
 
 	// Document Panel Getters
 
 	@Override
-	public JButton getUploadAddressProofButton() {
-		return uploadAddressProof;
+	public Map<AcceptedDocumentType, JButton> getDocumentUploadButtons() {
+		return documentUploadButtons;
 	}
-
-	@Override
-	public JButton getUploadBirthProofButton() {
-		return uploadBirthProof;
-	}
-
-	@Override
-	public JButton getUploadOldPassportButton() {
-		return uploadOldPassport;
-	}
-
-	@Override
-	public JFileChooser getDocumentChooser() {
-		return documentChooser;
-	}
-
+	
 	// Appointment Panel Getters
-
-	@Override
-	public JComboBox<String> getPassportOfficeComboBox() {
-		return passportOfficeComboBox;
-	}
-
+	
 	@Override
 	public DatePicker getAppointmentDatePicker() {
 		return appointmentDatePicker;
 	}
 
 	@Override
-	public JList<String> getSlotList() {
-		return slotList;
-	}
-
-	@Override
-	public JButton getCheckSlotsButton() {
-		return checkSlots;
+	public JButton getBookSlotButton() {
+		return bookSlotsButton;
 	}
 
 	// Payment Panel Getters & Setters
@@ -923,15 +514,15 @@ public class ApplicationFormViewImpl extends JFrame implements ApplicationFormVi
 	public JButton getPayButton() {
 		return payButton;
 	}
-
+	
 	@Override
-	public void setPayerName(String payerName) {
-		this.payerName = payerName;
+	public JLabel getPayerNameLabel() {
+		return payerNameLabel;
 	}
-
+	
 	@Override
-	public void setPaymentAmount(String paymentAmount) {
-		this.paymentAmount = paymentAmount;
+	public JLabel getPaymentAmountLabel() {
+		return paymentAmountLabel;
 	}
 
 	@Override
