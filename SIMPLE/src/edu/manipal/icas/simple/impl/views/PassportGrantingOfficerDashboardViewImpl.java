@@ -124,13 +124,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		containerPanel.setBackground(new Color(255, 255, 255));
 		setExtendedState(MAXIMIZED_BOTH);
 		add(containerPanel);
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**
