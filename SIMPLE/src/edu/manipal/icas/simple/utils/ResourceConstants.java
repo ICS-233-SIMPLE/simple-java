@@ -74,6 +74,9 @@ public final class ResourceConstants {
 	 */
 	public static final ImageIcon CITIZEN_DASHBOARD_ICON = new ImageIcon(
 			Resources.getResourceUri("images/Citizen_dashboard_Icon.png"));
+	
+	public static final ImageIcon IMAGE_BIOMETRICS_OFFICER_DASHBOARD_ICON = new ImageIcon(
+			Resources.getResourceUri("images/biometrics_dashboard_icon.png"));
 
 	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);
