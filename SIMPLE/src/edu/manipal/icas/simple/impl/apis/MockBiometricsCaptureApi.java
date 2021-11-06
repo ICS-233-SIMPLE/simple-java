@@ -1,7 +1,7 @@
 package edu.manipal.icas.simple.impl.apis;
 
 import edu.manipal.icas.simple.apis.BiometricsCaptureApi;
-import edu.manipal.icas.simple.apis.Document;
+import edu.manipal.icas.simple.models.Document;
 
 /**
  * Dummy implementation of the biometrics capture API.
