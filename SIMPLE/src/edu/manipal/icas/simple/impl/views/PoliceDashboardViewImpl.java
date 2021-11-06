@@ -15,6 +15,7 @@ import edu.manipal.icas.simple.utils.ImageUtils;
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.PoliceDashboardView;
 import net.miginfocom.swing.MigLayout;
+
 /**
  * Concrete class that defines the police officer dashboard view.
  *
@@ -93,7 +94,7 @@ public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardVi
 		setSize(new Dimension(1500, 1000));
 		setLocationRelativeTo(null);
 		setResizable(true);
-		setVisible(true);
+
 
 	}
 
