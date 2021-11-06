@@ -102,12 +102,12 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	}
 
 	@Override
-	public JButton getPrevButton() {
+	public JButton getPrevAppIdButton() {
 		return prevButton;
 	}
 
 	@Override
-	public JButton getNextButton() {
+	public JButton getNextAppIdButton() {
 		return nextButton;
 	}
 

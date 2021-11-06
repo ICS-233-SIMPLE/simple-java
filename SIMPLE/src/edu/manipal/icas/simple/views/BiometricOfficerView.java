@@ -10,62 +10,58 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
+public interface BiometricOfficerView extends View {
 
-public interface BiometricOfficerView extends View{
-	
 	/**
-	 * Gets the button that the Biometric Officer clicks on 
-	 * to initizate the scanning of selected biometric type.
+	 * Gets the button that the Biometric Officer clicks on to initizate the
+	 * scanning of selected biometric type.
 	 * 
-	 * @return the scan button	
+	 * @return the scan button
 	 */
 	JButton getScanButton();
-	
+
 	/**
-	 * Gets the button that the Biometric Officer clicks on
-	 * to submit the scan.
+	 * Gets the button that the Biometric Officer clicks on to submit the scan.
 	 * 
 	 * @return the submit scan button
 	 */
 	JButton getSubmitScanButton();
-	
+
 	/**
-	 * Gets the text field in which the application 
-	 * ID is displayed.
+	 * Gets the text field in which the application ID is displayed.
 	 * 
 	 * @return the application ID text field
 	 */
-	JTextField getApplicationIDTextField();
-	
+	JTextField getApplicationIdTextField();
+
 	/**
-	 * Gets the button that the Biometric Officer clicks on
-	 * to logout from the dashboard.
+	 * Gets the button that the Biometric Officer clicks on to logout from the
+	 * dashboard.
 	 * 
 	 * @return the logout button
 	 */
 	JButton getLogoutButton();
-	
+
 	/**
-	 * Gets the combobox that the Biometric Officer uses to 
-	 * select application ID
+	 * Gets the combobox that the Biometric Officer uses to select application ID
 	 * 
 	 * @return the application ID combobox
 	 */
-	JComboBox getApplicationIDComboBox();
-	
+	JComboBox getApplicationIdComboBox();
+
 	/**
-	 * Gets the button that the Biometric Officer uses to 
-	 * return to the previous application ID
+	 * Gets the button that the Biometric Officer uses to return to the previous
+	 * application ID
 	 * 
 	 * @return the prev app ID button
 	 */
-	JButton getPrevAppIDButton();
+	JButton getPrevAppIdButton();
 
 	/**
-	 * Gets the button that the Biometric Officer uses to 
-	 * move to the next application ID
+	 * Gets the button that the Biometric Officer uses to move to the next
+	 * application ID
 	 * 
 	 * @return the next app ID button
 	 */
-	JButton getNextAppIDButton();
+	JButton getNextAppIdButton();
 }
