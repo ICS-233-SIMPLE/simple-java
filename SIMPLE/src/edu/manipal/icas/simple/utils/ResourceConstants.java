@@ -51,6 +51,11 @@ public final class ResourceConstants {
 			Resources.getResourceUri("images/verification_icon.png"));
 
 	/**
+	 * Stores the icon that appears in the passport granting officer's dashboard.
+	 */
+	public static final ImageIcon IMAGE_PASSPORT_GRANTING_ICON = new ImageIcon(
+			Resources.getResourceUri("images/passport_granting_icon.png"));
+	/**
 	 * Holds the button icon that is used for displaying an arrow pointing to the
 	 * left, that may be selected in order to return to the previous page.
 	 */
