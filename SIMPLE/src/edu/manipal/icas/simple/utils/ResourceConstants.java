@@ -51,6 +51,13 @@ public final class ResourceConstants {
 			Resources.getResourceUri("images/verification_icon.png"));
 
 	/**
+	 * Holds the police officer dashboard  view Icon
+	 */
+	public static final ImageIcon IMAGE_POLICE_DASHBOARD_ICON = new ImageIcon(
+			Resources.getResourceUri("images/Police_Dashboard_Icon.jpg"));
+
+
+	/**
 	 * Stores the icon that appears in the passport granting officer's dashboard.
 	 */
 	public static final ImageIcon IMAGE_PASSPORT_GRANTING_ICON = new ImageIcon(
