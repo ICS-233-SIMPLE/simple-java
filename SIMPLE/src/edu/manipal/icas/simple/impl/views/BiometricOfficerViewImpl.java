@@ -7,9 +7,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,6 +41,8 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	private JButton logoutButton;
 	private JButton prevButton;
 	private JButton nextButton;
+	private ImageIcon fingerprintImg;
+	
 	
 	
 	/**
@@ -65,6 +69,10 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 		
 		JLabel officerIDLabel = new JLabel("Officer ID :");
 		
+		JLabel fingerprintImg = new JLabel();
+		
+
+		
 		officerIDLabel.setFont(ResourceConstants.FONT_SUBHEADING_PLAIN);
 		panel.setLayout(new MigLayout("","[] [grow]","[] [] 80 [] [grow]"));		
 	
@@ -75,8 +83,9 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 		panel.add(scanButton, "cell 3 0");
 		panel.add(submitScanButton, "cell 4 0");
 		panel.add(officerIDLabel);
-	
 		panel.add(logoutButton, "right, wrap");		
+		
+		
 		
 		add(panel);
 		setSize(new Dimension(1500,1000));
@@ -129,6 +138,12 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	public JButton getLogoutButton() {
 		// TODO Auto-generated method stub
 		return logoutButton;
+	}
+
+	@Override
+	public JTextField getApplicationIDTextField() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
