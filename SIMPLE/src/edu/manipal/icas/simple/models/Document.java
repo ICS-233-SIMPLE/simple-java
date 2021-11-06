@@ -25,6 +25,15 @@ public class Document {
 			e.printStackTrace();
 		}
 	}
+	
+	public Document(String name) {
+		this.name = name;
+		try {
+			this.content = db.fetchContent(name);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("Document does not exist!");
+		}
+	}
 
 	public String getName() {
 		return name;
