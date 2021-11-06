@@ -116,9 +116,4 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 		return logoutButton;
 	}
 
-	@Override
-	public JTextField getApplicationIdTextField() {
-		return null;
-	}
-
 }

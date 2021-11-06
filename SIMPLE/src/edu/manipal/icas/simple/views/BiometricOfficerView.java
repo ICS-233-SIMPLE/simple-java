@@ -28,13 +28,6 @@ public interface BiometricOfficerView extends View {
 	JButton getSubmitScanButton();
 
 	/**
-	 * Gets the text field in which the application ID is displayed.
-	 * 
-	 * @return the application ID text field
-	 */
-	JTextField getApplicationIdTextField();
-
-	/**
 	 * Gets the button that the Biometric Officer clicks on to logout from the
 	 * dashboard.
 	 * 
