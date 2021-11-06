@@ -62,4 +62,10 @@ public class MsAccessDocumentDatabase extends MsAccessDatabase implements Docume
 		return bin;
 	}
 
+	@Override
+	public String fetchPath(String name) throws IOException {
+		Content content = getRow(name).getBlob(FIELD_CONTENT).getContent();
+		return ((LinkContent) content).getFilePath();
+	}
+
 }
