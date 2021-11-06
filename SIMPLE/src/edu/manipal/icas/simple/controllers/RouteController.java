@@ -1,5 +1,6 @@
 package edu.manipal.icas.simple.controllers;
 
+import edu.manipal.icas.simple.impl.views.BiometricOfficerViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
@@ -67,8 +68,11 @@ public final class RouteController {
 			break;
 		case CITIZEN_DASHBOARD:
 			displayView(new CitizenDashboardViewImpl());
-			
-		
+
+		case BIOMETRICS_DASHBOARD:
+			displayView(new BiometricOfficerViewImpl());
+			break;
+
 		// TODO: Add other routes as they come
 		default:
 			throw new IllegalArgumentException("Unknown route " + route);
