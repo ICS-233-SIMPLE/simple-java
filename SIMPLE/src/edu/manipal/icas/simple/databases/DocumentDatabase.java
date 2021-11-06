@@ -46,4 +46,14 @@ public interface DocumentDatabase {
 	 * @throws IOException if no document was found for the given name
 	 */
 	byte[] fetchContent(String name) throws IOException;
+
+	/**
+	 * Fetches the path to a document from the database.
+	 * 
+	 * @param name name of the document to fetch
+	 * @return absolute path to the document in the filesystem as was linked to the
+	 *         database
+	 * @throws IOException if no document was found for the given name
+	 */
+	String fetchPath(String name) throws IOException;
 }

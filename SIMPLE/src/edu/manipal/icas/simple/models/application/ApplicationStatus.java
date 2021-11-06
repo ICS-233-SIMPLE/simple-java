@@ -1,4 +1,4 @@
-package edu.manipal.icas.simple.models;
+package edu.manipal.icas.simple.models.application;
 
 public enum ApplicationStatus {
 	INITIATED,
