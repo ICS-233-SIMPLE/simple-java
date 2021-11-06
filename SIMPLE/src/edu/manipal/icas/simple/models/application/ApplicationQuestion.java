@@ -1,5 +1,12 @@
 package edu.manipal.icas.simple.models.application;
 
+/**
+ * Enumeration representing all yes/no questions to be answered by an applicant
+ * while submitting a new application.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public enum ApplicationQuestion {
 	PROCEEDINGS_IN_COURT(1.1),
 	SUMMONS_IN_COURT(1.2),

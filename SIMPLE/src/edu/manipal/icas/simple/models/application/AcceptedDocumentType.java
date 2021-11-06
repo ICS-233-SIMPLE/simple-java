@@ -1,5 +1,11 @@
 package edu.manipal.icas.simple.models.application;
 
+/**
+ * Enumeration of all document types accepted by the system.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public enum AcceptedDocumentType {
 	PAN,
 	DRIVERS_LICENSE,
