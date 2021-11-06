@@ -9,7 +9,7 @@ import edu.manipal.icas.simple.resources.Resources;
 /**
  * A utility class that specifies all the images and fonts that are used to
  * create a rich user interface.
- * 
+ *
  * @author Rea Mammen (rea.mammen@learner.manipal.edu)
  *
  */
@@ -51,6 +51,11 @@ public final class ResourceConstants {
 			Resources.getResourceUri("images/verification_icon.png"));
 
 	/**
+	 * Stores the icon that appears in the passport granting officer's dashboard.
+	 */
+	public static final ImageIcon IMAGE_PASSPORT_GRANTING_ICON = new ImageIcon(
+			Resources.getResourceUri("images/passport_granting_icon.png"));
+	/**
 	 * Holds the button icon that is used for displaying an arrow pointing to the
 	 * left, that may be selected in order to return to the previous page.
 	 */
@@ -63,6 +68,12 @@ public final class ResourceConstants {
 	 */
 	public static final ImageIcon IMAGE_NEXT_BUTTON_ICON = new ImageIcon(
 			Resources.getResourceUri("images/next_button_icon.png"));
+
+	/**
+	 * Stores the login icon that appears on Citizen Dashboard
+	 */
+	public static final ImageIcon CITIZEN_DASHBOARD_ICON = new ImageIcon(
+			Resources.getResourceUri("images/Citizen_dashboard_Icon.png"));
 
 	/** Stores the font style of headings that appear in the view. */
 	public static final Font FONT_HEADING_BOLD = new Font("Roboto", Font.BOLD, 20);

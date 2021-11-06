@@ -1,5 +1,6 @@
 package edu.manipal.icas.simple.controllers;
 
+import edu.manipal.icas.simple.impl.views.CitizenDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
@@ -68,7 +69,9 @@ public final class RouteController {
 		case APPLICATION_FORM:
 			displayView(new ApplicationFormViewImpl());
 			break;
-
+		case CITIZEN_DASHBOARD:
+			displayView(new CitizenDashboardViewImpl());
+			break;
 		// TODO: Add other routes as they come
 		default:
 			throw new IllegalArgumentException("Unknown route " + route);

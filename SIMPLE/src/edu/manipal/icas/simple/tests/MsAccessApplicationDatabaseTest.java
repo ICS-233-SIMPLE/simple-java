@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.manipal.icas.simple.impl.databases.MsAccessApplicationDatabase;
-import edu.manipal.icas.simple.models.ApplicationType;
+import edu.manipal.icas.simple.models.application.ApplicationType;
 
 public class MsAccessApplicationDatabaseTest {
 	

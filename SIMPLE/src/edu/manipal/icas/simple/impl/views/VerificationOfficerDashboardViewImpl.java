@@ -3,12 +3,10 @@ package edu.manipal.icas.simple.impl.views;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,6 +18,7 @@ import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
 import org.icepdf.ri.util.PropertiesManager;
 
+import edu.manipal.icas.simple.utils.ImageUtils;
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.VerificationOfficerDashboardView;
 
@@ -30,7 +29,6 @@ import edu.manipal.icas.simple.views.VerificationOfficerDashboardView;
  *
  */
 public class VerificationOfficerDashboardViewImpl extends JFrame implements VerificationOfficerDashboardView {
-	private JPanel documentPreviewPanel;
 	private JScrollPane documentNameScrollPane;
 	private JPanel containerPanel;
 	private JPanel toolBarPanel;
@@ -49,12 +47,13 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 	 */
 	public VerificationOfficerDashboardViewImpl() {
 		super("Verification Officer Dashboard");
-		documentPreviewPanel = new JPanel();
 		documentNameScrollPane = new JScrollPane();
 		containerPanel = new JPanel();
 		toolBarPanel = new JPanel();
-		nextApplicationIdButton = new JButton(getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
-		previousApplicationIdButton = new JButton(getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
+		nextApplicationIdButton = new JButton(
+				ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
+		previousApplicationIdButton = new JButton(
+				ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
 		String testData[] = { "0000000", "0000001" };
 		applicationIdComboBox = new JComboBox<>(testData);
 		officerIdLabel = new JLabel();
@@ -63,31 +62,6 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 		markAsVerifiedButton = new JButton("Mark as verified");
 		pdfController = new SwingController();
 		initialiseUi();
-	}
-
-	/**
-	 * Gets the scaled version of the image icon passed to it.
-	 * 
-	 * @param icon   the image icon that is to be scaled to the desired size
-	 * @param width  the width that the image should be scaled to
-	 * @param height the height that the image should be scaled to
-	 * @return the scaled image
-	 */
-	private ImageIcon getScaledImage(ImageIcon icon, int width, int height) {
-		int newWidth = icon.getIconWidth();
-		int newHeight = icon.getIconHeight();
-
-		if (newWidth > width) {
-			newWidth = width;
-			newHeight = (newWidth * icon.getIconHeight()) / icon.getIconWidth();
-		}
-
-		if (newHeight > height) {
-			newHeight = height;
-			newWidth = (icon.getIconWidth() * newHeight) / icon.getIconHeight();
-		}
-
-		return new ImageIcon(icon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_DEFAULT));
 	}
 
 	/**
@@ -124,7 +98,7 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 		containerPanel.add(initialiseDocumentPreviewPanel(), c);
 
 		containerPanel.setBackground(new Color(255, 255, 255));
-		setIconImage(getScaledImage(ResourceConstants.IMAGE_VERIFICATION_ICON, 25, 25).getImage());
+		setIconImage(ImageUtils.getScaledImage(ResourceConstants.IMAGE_VERIFICATION_ICON, 25, 25).getImage());
 		add(containerPanel);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
