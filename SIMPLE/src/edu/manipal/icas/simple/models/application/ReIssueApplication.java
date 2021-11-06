@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ReIssueApplication extends Application {
 	public ReIssueApplication(Integer applicationId) {
-		super(applicationId, ApplicationType.RE_ISSUE);
+		super(applicationId);
 	}
 
-	public ReIssueApplication() throws Exception {
+	public ReIssueApplication() {
 		super(ApplicationType.RE_ISSUE);
 	}
 

@@ -6,10 +6,10 @@ import java.util.List;
 public class FreshApplication extends Application {
 
 	public FreshApplication(Integer applicationId) {
-		super(applicationId, ApplicationType.FRESH);
+		super(applicationId);
 	}
 
-	public FreshApplication() throws Exception {
+	public FreshApplication() {
 		super(ApplicationType.FRESH);
 	}
 

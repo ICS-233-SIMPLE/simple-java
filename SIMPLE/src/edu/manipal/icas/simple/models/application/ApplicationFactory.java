@@ -11,31 +11,31 @@ public class ApplicationFactory {
 	}
 
 	public Application getApplication(ApplicationType applicationType) {
-		try {
-			switch (applicationType) {
-			case FRESH:
-				return new FreshApplication();
-			case RE_ISSUE:
-				return new ReIssueApplication();
-
-			default:
-				throw new IllegalArgumentException("Unknown application type " + applicationType);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public Application getApplication(ApplicationType applicationType, Integer applicationId) {
 		switch (applicationType) {
 		case FRESH:
-			return new FreshApplication(applicationId);
+			return new FreshApplication();
 		case RE_ISSUE:
-			return new ReIssueApplication(applicationId);
+			return new ReIssueApplication();
 
 		default:
 			throw new IllegalArgumentException("Unknown application type " + applicationType);
 		}
+	}
+
+	public Application getApplication(Integer applicationId) {
+		Application application = new Application(applicationId) {
+			@Override
+			public Boolean hasRequiredDocuments() {
+				return null;
+			}
+		};
+		
+		switch (application.getType()) {
+		case FRESH:
+			return new FreshApplication(applicationId);
+		case RE_ISSUE:
+			return new ReIssueApplication(applicationId);
+		}
+		return null;
 	}
 }
