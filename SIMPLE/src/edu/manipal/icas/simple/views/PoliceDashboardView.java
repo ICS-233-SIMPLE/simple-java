@@ -16,19 +16,12 @@ import javax.swing.JLabel;
 public interface PoliceDashboardView extends View {
 
 	/**
-	 * Gets the button that the citizen clicks on to start application for a new
-	 * passport.
-	 *
-	 * @return Apply for new passport button
-	 */
-
-
-	/**
 	 * Gets the button that is used to go to the previous application ID.
 	 *
 	 * @return the previous application ID
 	 */
 	JButton getPreviousApplicationIdButton();
+
 	/**
 	 * Gets the button that is used to move to the next application ID.
 	 *
@@ -43,66 +36,63 @@ public interface PoliceDashboardView extends View {
 	 * @return the application ID combo box
 	 */
 
-	JComboBox<String> getApplicationIdCombo();
+	JComboBox<String> getApplicationIdComboBox();
 
 	/**
-	 * Gets the officer ID label.
+	 * Gets the officer Id label.
 	 *
-	 * @return the officer ID label
+	 * @return the officer Id label
 	 */
-    JLabel getofficerIDLabel();
-    /**
+	JLabel getofficerIdLabel();
+
+	/**
 	 * Gets the button that the officer clicks on to logout.
 	 *
 	 * @return the logout button
 	 */
 
-    JButton getLogOutButton();
-    /**
+	JButton getLogOutButton();
+
+	/**
 	 * Gets the button which is used to check addressproof of citizen.
 	 *
 	 * @return the view addressproof button
 	 */
 
-    JButton getviewDocumentButton();
+	JButton getviewDocumentButton();
 
-
-
-    /**
+	/**
 	 * Gets the button which is used to update a citizen's address proof as adverse
 	 *
 	 * @return the adverse status button
 	 */
 
-	 JButton getAdverseButton();
-	 /**
-		 * Gets the button which is used to update a citizen's address proof as clear
-		 *
-		 * @return the clear status button
-		 */
+	JButton getAdverseButton();
 
-	 JButton getClearButton();
+	/**
+	 * Gets the button which is used to update a citizen's address proof as clear
+	 *
+	 * @return the clear status button
+	 */
 
-	 /**
-		 * Gets the button which is used to update a citizen's address proof as Incomplete
-		 *
-		 * @return the incomplete status button
-		 */
+	JButton getClearButton();
 
+	/**
+	 * Gets the button which is used to update a citizen's address proof as
+	 * Incomplete
+	 *
+	 * @return the incomplete status button
+	 */
 
-	 JButton getIncompleteButton();
-	 /**
-		 * Gets all the entries for JTable for viewing list of pending verification applications
-		 *
-		 * @return string array
-		 */
+	JButton getIncompleteButton();
 
+	/**
+	 * Gets all the entries for JTable for viewing list of pending verification
+	 * applications
+	 *
+	 * @return string array
+	 */
 
-	 String [][] getPendingVerificationTableEntries();
-
-
-
-
-
+	String[][] getPendingVerificationTableEntries();
 
 }
