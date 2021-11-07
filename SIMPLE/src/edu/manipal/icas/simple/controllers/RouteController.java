@@ -7,6 +7,7 @@ import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.PoliceDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
 import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
+import edu.manipal.icas.simple.views.CitizenDashboardView;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -21,15 +22,19 @@ public final class RouteController {
 	private final SessionController sessions = SessionController.getController();
 
 	private View currentView;
+
 	private LoginController loginController;
 	private CreateProfileController createProfileController;
 	private ApplyForPassportController applyForPassportController;
+	private ViewApplicationsController viewApplicationsController;
 
 	private RouteController() {
+		currentView = null;
+
 		loginController = new LoginController(new CitizenLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
-		currentView = null;
+		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
 	}
 
 	/**
@@ -74,14 +79,14 @@ public final class RouteController {
 			displayView(applyForPassportController.getApplicationFormView());
 			break;
 		case CITIZEN_DASHBOARD:
-			displayView(new CitizenDashboardViewImpl());
-                        break;
+			displayView(viewApplicationsController.getDashboardView());
+			break;
 		case BIOMETRICS_DASHBOARD:
 			displayView(new BiometricOfficerViewImpl());
 			break;
 		case POLICE_DASHBOARD:
-			displayView(new PoliceDashboardViewImpl());	
-			break;	
+			displayView(new PoliceDashboardViewImpl());
+			break;
 
 		// TODO: Add other routes as they come
 		default:
