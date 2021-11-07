@@ -11,7 +11,11 @@ package edu.manipal.icas.simple.views;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import org.icepdf.ri.common.SwingController;
+
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public interface BiometricOfficerView extends View {
 
@@ -43,7 +47,7 @@ public interface BiometricOfficerView extends View {
 	 * 
 	 * @return the application ID combobox
 	 */
-	JComboBox getApplicationIdComboBox();
+	JComboBox<Integer> getApplicationIdComboBox();
 
 	/**
 	 * Gets the button that the Biometric Officer uses to return to the previous
@@ -60,4 +64,26 @@ public interface BiometricOfficerView extends View {
 	 * @return the next app ID button
 	 */
 	JButton getNextAppIdButton();
+
+	/**
+	 * Gets the label that holds the ID of the officer working with the view.
+	 * 
+	 * @return ID label
+	 */
+	JLabel getOfficerIdButton();
+
+	/**
+	 * Gets the combo box that holds the type of biometrics accepted by the
+	 * application.
+	 * 
+	 * @return combo box
+	 */
+	JComboBox<String> getBiometricTypeComboBox();
+
+	/**
+	 * Gets the controller of the PDF viewer that shows a preview of each biometric.
+	 * 
+	 * @return pdf controller
+	 */
+	SwingController getPdfController();
 }
