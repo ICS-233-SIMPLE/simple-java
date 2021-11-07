@@ -62,7 +62,7 @@ public class MsAccessSessionDatabase extends MsAccessDatabase implements Session
 				return null;
 			}
 
-			return SessionFactory.getFactory().getSession(SessionType.CITIZEN, FIELD_SESSION_ID);
+			return SessionFactory.getFactory().getSession(SessionType.valueOf(row.getString(FIELD_SESSION_TYPE)), row.getString(FIELD_SESSION_ID));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
