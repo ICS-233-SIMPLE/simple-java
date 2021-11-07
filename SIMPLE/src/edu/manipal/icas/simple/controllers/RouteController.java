@@ -38,7 +38,8 @@ public final class RouteController {
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
 		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
-		processApplicationController = new ProcessApplicationController(new BiometricOfficerViewImpl());
+		processApplicationController = new ProcessApplicationController(new BiometricOfficerViewImpl(),
+				new VerificationOfficerDashboardViewImpl(), new PassportGrantingOfficerDashboardViewImpl());
 	}
 
 	/**
@@ -92,10 +93,10 @@ public final class RouteController {
 			displayView(new PoliceDashboardViewImpl());
 			break;
 		case VERIFICATION_DASHBOARD:
-			displayView(new VerificationOfficerDashboardViewImpl());
+			displayView(processApplicationController.getVerificationOfficerView());
 			break;
 		case GRANTING_DASHBOARD:
-			displayView(new PassportGrantingOfficerDashboardViewImpl());
+			displayView(processApplicationController.getPassportGrantingOfficerView());
 			break;
 
 		// TODO: Add other routes as they come
