@@ -8,11 +8,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import edu.manipal.icas.simple.models.Citizen;
+import edu.manipal.icas.simple.models.PassportOfficer;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
 import edu.manipal.icas.simple.session.SessionType;
 import edu.manipal.icas.simple.utils.DocumentAdapter;
 import edu.manipal.icas.simple.views.CitizenLoginView;
+import edu.manipal.icas.simple.views.OfficerLoginView;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -24,13 +26,50 @@ import edu.manipal.icas.simple.views.View;
  */
 public class LoginController {
 	private CitizenLoginView citizenLoginView;
+	private OfficerLoginView officerLoginView;
 
-	public LoginController(CitizenLoginView citizenLoginView) {
+	public LoginController(CitizenLoginView citizenLoginView, OfficerLoginView officerLoginView) {
 		this.citizenLoginView = citizenLoginView;
+		this.officerLoginView = officerLoginView;
 		initCitizenLoginClickHandler();
 		initCreateProfileRedirectHandler();
 		initTextFieldValueChangeHandlers();
 		initRedirectToOfficerLoginViewHandlers();
+		initOfficerLoginClickHandler();
+	}
+
+	private void initOfficerLoginClickHandler() {
+		// TODO Auto-generated method stub
+
+		officerLoginView.getOfficerLoginButton().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String selectedOfficerType = (String) officerLoginView.getOfficerTypeComboBox().getSelectedItem();
+				String idString = officerLoginView.getOfficerIdTextField().getText().trim();
+				Integer officerId = null;
+				try {
+					officerId = Integer.parseInt(idString);
+				} catch (NumberFormatException ex) {
+					ex.printStackTrace();
+				}
+				System.out.println(selectedOfficerType);
+				System.out.println(officerId);
+
+				if (PassportOfficer.authenticate(officerId)) {
+					Session session = SessionFactory.getFactory().getSession(SessionType.BIOMETRICS_OFFICER, idString);
+					if (SessionController.getController().startSession(session))
+						RouteController.getController().routeTo(session.getDefaultRoute());
+					else
+						showError("An internal error has occurred. Please try again later.");
+
+				} else
+					showError("Officer doesn't exist");
+
+			}
+
+		});
+
 	}
 
 	private void initRedirectToOfficerLoginViewHandlers() {
@@ -45,6 +84,11 @@ public class LoginController {
 
 	public View getCitizenLoginView() {
 		return citizenLoginView;
+	}
+
+	public View getOfficerLoginView() {
+		return officerLoginView;
+
 	}
 
 	private void initCitizenLoginClickHandler() {

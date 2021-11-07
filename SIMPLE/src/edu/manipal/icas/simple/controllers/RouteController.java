@@ -1,12 +1,12 @@
 package edu.manipal.icas.simple.controllers;
 
+import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
 import edu.manipal.icas.simple.impl.views.BiometricOfficerViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.PoliceDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
-import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -25,7 +25,7 @@ public final class RouteController {
 	private CreateProfileController createProfileController;
 
 	private RouteController() {
-		loginController = new LoginController(new CitizenLoginViewImpl());
+		loginController = new LoginController(new CitizenLoginViewImpl(), new OfficerLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		currentView = null;
 	}
@@ -61,12 +61,13 @@ public final class RouteController {
 		switch (route) {
 		case CITIZEN_LOGIN:
 			displayView(loginController.getCitizenLoginView());
+
 			break;
 		case PROFILE_CREATION:
 			displayView(createProfileController.getProfileCreationView());
 			break;
 		case OFFICER_LOGIN:
-			displayView(new OfficerLoginViewImpl());
+			displayView(loginController.getOfficerLoginView());
 			break;
 		case APPLICATION_FORM:
 			displayView(new ApplicationFormViewImpl());
@@ -78,14 +79,16 @@ public final class RouteController {
 			displayView(new BiometricOfficerViewImpl());
 			break;
 		case POLICE_DASHBOARD:
-			displayView(new PoliceDashboardViewImpl());	
-			break;	
+			displayView(new PoliceDashboardViewImpl());
+			break;
 
 		// TODO: Add other routes as they come
 		default:
 			throw new IllegalArgumentException("Unknown route " + route);
 		}
+		System.out.println(route);
 	}
+
 
 	/**
 	 * Routes the application to the default route specified by the currently active

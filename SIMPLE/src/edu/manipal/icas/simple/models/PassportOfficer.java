@@ -5,11 +5,13 @@ import edu.manipal.icas.simple.impl.databases.MsAccessPassportOfficerDatabase;
 
 /**
  * Superclass of all passport officers.
- * 
+ *
  * @author Rea Mammen (rea.mammen@learner.manipal.edu)
  *
  */
 public abstract class PassportOfficer {
+
+	private static final PassportOfficerDatabase podb = MsAccessPassportOfficerDatabase.getDatabase();
 	private Integer officerId;
 	protected PassportOfficerDatabase db;
 
@@ -20,7 +22,7 @@ public abstract class PassportOfficer {
 
 	/**
 	 * Gets the officer ID of the passport officer.
-	 * 
+	 *
 	 * @return the officer ID
 	 */
 	public Integer getOfficerId() {
@@ -31,4 +33,16 @@ public abstract class PassportOfficer {
 	 * Method that defines how each passport officer handles passport applications.
 	 */
 	public abstract void processApplication();
+
+	public static Boolean authenticate(Integer officerId)
+	{
+		if(podb.passportOfficerExists(officerId))
+		{
+			return true;
+
+		}
+		return false;
+
+
+	}
 }
