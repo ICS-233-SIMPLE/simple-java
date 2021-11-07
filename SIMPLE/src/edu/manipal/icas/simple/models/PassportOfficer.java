@@ -1,5 +1,7 @@
 package edu.manipal.icas.simple.models;
 
+import java.io.IOException;
+
 import edu.manipal.icas.simple.databases.PassportOfficerDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessPassportOfficerDatabase;
 
@@ -11,13 +13,12 @@ import edu.manipal.icas.simple.impl.databases.MsAccessPassportOfficerDatabase;
  */
 public abstract class PassportOfficer {
 
-	private static final PassportOfficerDatabase podb = MsAccessPassportOfficerDatabase.getDatabase();
 	private Integer officerId;
-	protected PassportOfficerDatabase db;
+	protected static PassportOfficerDatabase db = MsAccessPassportOfficerDatabase.getDatabase();
 
 	public PassportOfficer(Integer officerId) {
 		this.officerId = officerId;
-		db = MsAccessPassportOfficerDatabase.getDatabase();
+
 	}
 
 	/**
@@ -34,15 +35,24 @@ public abstract class PassportOfficer {
 	 */
 	public abstract void processApplication();
 
-	public static Boolean authenticate(Integer officerId)
-	{
-		if(podb.passportOfficerExists(officerId))
-		{
+	public static Boolean checkForId(Integer officerId) {
+		if (db.passportOfficerExists(officerId)) {
+
 			return true;
 
 		}
 		return false;
 
+	}
+
+	public static Boolean checkforRole(Integer officerId, PassportOfficerRole officerRole) throws IOException {
+		if (officerRole == db.fetchOfficerRole(officerId)) {
+			return true;
+
+		}
+
+		else
+			return false;
 
 	}
 }
