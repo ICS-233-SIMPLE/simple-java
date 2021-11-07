@@ -1,13 +1,15 @@
 package edu.manipal.icas.simple.controllers;
 
+import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
 import edu.manipal.icas.simple.impl.views.BiometricOfficerViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
+import edu.manipal.icas.simple.impl.views.PassportGrantingOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.PoliceDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
 import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
-import edu.manipal.icas.simple.views.CitizenDashboardView;
+import edu.manipal.icas.simple.impl.views.VerificationOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -31,7 +33,7 @@ public final class RouteController {
 	private RouteController() {
 		currentView = null;
 
-		loginController = new LoginController(new CitizenLoginViewImpl());
+		loginController = new LoginController(new CitizenLoginViewImpl(), new OfficerLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
 		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
@@ -68,12 +70,13 @@ public final class RouteController {
 		switch (route) {
 		case CITIZEN_LOGIN:
 			displayView(loginController.getCitizenLoginView());
+
 			break;
 		case PROFILE_CREATION:
 			displayView(createProfileController.getProfileCreationView());
 			break;
 		case OFFICER_LOGIN:
-			displayView(new OfficerLoginViewImpl());
+			displayView(loginController.getOfficerLoginView());
 			break;
 		case APPLICATION_FORM:
 			displayView(applyForPassportController.getApplicationFormView());
@@ -87,11 +90,18 @@ public final class RouteController {
 		case POLICE_DASHBOARD:
 			displayView(new PoliceDashboardViewImpl());
 			break;
+		case VERIFICATION_DASHBOARD:
+			displayView(new VerificationOfficerDashboardViewImpl());
+			break;
+		case GRANTING_DASHBOARD:
+			displayView(new PassportGrantingOfficerDashboardViewImpl());
+			break;
 
 		// TODO: Add other routes as they come
 		default:
 			throw new IllegalArgumentException("Unknown route " + route);
 		}
+		System.out.println(route);
 	}
 
 	/**
@@ -119,6 +129,7 @@ public final class RouteController {
 		case CITIZEN_LOGIN:
 		case OFFICER_LOGIN:
 		case PROFILE_CREATION:
+		case UNAUTHORISED_403:
 			return true;
 		default:
 			return false;
