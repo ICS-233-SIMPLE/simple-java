@@ -58,7 +58,6 @@ public class MsAccessDocumentDatabase extends MsAccessDatabase implements Docume
 		Content content = getRow(name).getBlob(FIELD_CONTENT).getContent();
 		byte[] bin = ((LinkContent) content).getLinkStream().readAllBytes();
 		content.getBlob().close();
-		System.out.println();
 		return bin;
 	}
 
