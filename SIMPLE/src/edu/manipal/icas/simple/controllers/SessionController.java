@@ -22,9 +22,20 @@ public class SessionController {
 		return db.getCurrentSession();
 	}
 	
-	public boolean startSession(Session session) {
+	public Boolean startSession(Session session) {
 		try {
 			db.startSession(session);
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean endCurrentSession() {
+		try {
+			db.endCurrentSession();
 			return true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
