@@ -29,6 +29,7 @@ public final class RouteController {
 	private CreateProfileController createProfileController;
 	private ApplyForPassportController applyForPassportController;
 	private ViewApplicationsController viewApplicationsController;
+	private ProcessApplicationController processApplicationController;
 
 	private RouteController() {
 		currentView = null;
@@ -37,6 +38,7 @@ public final class RouteController {
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
 		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
+		processApplicationController = new ProcessApplicationController(new BiometricOfficerViewImpl());
 	}
 
 	/**
@@ -70,7 +72,6 @@ public final class RouteController {
 		switch (route) {
 		case CITIZEN_LOGIN:
 			displayView(loginController.getCitizenLoginView());
-
 			break;
 		case PROFILE_CREATION:
 			displayView(createProfileController.getProfileCreationView());
@@ -85,7 +86,7 @@ public final class RouteController {
 			displayView(viewApplicationsController.getDashboardView());
 			break;
 		case BIOMETRICS_DASHBOARD:
-			displayView(new BiometricOfficerViewImpl());
+			displayView(processApplicationController.getBiometricOfficerView());
 			break;
 		case POLICE_DASHBOARD:
 			displayView(new PoliceDashboardViewImpl());
@@ -101,7 +102,6 @@ public final class RouteController {
 		default:
 			throw new IllegalArgumentException("Unknown route " + route);
 		}
-		System.out.println(route);
 	}
 
 	/**
