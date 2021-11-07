@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -94,7 +95,12 @@ public class ViewApplicationsController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO (mehsheed): Add redirect to FAQ website
+				try {
+					java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://www.passportindia.gov.in/AppOnlineProject/online/faqMainPage"));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
