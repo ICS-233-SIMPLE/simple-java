@@ -6,6 +6,7 @@ import java.util.TreeMap;
 
 import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
 import edu.manipal.icas.simple.models.application.ApplicationQuestion;
+import edu.manipal.icas.simple.models.application.ApplicationStatus;
 
 /**
  * A utility class that holds business strings commonly used across the
@@ -46,6 +47,9 @@ public final class StringConstants {
 
 	/** Strings that hold user-facing names for each accepted document type. */
 	public final static Map<AcceptedDocumentType, String> ACCEPTED_DOCUMENT_TYPE_NAMES;
+	
+	/** String that hold user-facing names for application status */
+	public final static Map<ApplicationStatus, String> APPLICATION_STATUS_STRINGS;
 
 	static {
 		APPLICATION_QUESTIONS = new TreeMap<>();
@@ -101,6 +105,20 @@ public final class StringConstants {
 		ACCEPTED_DOCUMENT_TYPE_NAMES.put(AcceptedDocumentType.SIGNATURE, "Signature");
 		ACCEPTED_DOCUMENT_TYPE_NAMES.put(AcceptedDocumentType.ADDRESS_PROOF, "Proof of present address of residence");
 		ACCEPTED_DOCUMENT_TYPE_NAMES.put(AcceptedDocumentType.OLD_PASSPORT, "Old passport (first and last two pages)");
-
+		
+		APPLICATION_STATUS_STRINGS = new HashMap<>();
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.INITIATED, "Application initiated");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.FORM_FILLED, "Application form filled");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.SLOT_BOOKED, "Appointment slot booked");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.PAYMENT_COMPLETE, "Payment complete");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.CAPTURING_BIOMETRICS, "Biometrics capture");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.UNDER_VERIFICATION, "Documents being verified");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.UNDER_REVIEW, "Under review");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.PENDING_ADDRESS_VERIFICATION, "Awaiting address verification");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.ADDRESS_VERIFICATION_CLEAR, "Address verification done");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.ADDRESS_VERIFICATION_ADVERSE, "Address verification unsuccessful");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.ADDRESS_VERIFICATION_INCOMPLETE, "Address verification incomplete");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.COMPLETED_AND_SUCCESSFUL, "Completed; Passport issued");
+		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.REJECTED, "Rejected");
 	}
 }
