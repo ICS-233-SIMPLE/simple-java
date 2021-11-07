@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import edu.manipal.icas.simple.utils.ResourceConstants;
 import edu.manipal.icas.simple.views.CitizenDashboardView;
@@ -16,8 +17,7 @@ import net.miginfocom.swing.MigLayout;
 /**
  * Concrete class that defines the citizen dashboard view.
  *
- * @author Mehsheed(syed.ahmed2@learner.manipal.edu)
- *
+ * @author Mehsheed (syed.ahmed2@learner.manipal.edu)
  *
  */
 public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboardView {
@@ -26,50 +26,22 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 	private JButton redirectToAppstepsButton;
 	private JButton logOutButton;
 
-	private JComboBox<String> applicationCombo;
-	JLabel applicationStatus;
+	private JComboBox<Integer> applicationCombo;
+	private JLabel applicationStatus;
+	private JLabel emailAddressTextField;
 
-	private JButton checkApplicationStatusButton;
-	private String response[][] = {
-
-			{ "Application Id:", "" }, { "Applicant's First name(Given Name):", "" },
-			{ "Applicant's Last name(Family Name):", "" }, { "Birth Adress :", "" }, { "Permanent Adress:", "" },
-			{ "Present Adress:", "" }, { "Father's Name:", "" }, { "Mother's Name:", "" },
-			{ "Application Creation date:", "" }, { "Appointment Date:", "" }, { "Application Type:", "" },
-			{ "Proceedings in respect of an offence alleged to have been committed by you pending before a criminal court in India:",
-					"" },
-			{ "Any warrant or summons for your appearance been issued and pending before a court under any law for the time being in force:",
-					"" },
-			{ "Any warrant for your arrest been issued by a court under any law for the time being in force? :", "" },
-			{ "Any order prohibiting your departure from India been made by any court :", "" },
-			{ "Have you, at any time during the period of five years immediately preceding the date of this application, been convicted by a court in India:",
-					"" },
-			{ "For any offence involving moral turpitude and sentenced in respect thereof to imprisonment for not less than two years:",
-					"" },
-			{ "Have you ever been refused/denied passport:", "" }, { "Has your passport ever been impounded:", "" },
-			{ "Has your passport ever been revoked:", "" },
-			{ "Have you ever been granted citizenship by any other country:", "" },
-			{ "Have you ever held the passport of any other country at any time:", "" },
-			{ "Have you ever surrendered your Indian passpor:", "" },
-			{ "Have you ever applied for renunciation of Indian citizenship:", "" },
-			{ "Have you ever returned to India on Emergency Certificate (EC):", "" },
-			{ "Have you ever been deported from any country:", "" },
-			{ "Have you ever been repatriated from any country back to India:", "" } };
+	private JTable viewApplicationTable;
 
 	public CitizenDashboardViewImpl() {
 		applyForNewPaspportButton = new JButton("Apply for New/Re-issue of Passport");
 		redirectToAppstepsButton = new JButton("Click here");
 		logOutButton = new JButton("Logout");
-		String appId[] = { "100013", "100343" };
-		applicationCombo = new JComboBox(appId);
-		checkApplicationStatusButton = new JButton("Click here");
+		applicationCombo = new JComboBox<Integer>();
 		initialiseUI();
 
 	}
 
 	private void initialiseUI() {
-
-		JFrame frame = new JFrame("Citizen Dashboard");
 
 		// JLabels:
 		JLabel ctDB = new JLabel("Citizen Dashboard");
@@ -92,6 +64,7 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		applicationStatus = new JLabel("Initiated");
 		status.setFont(ResourceConstants.FONT_HEADING_BOLD);
 		applicationStatus.setFont(ResourceConstants.FONT_HEADING_BOLD);
+		emailAddressTextField = new JLabel();
 
 		// JPanels
 		JPanel appNew = new JPanel();
@@ -103,8 +76,7 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		tp.addTab("Support", support);
 
 		// JTable
-		String column[] = { "Field", "Response" };
-		JTable viewApplicationTable = new JTable(response, column);
+		viewApplicationTable = new JTable(new DefaultTableModel(new Object[] { "Field", "Response" }, 0));
 		viewApplicationTable.setDefaultEditor(Object.class, null);
 
 		// JScrollpane
@@ -134,57 +106,45 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 		support.add(redirectToAppstepsButton, "wrap");
 
 		// Frame Layout
-		frame.setLayout(new MigLayout("", "[grow]", "[][grow]"));
-		frame.add(applyForNewPaspportButton, "left");
-		frame.add(logOutButton, "right,wrap");
-		frame.setIconImage((ResourceConstants.CITIZEN_DASHBOARD_ICON).getImage());
-		frame.add(tp, "growx,growy,span");
-		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.pack();
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+		setLayout(new MigLayout("", "[grow][grow][]", "[][grow]"));
+		add(applyForNewPaspportButton, "left");
+		add(emailAddressTextField, "right");
+		add(logOutButton, "right,wrap");
+		setIconImage((ResourceConstants.IMAGE_CITIZEN_DASHBOARD_ICON).getImage());
+		add(tp, "growx,growy,span");
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		pack();
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 
 	@Override
 	public JFrame getFrame() {
-		// TODO Auto-generated method stub
 		return this;
 	}
 
 	@Override
 	public JButton getApplicationForNewPassportButton() {
-		// TODO Auto-generated method stub
 		return applyForNewPaspportButton;
 	}
 
 	@Override
-	public JButton getRedirectTwoAppstepsButton() {
-		// TODO Auto-generated method stub
-		return redirectToAppstepsButton = new JButton("Click here");
+	public JButton getRedirectToAppStepsButton() {
+		return redirectToAppstepsButton;
 	}
 
 	@Override
 	public JButton getLogoutButton() {
-		// TODO Auto-generated method stub
-		return logOutButton = new JButton("Logout");
+		return logOutButton;
 	}
 
 	@Override
-	public JButton checkApplicationStatusButton() {
-		// TODO Auto-generated method stub
-		return checkApplicationStatusButton;
+	public JTable getApplicationTable() {
+		return viewApplicationTable;
 	}
 
 	@Override
-	public String[][] getTableResponses() {
-		// TODO Auto-generated method stub
-		return response;
-	}
-
-	@Override
-	public JComboBox<String> getApplicationIdComboBox() {
-		// TODO Auto-generated method stub
+	public JComboBox<Integer> getApplicationIdComboBox() {
 		return applicationCombo;
 	}
 
@@ -192,6 +152,11 @@ public class CitizenDashboardViewImpl extends JFrame implements CitizenDashboard
 	public JLabel getApplicationStatus() {
 		return applicationStatus;
 
+	}
+
+	@Override
+	public JLabel getEmailAddressTextField() {
+		return emailAddressTextField;
 	}
 
 }
