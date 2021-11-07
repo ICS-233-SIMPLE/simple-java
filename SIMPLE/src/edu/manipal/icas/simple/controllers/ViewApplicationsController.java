@@ -98,7 +98,7 @@ public class ViewApplicationsController {
 				try {
 					java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://www.passportindia.gov.in/AppOnlineProject/online/faqMainPage"));
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+
 					e1.printStackTrace();
 				}
 			}
