@@ -1,5 +1,8 @@
 package edu.manipal.icas.simple.models;
 
+import edu.manipal.icas.simple.models.application.Application;
+import edu.manipal.icas.simple.models.application.ApplicationStatus;
+
 /**
  * Class that represents a passport granting officer. <br/>
  * The passport granting officer reviews the entire application and has the
@@ -15,14 +18,20 @@ public class PassportGrantingOfficer extends PassportOfficer {
 		super(officerId);
 	}
 
-	private void requestAddressVerification(Citizen citizen) {
-	}
-
 	public void stampPassport() {
 	}
 
 	@Override
-	public void processApplication() {
+	public void processApplication(Application application) {
+		processApplication(application, false);
+	}
+	
+	public void processApplication(Application application, Boolean granted) {
+		application.setStatus(granted ? ApplicationStatus.PENDING_ADDRESS_VERIFICATION : ApplicationStatus.REJECTED);
+	}
+	
+	public void requestAddressVerification(Application application) {
+		
 	}
 
 }
