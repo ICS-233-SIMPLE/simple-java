@@ -52,6 +52,9 @@ public final class RouteController {
 		if (!isOpenRoute(route) && sessions.getCurrentSession() == null) {
 			routeTo(Route.CITIZEN_LOGIN);
 		}
+		
+		if(sessions.getCurrentSession() != null)
+			System.out.println(sessions.getCurrentSession().getSessionType());
 
 		if (!isOpenRoute(route) && !sessions.getCurrentSession().hasAccess(route)) {
 			routeTo(Route.UNAUTHORISED_403);
@@ -74,7 +77,7 @@ public final class RouteController {
 			break;
 		case CITIZEN_DASHBOARD:
 			displayView(new CitizenDashboardViewImpl());
-                        break;
+			break;
 		case BIOMETRICS_DASHBOARD:
 			displayView(new BiometricOfficerViewImpl());
 			break;
@@ -88,7 +91,6 @@ public final class RouteController {
 		}
 		System.out.println(route);
 	}
-
 
 	/**
 	 * Routes the application to the default route specified by the currently active
@@ -115,6 +117,7 @@ public final class RouteController {
 		case CITIZEN_LOGIN:
 		case OFFICER_LOGIN:
 		case PROFILE_CREATION:
+		case UNAUTHORISED_403:
 			return true;
 		default:
 			return false;
