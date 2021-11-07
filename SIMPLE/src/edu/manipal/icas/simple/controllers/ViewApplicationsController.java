@@ -94,7 +94,12 @@ public class ViewApplicationsController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO (mehsheed): Add redirect to FAQ website
+				try {
+					java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://www.passportindia.gov.in/AppOnlineProject/online/faqMainPage"));
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
