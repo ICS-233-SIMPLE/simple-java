@@ -42,8 +42,8 @@ public class VerificationOfficerSession extends Session {
 		return Route.VERIFICATION_DASHBOARD;
 	}
 	
-	public BiometricsOfficer getOfficer() {
-		return biometricsOfficer;
+	public VerificationOfficer getOfficer() {
+		return verificationOfficer;
 	}
 
 }

@@ -43,8 +43,8 @@ public class PassportGrantingOfficerSession extends Session {
 		return Route.GRANTING_DASHBOARD;
 	}
 	
-	public BiometricsOfficer getOfficer() {
-		return biometricsOfficer;
+	public PassportGrantingOfficer getOfficer() {
+		return passportGrantingOfficer;
 	}
 
 }
