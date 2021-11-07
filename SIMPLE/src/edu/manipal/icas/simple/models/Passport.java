@@ -34,6 +34,7 @@ public class Passport {
 		try {
 			this.passportId = db.createPassport(photo.getName(), birthAddress, permanentAddress, fathersName, mothersName,
 					expiry, owner.getEmailAddress());
+			db.saveStatus(passportId, PassportStatus.PENDING_STAMP);
 			init();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
