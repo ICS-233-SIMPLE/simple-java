@@ -22,6 +22,7 @@ public class Citizen {
 	private String gender;
 	private Date dateOfBirth;
 	private Long contactNumber;
+	private PassportOffice passportOffice;
 
 	/**
 	 * Creates a new citizen. If the email address provided does not correspond to a
@@ -37,7 +38,6 @@ public class Citizen {
 				e.printStackTrace();
 			}
 		}
-
 		this.emailAddress = emailAddress;
 		try {
 			password = db.fetchPassword(emailAddress);
@@ -45,7 +45,11 @@ public class Citizen {
 			gender = db.fetchGender(emailAddress);
 			dateOfBirth = db.fetchDateOfBirth(emailAddress);
 			contactNumber = db.fetchContactNumber(emailAddress);
-		} catch (IOException e) {
+			Integer officeId = db.fetchPassportOfficeId(emailAddress);
+			if (officeId != null) {
+				passportOffice = PassportOffice.getAllPassportOffices().get(officeId);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -203,6 +207,20 @@ public class Citizen {
 		contactNumber = contact;
 		try {
 			db.saveContactNumber(emailAddress, contact);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public PassportOffice getPassportOffice() {
+		return passportOffice;
+	}
+	
+	public void setPassportOffice(PassportOffice office) {
+		this.passportOffice = office;
+		try {
+			db.savePassportOfficeId(emailAddress, office.getOfficeId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
