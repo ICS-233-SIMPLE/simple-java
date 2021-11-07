@@ -142,10 +142,10 @@ public class ApplyForPassportController {
 				}
 				documentPaths.clear();
 
-//				if (!application.hasRequiredDocuments()) {
-//					showError("Please upload all required documents!");
-//					return;
-//				}
+				if (!application.hasRequiredDocuments()) {
+					showError("Please upload all required documents!");
+					return;
+				}
 
 				application.advanceApplicationStatus();
 
