@@ -1,6 +1,7 @@
 package edu.manipal.icas.simple.session;
 
 import edu.manipal.icas.simple.controllers.Route;
+import edu.manipal.icas.simple.models.BiometricsOfficer;
 import edu.manipal.icas.simple.models.VerificationOfficer;
 
 /**
@@ -39,6 +40,10 @@ public class VerificationOfficerSession extends Session {
 	@Override
 	public Route getDefaultRoute() {
 		return Route.VERIFICATION_DASHBOARD;
+	}
+	
+	public BiometricsOfficer getOfficer() {
+		return biometricsOfficer;
 	}
 
 }

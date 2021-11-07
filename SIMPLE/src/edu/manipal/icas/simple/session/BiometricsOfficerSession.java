@@ -40,5 +40,9 @@ public class BiometricsOfficerSession extends Session {
 	public Route getDefaultRoute() {
 		return Route.BIOMETRICS_DASHBOARD;
 	}
+	
+	public BiometricsOfficer getOfficer() {
+		return biometricsOfficer;
+	}
 
 }
