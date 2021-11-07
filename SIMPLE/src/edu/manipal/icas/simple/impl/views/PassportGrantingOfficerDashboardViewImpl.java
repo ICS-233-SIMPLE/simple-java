@@ -36,7 +36,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	private JTabbedPane tabbedPane;
 	private JButton nextApplicationIdButton;
 	private JButton previousApplicationIdButton;
-	private JComboBox<String> applicationIdComboBox;
+	private JComboBox<Integer> applicationIdComboBox;
 	private JLabel officerIdLabel;
 	private JButton logoutButton;
 	private JButton approveButton;
@@ -54,18 +54,23 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	private JLabel permanentAddressLabel;
 	private JLabel presentAddressLabel;
 	private JLabel contactNumberLabel;
-	public SwingController pdfBiometricsController;
-	public SwingController pdfDocumentsController;
+	private SwingController pdfBiometricsController;
+	private SwingController pdfDocumentsController;
+	private JPanel questionsPanel;
+	private JComboBox<String> documentTypeComboBox;
+	private JComboBox<String> biometricTypeComboBox;
+
 	/**
 	 * Initialises all the required components that are to be displayed in the PGO
 	 * dashboard view.
 	 */
 	public PassportGrantingOfficerDashboardViewImpl() {
 		super("Passport Granting Officer");
-		previousApplicationIdButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
-		String testData[] = { "000000", "000001" };
-		applicationIdComboBox = new JComboBox<>(testData);
-		nextApplicationIdButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
+		previousApplicationIdButton = new JButton(
+				ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
+		applicationIdComboBox = new JComboBox<Integer>();
+		nextApplicationIdButton = new JButton(
+				ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
 		officerIdLabel = new JLabel();
 		logoutButton = new JButton("Logout");
 		approveButton = new JButton("Approve");
@@ -86,11 +91,11 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		presentAddressLabel = new JLabel();
 		pdfDocumentsController = new SwingController();
 		pdfBiometricsController = new SwingController();
+		documentTypeComboBox = new JComboBox<String>();
+		biometricTypeComboBox = new JComboBox<String>();
 
 		initialiseUi();
 	}
-
-	
 
 	/**
 	 * Initialises the passport granting officer dashboard view and populates it
@@ -119,7 +124,8 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.fill = GridBagConstraints.BOTH;
 		containerPanel.add(initialiseTabbedPane(), c);
 
-		ImageIcon scaledPassportGrantingIcon = ImageUtils.getScaledImage(ResourceConstants.IMAGE_PASSPORT_GRANTING_ICON, 25, 25);
+		ImageIcon scaledPassportGrantingIcon = ImageUtils.getScaledImage(ResourceConstants.IMAGE_PASSPORT_GRANTING_ICON,
+				25, 25);
 		setIconImage(scaledPassportGrantingIcon.getImage());
 		containerPanel.setBackground(new Color(255, 255, 255));
 		setExtendedState(MAXIMIZED_BOTH);
@@ -355,8 +361,8 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	}
 
 	private JPanel initialiseQuestionsPanel() {
-		JPanel questionsPanel = new JPanel();
-
+		questionsPanel = new JPanel();
+		questionsPanel.setLayout(new GridBagLayout());
 		return questionsPanel;
 	}
 
@@ -377,8 +383,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.weightx = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.LINE_START;
-		documentsPanel.add(new JComboBox<String>(
-				new String[] { "PAN Card", "Driving License", "Aadhar Card", "Voter ID", "Address Proof" }), c);
+		documentsPanel.add(documentTypeComboBox, c);
 		c.weighty = 1;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.BOTH;
@@ -410,8 +415,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 		c.weightx = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.LINE_START;
-		biometricsPanel.add(
-				new JComboBox<String>(new String[] { "4 fingers (left)", "4 fingers (right)", "Thumbs", "Photograph" }), c);
+		biometricsPanel.add(biometricTypeComboBox, c);
 
 		c.weighty = 1;
 		c.gridy = 1;
@@ -431,7 +435,7 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	}
 
 	@Override
-	public JComboBox<String> getApplicationIdComboBox() {
+	public JComboBox<Integer> getApplicationIdComboBox() {
 		return applicationIdComboBox;
 	}
 
@@ -528,5 +532,20 @@ public class PassportGrantingOfficerDashboardViewImpl extends JFrame implements 
 	@Override
 	public SwingController getPdfDocumentsController() {
 		return pdfDocumentsController;
+	}
+
+	@Override
+	public JPanel getQuestionsPanel() {
+		return questionsPanel;
+	}
+
+	@Override
+	public JComboBox<String> getDocumentTypeComboBox() {
+		return documentTypeComboBox;
+	}
+
+	@Override
+	public JComboBox<String> getBiometricTypeComboBox() {
+		return biometricTypeComboBox;
 	}
 }

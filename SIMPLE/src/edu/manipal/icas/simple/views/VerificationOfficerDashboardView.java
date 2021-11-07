@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import org.icepdf.ri.common.SwingController;
 
@@ -22,7 +22,7 @@ public interface VerificationOfficerDashboardView extends View {
 	 * 
 	 * @return the application ID combo box
 	 */
-	JComboBox<String> getApplicationIdComboBox();
+	JComboBox<Integer> getApplicationIdComboBox();
 
 	/**
 	 * Gets the button that is used to move to the next application ID.
@@ -71,7 +71,7 @@ public interface VerificationOfficerDashboardView extends View {
 	 * 
 	 * @return the document name scroll pane
 	 */
-	JScrollPane getDocumentNameScrollPane();
+	JTable getDocumentsListTable();
 
 	/**
 	 * Gets the controller that is responsible for displaying PDFs.

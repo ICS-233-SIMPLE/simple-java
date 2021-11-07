@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
@@ -34,12 +36,13 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 	private JPanel toolBarPanel;
 	private JButton nextApplicationIdButton;
 	private JButton previousApplicationIdButton;
-	private JComboBox<String> applicationIdComboBox;
+	private JComboBox<Integer> applicationIdComboBox;
 	private JLabel officerIdLabel;
 	private JButton logoutButton;
 	private JButton markAsInauthenticButton;
 	private JButton markAsVerifiedButton;
-	public SwingController pdfController;
+	private SwingController pdfController;
+	private JTable documentsList;
 
 	/**
 	 * Instantiates all the required buttons and panels that are to be a part of the
@@ -54,8 +57,7 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 				ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
 		previousApplicationIdButton = new JButton(
 				ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
-		String testData[] = { "0000000", "0000001" };
-		applicationIdComboBox = new JComboBox<>(testData);
+		applicationIdComboBox = new JComboBox<Integer>();
 		officerIdLabel = new JLabel();
 		logoutButton = new JButton("Logout");
 		markAsInauthenticButton = new JButton("Mark as inauthentic");
@@ -203,23 +205,24 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 	 */
 	private JScrollPane initialiseDocumentThumbnailViewScrollPane() {
 
-		JPanel panel1 = new JPanel();
-		panel1.setLayout(new GridBagLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		for (int i = 1; i < 50; i++) {
-			c.gridy = i;
-			c.ipady = 10;
-			c.ipadx = 50;
-			panel1.add(new JLabel("  "), c);
-		}
-		documentNameScrollPane = new JScrollPane(panel1);
+		c.fill = GridBagConstraints.BOTH;
+		c.gridy = 0;
+		c.gridx = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+
+		documentsList = new JTable(new DefaultTableModel(new Object[] { "File name", "Authenticity" }, 0));
+		panel.add(documentsList, c);
+		documentNameScrollPane = new JScrollPane(panel);
 		documentNameScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		return documentNameScrollPane;
 	}
 
 	@Override
-	public JComboBox<String> getApplicationIdComboBox() {
+	public JComboBox<Integer> getApplicationIdComboBox() {
 		return applicationIdComboBox;
 	}
 
@@ -254,8 +257,8 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 	}
 
 	@Override
-	public JScrollPane getDocumentNameScrollPane() {
-		return documentNameScrollPane;
+	public JTable getDocumentsListTable() {
+		return documentsList;
 	}
 
 	@Override
