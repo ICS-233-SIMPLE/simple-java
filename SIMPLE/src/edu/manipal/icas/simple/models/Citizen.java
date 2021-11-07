@@ -212,11 +212,21 @@ public class Citizen {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Gets the passport office that is servicing this citizen's passport needs.
+	 * 
+	 * @return passport office
+	 */
 	public PassportOffice getPassportOffice() {
 		return passportOffice;
 	}
-	
+
+	/**
+	 * Sets the passport office that provides passport services to this citizen.
+	 * 
+	 * @param office passport office
+	 */
 	public void setPassportOffice(PassportOffice office) {
 		this.passportOffice = office;
 		try {

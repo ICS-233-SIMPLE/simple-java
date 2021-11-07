@@ -31,6 +31,12 @@ import edu.manipal.icas.simple.session.CitizenSession;
 import edu.manipal.icas.simple.views.ApplicationFormView;
 import edu.manipal.icas.simple.views.View;
 
+/**
+ * Controller that handles submission of a new passport application.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public class ApplyForPassportController {
 	private ApplicationFormView view;
 	private Application application;
@@ -78,9 +84,9 @@ public class ApplyForPassportController {
 				showInfo("Slot booked!");
 			}
 		});
-		
+
 		view.getPayButton().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				application.getPayment().fulfil();
@@ -130,7 +136,7 @@ public class ApplyForPassportController {
 				application.setApplicant(session.getCitizen());
 				view.getPayerNameLabel().setText(application.getApplicant().getName());
 				view.getPaymentAmountLabel().setText("Rs." + Application.APPLICATION_PAYMENT_AMOUNT);
-				
+
 				try {
 					application.setEmergencyContact(emergencyContact);
 				} catch (IllegalArgumentException e) {

@@ -1,6 +1,5 @@
 package edu.manipal.icas.simple.controllers;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -24,6 +23,12 @@ import edu.manipal.icas.simple.utils.DocumentAdapter;
 import edu.manipal.icas.simple.views.ProfileCreationView;
 import edu.manipal.icas.simple.views.View;
 
+/**
+ * Controller that handles creation of citizen profiles.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public class CreateProfileController {
 	private ProfileCreationView view;
 	private Citizen citizen;
@@ -141,10 +146,10 @@ public class CreateProfileController {
 
 	private void initStep4Fields() {
 		view.getPassportOfficeComboBox().removeAllItems();
-		for(PassportOffice office : PassportOffice.getAllPassportOffices()) {
+		for (PassportOffice office : PassportOffice.getAllPassportOffices()) {
 			view.getPassportOfficeComboBox().addItem(breakTextIntoLines(office.getOfficeAddress()));
 		}
-		
+
 		view.getFinishButton().addActionListener(new ActionListener() {
 
 			@Override
@@ -216,11 +221,11 @@ public class CreateProfileController {
 	private void showError(String message) {
 		JOptionPane.showMessageDialog(view.getFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	private void showInfo(String message) {
 		JOptionPane.showMessageDialog(view.getFrame(), message);
 	}
-	
+
 	private String breakTextIntoLines(String text) {
 		return "<html>" + String.join("<br>", text.split(","));
 	}

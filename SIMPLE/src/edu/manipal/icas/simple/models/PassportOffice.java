@@ -10,13 +10,29 @@ import edu.manipal.icas.simple.databases.PassportOfficerDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessPassportOfficeDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessPassportOfficerDatabase;
 
+/**
+ * Class that represents a passport office. <br/>
+ * A passport office is a physical entity with passport officer employees which
+ * provides passport services to citizens.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public class PassportOffice {
+
+	/** Unique ID of the office */
 	private Integer officeId;
+
+	/** Physical address of the office */
 	private String officeAddress;
+
+	/** List of officers who work at this office */
 	private List<PassportOfficer> officers;
 
 	private static final PassportOfficeDatabase db = MsAccessPassportOfficeDatabase.getDatabase();
 	private static final PassportOfficerDatabase pDb = MsAccessPassportOfficerDatabase.getDatabase();
+
+	/** List of all offices that are currently in operation */
 	private static List<PassportOffice> offices;
 
 	static {
@@ -26,6 +42,11 @@ public class PassportOffice {
 		}
 	}
 
+	/**
+	 * Gets a list of all passport offices currently in operation.
+	 * 
+	 * @return list of operational offices
+	 */
 	public static List<PassportOffice> getAllPassportOffices() {
 		return offices;
 	}
@@ -55,6 +76,11 @@ public class PassportOffice {
 		}
 	}
 
+	/**
+	 * Gets a list of unbooked/unblocked passport application slots at this office.
+	 * 
+	 * @return list of available slots
+	 */
 	@SuppressWarnings("deprecation")
 	public List<Date> getAvailableSlots() {
 		try {
@@ -78,6 +104,11 @@ public class PassportOffice {
 		}
 	}
 
+	/**
+	 * Blocks a slot and removes it from the list of available slots.
+	 * 
+	 * @param date slot to block
+	 */
 	public void blockSlot(Date date) {
 		try {
 			List<Date> slots = db.fetchAvailableSlots(officeId);
@@ -89,14 +120,29 @@ public class PassportOffice {
 		}
 	}
 
+	/**
+	 * Gets the address of this office.
+	 * 
+	 * @return physical address
+	 */
 	public String getOfficeAddress() {
 		return officeAddress;
 	}
 
+	/**
+	 * Gets a unique ID representing this office.
+	 * 
+	 * @return office ID
+	 */
 	public Integer getOfficeId() {
 		return officeId;
 	}
 
+	/**
+	 * Gets a list of officers working at this office.
+	 * 
+	 * @return list of officers
+	 */
 	public List<PassportOfficer> getOfficers() {
 		return officers;
 	}
