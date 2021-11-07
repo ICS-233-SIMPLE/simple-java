@@ -169,6 +169,16 @@ public abstract class Application {
 	}
 
 	/**
+	 * Gets the answer to a yes/no question.
+	 * 
+	 * @param question
+	 * @return
+	 */
+	public Boolean getAnswerForQuestion(ApplicationQuestion question) {
+		return questions.get(question);
+	}
+
+	/**
 	 * Sets the answer to a yes/no question.
 	 * 
 	 * @param question the question to set the answer for
@@ -250,6 +260,12 @@ public abstract class Application {
 			break;
 		default:
 			break;
+		}
+		try {
+			db.saveStatus(applicationId, status);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -432,6 +448,7 @@ public abstract class Application {
 	 */
 	public void setApplicant(Citizen applicant) {
 		this.applicant = applicant;
+		this.applicant.addApplication(this);
 		try {
 			db.saveApplicantId(applicationId, applicant.getEmailAddress());
 		} catch (IOException e) {

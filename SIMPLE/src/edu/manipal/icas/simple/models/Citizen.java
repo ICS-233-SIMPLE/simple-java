@@ -1,10 +1,14 @@
 package edu.manipal.icas.simple.models;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import edu.manipal.icas.simple.databases.CitizenDatabase;
 import edu.manipal.icas.simple.impl.databases.MsAccessCitizenDatabase;
+import edu.manipal.icas.simple.models.application.Application;
+import edu.manipal.icas.simple.models.application.ApplicationFactory;
 import edu.manipal.icas.simple.utils.CryptographyUtils;
 
 /**
@@ -23,6 +27,7 @@ public class Citizen {
 	private Date dateOfBirth;
 	private Long contactNumber;
 	private PassportOffice passportOffice;
+	private List<Application> applications;
 
 	/**
 	 * Creates a new citizen. If the email address provided does not correspond to a
@@ -213,6 +218,27 @@ public class Citizen {
 		}
 	}
 
+	public List<Application> getApplications() {
+		initApplicationList();
+		return applications;
+	}
+
+	public void addApplication(Application application) {
+		initApplicationList();
+		applications.add(application);
+		List<Integer> applicationIds = new ArrayList<>();
+		for (Application app : applications) {
+			applicationIds.add(app.getApplicationId());
+		}
+
+		try {
+			db.saveApplicationIds(emailAddress, applicationIds);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Gets the passport office that is servicing this citizen's passport needs.
 	 * 
@@ -233,6 +259,20 @@ public class Citizen {
 			db.savePassportOfficeId(emailAddress, office.getOfficeId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void initApplicationList() {
+		try {
+			if (applications == null) {
+				applications = new ArrayList<>();
+				List<Integer> applicationIds = db.fetchApplicationIds(emailAddress);
+				for (Integer id : applicationIds) {
+					applications.add(ApplicationFactory.getInstance().getApplication(id));
+				}
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
