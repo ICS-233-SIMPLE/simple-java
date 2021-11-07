@@ -2,6 +2,7 @@ package edu.manipal.icas.simple.impl.apis;
 
 import edu.manipal.icas.simple.apis.BiometricsCaptureApi;
 import edu.manipal.icas.simple.models.Document;
+import edu.manipal.icas.simple.resources.Resources;
 
 /**
  * Dummy implementation of the biometrics capture API.
@@ -13,20 +14,17 @@ public class MockBiometricsCaptureApi implements BiometricsCaptureApi{
 
 	@Override
 	public Document captureFingerprints() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Document(System.currentTimeMillis() + "_MOCK_API_FINGERPRINTS", Resources.getResourceUri("mock/fingerprints.pdf"));
 	}
 
 	@Override
 	public Document captureThumbPrints() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Document(System.currentTimeMillis() + "_MOCK_API_THUMBPRINTS", Resources.getResourceUri("mock/thumbprints.pdf"));
 	}
 
 	@Override
 	public Document capturePhotograph() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Document(System.currentTimeMillis() + "_MOCK_API_PHOTOGRAPH", Resources.getResourceUri("mock/photograph.pdf"));
 	}
 
 }
