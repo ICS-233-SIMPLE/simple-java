@@ -75,7 +75,7 @@ public interface PassportDatabase {
 	 * @return unique ID of the passport
 	 * @throws IOException if the provided passportId was not unique
 	 */
-	Integer createPassport(String photographName, String birthAddress, String permanentAddress, String nameOfFather,
+	String createPassport(String photographName, String birthAddress, String permanentAddress, String nameOfFather,
 			String nameOfMother, Date expiryDate, String ownerId) throws IOException;
 
 	/**
