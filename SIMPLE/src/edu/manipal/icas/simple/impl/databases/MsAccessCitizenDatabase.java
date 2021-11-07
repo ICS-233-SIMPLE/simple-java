@@ -146,7 +146,10 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 
 	@Override
 	public List<Integer> fetchPassportIds(String emailAddress) throws IOException {
-		List<String> deserialisedStrings = Arrays.asList(getRow(emailAddress).getString(FIELD_PASSPORT_IDS).split(","));
+		String rawContent = getRow(emailAddress).getString(FIELD_PASSPORT_IDS);
+		if (rawContent == null)
+			return new ArrayList<>();
+		List<String> deserialisedStrings = Arrays.asList(rawContent.split(","));
 		List<Integer> pIds = new ArrayList<>();
 		for (String string : deserialisedStrings) {
 			pIds.add(Integer.parseInt(string));
@@ -155,15 +158,27 @@ public class MsAccessCitizenDatabase extends MsAccessDatabase implements Citizen
 	}
 
 	@Override
-	public void saveApplicationIds(String emailAddress, List<String> applicationIds) throws IOException {
-		Row row = getRow(emailAddress);
-		row.put(FIELD_PASSPORT_IDS, String.join(",", applicationIds));
-		table.updateRow(row);
+	public void saveApplicationIds(String emailAddress, List<Integer> applicationIds) throws IOException {
+		List<String> serialisedStrings = new ArrayList<>();
+		for (Integer aId : applicationIds) {
+			serialisedStrings.add(aId + "");
+		}
 
+		Row row = getRow(emailAddress);
+		row.put(FIELD_APPLICATION_IDS, String.join(",", serialisedStrings));
+		table.updateRow(row);
 	}
 
 	@Override
-	public List<String> fetchApplicationIds(String emailAddress) throws IOException {
-		return Arrays.asList(getRow(emailAddress).getString(FIELD_APPLICATION_IDS).split(","));
+	public List<Integer> fetchApplicationIds(String emailAddress) throws IOException {
+		String rawContent = getRow(emailAddress).getString(FIELD_APPLICATION_IDS);
+		if (rawContent == null)
+			return new ArrayList<>();
+		List<String> deserialisedStrings = Arrays.asList(rawContent.split(","));
+		List<Integer> aIds = new ArrayList<>();
+		for (String string : deserialisedStrings) {
+			aIds.add(Integer.parseInt(string));
+		}
+		return aIds;
 	}
 }

@@ -234,7 +234,7 @@ public interface CitizenDatabase {
 	 *                       application
 	 * @throws IOException if no citizen entry was found for the email address
 	 */
-	void saveApplicationIds(String emailAddress, List<String> applicationIds) throws IOException;
+	void saveApplicationIds(String emailAddress, List<Integer> applicationIds) throws IOException;
 
 	/**
 	 * Fetches a list of application IDs belonging to the citizen from the database.
@@ -243,5 +243,5 @@ public interface CitizenDatabase {
 	 * @return list of unique application IDs
 	 * @throws IOException if no citizen entry was found for the email address
 	 */
-	List<String> fetchApplicationIds(String emailAddress) throws IOException;
+	List<Integer> fetchApplicationIds(String emailAddress) throws IOException;
 }

@@ -8,6 +8,7 @@ import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.PassportGrantingOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.PoliceDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
+import edu.manipal.icas.simple.impl.views.ApplicationFormViewImpl;
 import edu.manipal.icas.simple.impl.views.VerificationOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.views.View;
 
@@ -23,15 +24,19 @@ public final class RouteController {
 	private final SessionController sessions = SessionController.getController();
 
 	private View currentView;
+
 	private LoginController loginController;
 	private CreateProfileController createProfileController;
 	private ApplyForPassportController applyForPassportController;
+	private ViewApplicationsController viewApplicationsController;
 
 	private RouteController() {
+		currentView = null;
+
 		loginController = new LoginController(new CitizenLoginViewImpl(), new OfficerLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
 		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
-		currentView = null;
+		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
 	}
 
 	/**
@@ -77,7 +82,7 @@ public final class RouteController {
 			displayView(applyForPassportController.getApplicationFormView());
 			break;
 		case CITIZEN_DASHBOARD:
-			displayView(new CitizenDashboardViewImpl());
+			displayView(viewApplicationsController.getDashboardView());
 			break;
 		case BIOMETRICS_DASHBOARD:
 			displayView(new BiometricOfficerViewImpl());

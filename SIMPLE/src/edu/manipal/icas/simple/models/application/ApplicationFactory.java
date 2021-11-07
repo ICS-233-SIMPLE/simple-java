@@ -1,5 +1,8 @@
 package edu.manipal.icas.simple.models.application;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Singleton factory that creates {@link Application} objects.
  * 
@@ -10,11 +13,14 @@ public class ApplicationFactory {
 	private static ApplicationFactory INSTANCE = new ApplicationFactory();
 
 	private ApplicationFactory() {
+		applications = new HashMap<>();
 	}
 
 	public static ApplicationFactory getInstance() {
 		return INSTANCE;
 	}
+
+	private Map<Integer, Application> applications;
 
 	/**
 	 * Gets a new application of the given type.
@@ -24,15 +30,21 @@ public class ApplicationFactory {
 	 * @return a new application
 	 */
 	public Application getApplication(ApplicationType applicationType) {
+		Application application;
 		switch (applicationType) {
 		case FRESH:
-			return new FreshApplication();
+			application = new FreshApplication();
+			break;
 		case RE_ISSUE:
-			return new ReIssueApplication();
+			application = new ReIssueApplication();
+			break;
 
 		default:
 			throw new IllegalArgumentException("Unknown application type " + applicationType);
 		}
+
+		applications.put(application.getApplicationId(), application);
+		return application;
 	}
 
 	/**
@@ -42,6 +54,10 @@ public class ApplicationFactory {
 	 * @return application object created based on existing database records
 	 */
 	public Application getApplication(Integer applicationId) {
+		if (applications.containsKey(applicationId)) {
+			return applications.get(applicationId);
+		}
+		
 		Application application = new Application(applicationId) {
 			@Override
 			public Boolean hasRequiredDocuments() {

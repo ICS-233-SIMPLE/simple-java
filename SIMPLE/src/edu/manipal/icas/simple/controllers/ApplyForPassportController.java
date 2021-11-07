@@ -49,6 +49,7 @@ public class ApplyForPassportController {
 		initSubmitButtonHandler();
 		initDocumentUploadButtonsHandlers();
 		initFindCitizenHandler();
+		initButtonHandlers();
 
 		view.getEmergencyNameTextField().setEnabled(false);
 		view.getEmergencyPhoneTextField().setEnabled(false);
@@ -72,29 +73,6 @@ public class ApplyForPassportController {
 	public void initButtons() {
 		view.getBookSlotButton().setEnabled(false);
 		view.getPayButton().setEnabled(false);
-
-		view.getBookSlotButton().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO: Find better conversion strategy between LocalDate and Date
-				application.setDateOfAppointment(
-						new Date(view.getAppointmentDatePicker().getDate().toEpochDay() * 24 * 60 * 60 * 1000));
-				application.advanceApplicationStatus();
-				showInfo("Slot booked!");
-			}
-		});
-
-		view.getPayButton().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				application.getPayment().fulfil();
-				application.advanceApplicationStatus();
-				showInfo("Payment successful.\nApplication successfully submitted!");
-				RouteController.getController().routeTo(Route.CITIZEN_DASHBOARD);
-			}
-		});
 	}
 
 	private void initSubmitButtonHandler() {
@@ -127,13 +105,14 @@ public class ApplyForPassportController {
 					return;
 				}
 
+				CitizenSession session = (CitizenSession) SessionController.getController().getCurrentSession();
 				if (application == null) {
 					int selection = view.getApplicationTypeButtonGroup().getSelection().getMnemonic();
 					ApplicationType type = (selection == 0 ? ApplicationType.FRESH : ApplicationType.RE_ISSUE);
 					application = ApplicationFactory.getInstance().getApplication(type);
+					application.setApplicant(session.getCitizen());
 				}
-				CitizenSession session = (CitizenSession) SessionController.getController().getCurrentSession();
-				application.setApplicant(session.getCitizen());
+				
 				view.getPayerNameLabel().setText(application.getApplicant().getName());
 				view.getPaymentAmountLabel().setText("Rs." + Application.APPLICATION_PAYMENT_AMOUNT);
 
@@ -163,10 +142,10 @@ public class ApplyForPassportController {
 				}
 				documentPaths.clear();
 
-				if (!application.hasRequiredDocuments()) {
-					showError("Please upload all required documents!");
-					return;
-				}
+//				if (!application.hasRequiredDocuments()) {
+//					showError("Please upload all required documents!");
+//					return;
+//				}
 
 				application.advanceApplicationStatus();
 
@@ -219,6 +198,39 @@ public class ApplyForPassportController {
 						return true;
 				}
 				return false;
+			}
+		});
+	}
+	
+	private void initButtonHandlers() {
+		view.getBookSlotButton().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: Find better conversion strategy between LocalDate and Date
+				application.setDateOfAppointment(
+						new Date(view.getAppointmentDatePicker().getDate().toEpochDay() * 24 * 60 * 60 * 1000));
+				application.advanceApplicationStatus();
+				showInfo("Slot booked!");
+			}
+		});
+
+		view.getPayButton().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				application.getPayment().fulfil();
+				application.advanceApplicationStatus();
+				showInfo("Payment successful.\nApplication successfully submitted!");
+				RouteController.getController().routeTo(Route.CITIZEN_DASHBOARD);
+			}
+		});
+		
+		view.getCancelButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RouteController.getController().routeTo(Route.CITIZEN_DASHBOARD);
 			}
 		});
 	}

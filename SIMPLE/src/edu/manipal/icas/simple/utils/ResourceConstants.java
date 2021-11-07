@@ -51,11 +51,10 @@ public final class ResourceConstants {
 			Resources.getResourceUri("images/verification_icon.png"));
 
 	/**
-	 * Holds the police officer dashboard  view Icon
+	 * Holds the police officer dashboard view Icon
 	 */
 	public static final ImageIcon IMAGE_POLICE_DASHBOARD_ICON = new ImageIcon(
 			Resources.getResourceUri("images/Police_Dashboard_Icon.jpg"));
-
 
 	/**
 	 * Stores the icon that appears in the passport granting officer's dashboard.
@@ -79,9 +78,9 @@ public final class ResourceConstants {
 	/**
 	 * Stores the login icon that appears on Citizen Dashboard
 	 */
-	public static final ImageIcon CITIZEN_DASHBOARD_ICON = new ImageIcon(
-			Resources.getResourceUri("images/Citizen_dashboard_Icon.png"));
-	
+	public static final ImageIcon IMAGE_CITIZEN_DASHBOARD_ICON = new ImageIcon(
+			Resources.getResourceUri("images/citizen_dashboard_icon.png"));
+
 	public static final ImageIcon IMAGE_BIOMETRICS_OFFICER_DASHBOARD_ICON = new ImageIcon(
 			Resources.getResourceUri("images/biometrics_dashboard_icon.png"));
 
