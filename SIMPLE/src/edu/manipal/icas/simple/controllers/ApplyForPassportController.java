@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +16,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.JTextComponent;
+
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.models.Document;
@@ -48,6 +54,7 @@ public class ApplyForPassportController {
 				emergencyContact = null;
 				initButtons();
 				documentPaths = new HashMap<AcceptedDocumentType, String>();
+				initAppointmentDatePicker();
 			}
 		});
 	}
@@ -59,6 +66,29 @@ public class ApplyForPassportController {
 	public void initButtons() {
 		view.getBookSlotButton().setEnabled(false);
 		view.getPayButton().setEnabled(false);
+
+		view.getBookSlotButton().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: Find better conversion strategy between LocalDate and Date
+				application.setDateOfAppointment(
+						new Date(view.getAppointmentDatePicker().getDate().toEpochDay() * 24 * 60 * 60 * 1000));
+				application.advanceApplicationStatus();
+				showInfo("Slot booked!");
+			}
+		});
+		
+		view.getPayButton().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				application.getPayment().fulfil();
+				application.advanceApplicationStatus();
+				showInfo("Payment successful.\nApplication successfully submitted!");
+				RouteController.getController().routeTo(Route.CITIZEN_DASHBOARD);
+			}
+		});
 	}
 
 	private void initSubmitButtonHandler() {
@@ -98,6 +128,9 @@ public class ApplyForPassportController {
 				}
 				CitizenSession session = (CitizenSession) SessionController.getController().getCurrentSession();
 				application.setApplicant(session.getCitizen());
+				view.getPayerNameLabel().setText(application.getApplicant().getName());
+				view.getPaymentAmountLabel().setText("Rs." + Application.APPLICATION_PAYMENT_AMOUNT);
+				
 				try {
 					application.setEmergencyContact(emergencyContact);
 				} catch (IllegalArgumentException e) {
@@ -118,9 +151,15 @@ public class ApplyForPassportController {
 				}
 
 				for (AcceptedDocumentType documentType : documentPaths.keySet()) {
-					application.uploadDocument(documentType,
-							new Document(application.getApplicationId() + documentType.toString() + System.currentTimeMillis(),
-									documentPaths.get(documentType)));
+					application.uploadDocument(documentType, new Document(
+							application.getApplicationId() + documentType.toString() + System.currentTimeMillis(),
+							documentPaths.get(documentType)));
+				}
+				documentPaths.clear();
+
+				if (!application.hasRequiredDocuments()) {
+					showError("Please upload all required documents!");
+					return;
 				}
 
 				application.advanceApplicationStatus();
@@ -154,6 +193,26 @@ public class ApplyForPassportController {
 				} catch (Exception e) {
 					showError("Emergency contact citizen not found!");
 				}
+			}
+		});
+	}
+
+	private void initAppointmentDatePicker() {
+		DatePickerSettings dateSettings = view.getAppointmentDatePicker().getSettings();
+		dateSettings.setFirstDayOfWeek(DayOfWeek.SUNDAY);
+		dateSettings.setVetoPolicy(new DateVetoPolicy() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public boolean isDateAllowed(LocalDate requestedSlot) {
+				if (requestedSlot.isBefore(LocalDate.now()))
+					return false;
+				CitizenSession session = (CitizenSession) SessionController.getController().getCurrentSession();
+				for (Date slot : session.getCitizen().getPassportOffice().getAvailableSlots()) {
+					if (requestedSlot.equals(LocalDate.of(slot.getYear() + 1900, slot.getMonth() + 1, slot.getDate())))
+						return true;
+				}
+				return false;
 			}
 		});
 	}
