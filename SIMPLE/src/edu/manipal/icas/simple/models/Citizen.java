@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.manipal.icas.simple.apis.OtpVerificationApi;
 import edu.manipal.icas.simple.databases.CitizenDatabase;
+import edu.manipal.icas.simple.impl.apis.MockOtpVerificationApi;
 import edu.manipal.icas.simple.impl.databases.MsAccessCitizenDatabase;
 import edu.manipal.icas.simple.models.application.Application;
 import edu.manipal.icas.simple.models.application.ApplicationFactory;
@@ -28,6 +30,7 @@ public class Citizen {
 	private Long contactNumber;
 	private PassportOffice passportOffice;
 	private List<Application> applications;
+	private OtpVerificationApi otpVerificationApi;
 
 	/**
 	 * Creates a new citizen. If the email address provided does not correspond to a
@@ -36,11 +39,22 @@ public class Citizen {
 	 * @param emailAddress
 	 */
 	public Citizen(String emailAddress) {
+		otpVerificationApi = new MockOtpVerificationApi();
 		if (!db.citizenExists(emailAddress)) {
 			try {
 				db.createCitizen(emailAddress);
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+
+			int i;
+			for (i = 1; i <= 3; ++i) {
+				if (otpVerificationApi.verifyEmailAddress(emailAddress)) {
+					break;
+				}
+			}
+			if (i > 3) {
+				throw new RuntimeException("Could not verify email address!");
 			}
 		}
 		this.emailAddress = emailAddress;
@@ -262,7 +276,7 @@ public class Citizen {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void initApplicationList() {
 		try {
 			if (applications == null) {
