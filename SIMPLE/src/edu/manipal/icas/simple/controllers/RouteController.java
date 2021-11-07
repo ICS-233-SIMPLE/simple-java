@@ -73,10 +73,13 @@ public final class RouteController {
 			break;
 		case CITIZEN_DASHBOARD:
 			displayView(new CitizenDashboardViewImpl());
-        break;
+                        break;
 		case BIOMETRICS_DASHBOARD:
 			displayView(new BiometricOfficerViewImpl());
 			break;
+		case POLICE_DASHBOARD:
+			displayView(new PoliceDashboardViewImpl());	
+			break;	
 
 		// TODO: Add other routes as they come
 		default:
