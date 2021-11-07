@@ -45,8 +45,6 @@ public class LoginController {
 	}
 
 	private void initOfficerLoginClickHandler() {
-		// TODO Auto-generated method stub
-
 		officerLoginView.getOfficerLoginButton().addActionListener(new ActionListener() {
 
 			@Override
@@ -60,56 +58,38 @@ public class LoginController {
 				} catch (NumberFormatException ex) {
 					ex.printStackTrace();
 				}
-				switch(selectedOfficerType)
-				{
+				switch (selectedOfficerType) {
 				case "Biometrics Officer":
-					temppr =  PassportOfficerRole.BIOMETRICS;
+					temppr = PassportOfficerRole.BIOMETRICS;
 					st = SessionType.BIOMETRICS_OFFICER;
 					break;
 				case "Verification Officer":
 					temppr = PassportOfficerRole.VERIFICATION;
-					st= SessionType.VERIFICATION_OFFICER;
+					st = SessionType.VERIFICATION_OFFICER;
 					break;
 				case "Passport Granting Officer":
 					temppr = PassportOfficerRole.GRANTING;
-					st=SessionType.GRANTING_OFFICER;
+					st = SessionType.GRANTING_OFFICER;
 					break;
-					default :
-						break;
+				default:
+					break;
 				}
 
-
-
-
-				if (PassportOfficer.checkForId(officerId)) {
-					try {
-						if(PassportOfficer.checkforRole(officerId, temppr))
-						{
-						  Session session = SessionFactory.getFactory().getSession(st, idString);
-						  	if (SessionController.getController().startSession(session))
-							RouteController.getController().routeTo(session.getDefaultRoute());
-						  	else
-								showError("An internal error has occurred. Please try again later.");
-						}
-						else
-							showError("Credentials doesn't match");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-
+				if (PassportOfficer.authenticate(officerId, temppr)) {
+					Session session = SessionFactory.getFactory().getSession(st, idString);
+					if (SessionController.getController().startSession(session))
+						RouteController.getController().routeTo(session.getDefaultRoute());
+					else
+						showError("An internal error has occurred. Please try again later.");
 
 				} else
 					showError("Officer doesn't exist");
 
 			}
 
-
 		});
 
 	}
-
 
 	private void initRedirectToOfficerLoginViewHandlers() {
 		citizenLoginView.getRedirectToOfficerLoginViewButton().addActionListener(new ActionListener() {

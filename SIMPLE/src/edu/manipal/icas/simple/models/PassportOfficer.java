@@ -35,24 +35,12 @@ public abstract class PassportOfficer {
 	 */
 	public abstract void processApplication();
 
-	public static Boolean checkForId(Integer officerId) {
-		if (db.passportOfficerExists(officerId)) {
-
-			return true;
-
-		}
-		return false;
-
-	}
-
-	public static Boolean checkforRole(Integer officerId, PassportOfficerRole officerRole) throws IOException {
-		if (officerRole == db.fetchOfficerRole(officerId)) {
-			return true;
-
-		}
-
-		else
+	public static Boolean authenticate(Integer officerId, PassportOfficerRole officerRole) {
+		try {
+			return db.passportOfficerExists(officerId) && officerRole == db.fetchOfficerRole(officerId);
+		} catch (IOException e) {
 			return false;
+		}
 
 	}
 }
