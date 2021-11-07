@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import edu.manipal.icas.simple.models.application.AcceptedBiometricType;
 import edu.manipal.icas.simple.models.application.AcceptedDocumentType;
 import edu.manipal.icas.simple.models.application.ApplicationQuestion;
 import edu.manipal.icas.simple.models.application.ApplicationStatus;
@@ -50,6 +51,9 @@ public final class StringConstants {
 	
 	/** String that hold user-facing names for application status */
 	public final static Map<ApplicationStatus, String> APPLICATION_STATUS_STRINGS;
+	
+	/** Strings that hold types of biometrics that an application accepts. */
+	public final static Map<String, AcceptedBiometricType> ACCEPTED_BIOMETRIC_TYPE_NAMES;
 
 	static {
 		APPLICATION_QUESTIONS = new TreeMap<>();
@@ -120,5 +124,11 @@ public final class StringConstants {
 		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.ADDRESS_VERIFICATION_INCOMPLETE, "Address verification incomplete");
 		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.COMPLETED_AND_SUCCESSFUL, "Completed; Passport issued");
 		APPLICATION_STATUS_STRINGS.put(ApplicationStatus.REJECTED, "Rejected");
+		
+		ACCEPTED_BIOMETRIC_TYPE_NAMES = new TreeMap<>();
+		ACCEPTED_BIOMETRIC_TYPE_NAMES.put("Fingerprints (left 4 fingers)", AcceptedBiometricType.FINGERPRINTS_LEFT);
+		ACCEPTED_BIOMETRIC_TYPE_NAMES.put("Fingerprints (right 4 fingers)", AcceptedBiometricType.FINGERPRINTS_RIGHT);
+		ACCEPTED_BIOMETRIC_TYPE_NAMES.put("Photograph", AcceptedBiometricType.PHOTOGRAPH);
+		ACCEPTED_BIOMETRIC_TYPE_NAMES.put("Thumbprints", AcceptedBiometricType.THUMBPRINTS);
 	}
 }
