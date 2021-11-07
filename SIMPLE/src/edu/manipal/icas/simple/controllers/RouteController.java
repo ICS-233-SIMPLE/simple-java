@@ -52,9 +52,6 @@ public final class RouteController {
 		if (!isOpenRoute(route) && sessions.getCurrentSession() == null) {
 			routeTo(Route.CITIZEN_LOGIN);
 		}
-		
-		if(sessions.getCurrentSession() != null)
-			System.out.println(sessions.getCurrentSession().getSessionType());
 
 		if (!isOpenRoute(route) && !sessions.getCurrentSession().hasAccess(route)) {
 			routeTo(Route.UNAUTHORISED_403);
