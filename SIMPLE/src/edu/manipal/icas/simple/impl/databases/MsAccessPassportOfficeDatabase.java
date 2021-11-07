@@ -52,8 +52,11 @@ public class MsAccessPassportOfficeDatabase extends MsAccessDatabase implements 
 	@Override
 	public List<Date> fetchAvailableSlots(Integer officeId) throws IOException {
 		List<Date> deserialisedSlots = new ArrayList<>();
-		List<String> serialisedSlots = Arrays.asList(getRow(officeId).getString(FIELD_AVAILABLE_SLOTS).split(","));
-
+		String rawContent = getRow(officeId).getString(FIELD_AVAILABLE_SLOTS);
+		if (rawContent == null)
+			return null;
+		
+		List<String> serialisedSlots = Arrays.asList(rawContent.split(","));
 		for (String slot : serialisedSlots) {
 			deserialisedSlots.add(new Date(Long.parseLong(slot)));
 		}
@@ -64,7 +67,7 @@ public class MsAccessPassportOfficeDatabase extends MsAccessDatabase implements 
 	public List<Integer> fetchOfficers(Integer officeId) throws IOException {
 		List<String> deserialisedStrings = Arrays.asList(getRow(officeId).getString(FIELD_OFFICERS).split(","));
 		List<Integer> officers = new ArrayList<>();
-		for(String string : deserialisedStrings) {
+		for (String string : deserialisedStrings) {
 			officers.add(Integer.parseInt(string));
 		}
 		return officers;

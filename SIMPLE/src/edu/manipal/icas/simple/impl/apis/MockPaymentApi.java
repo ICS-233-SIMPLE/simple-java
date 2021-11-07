@@ -13,8 +13,7 @@ public class MockPaymentApi implements PaymentApi {
 
 	@Override
 	public Boolean processPayment(Payment payment) {
-		payment.fulfil();
-		return payment.getPaymentSuccessful();
+		return true;
 	}
 
 	@Override

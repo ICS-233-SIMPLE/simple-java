@@ -14,6 +14,7 @@ import javax.swing.event.DocumentListener;
 
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.models.Citizen;
+import edu.manipal.icas.simple.models.PassportOffice;
 import edu.manipal.icas.simple.session.CitizenSession;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
@@ -22,6 +23,12 @@ import edu.manipal.icas.simple.utils.DocumentAdapter;
 import edu.manipal.icas.simple.views.ProfileCreationView;
 import edu.manipal.icas.simple.views.View;
 
+/**
+ * Controller that handles creation of citizen profiles.
+ * 
+ * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
+ *
+ */
 public class CreateProfileController {
 	private ProfileCreationView view;
 	private Citizen citizen;
@@ -138,10 +145,21 @@ public class CreateProfileController {
 	}
 
 	private void initStep4Fields() {
+		view.getPassportOfficeComboBox().removeAllItems();
+		for (PassportOffice office : PassportOffice.getAllPassportOffices()) {
+			view.getPassportOfficeComboBox().addItem(breakTextIntoLines(office.getOfficeAddress()));
+		}
+
 		view.getFinishButton().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Integer passportOfficeId = view.getPassportOfficeComboBox().getSelectedIndex();
+				if (passportOfficeId == -1) {
+					showError("Select a passport office!");
+					return;
+				}
+				citizen.setPassportOffice(PassportOffice.getAllPassportOffices().get(passportOfficeId));
 				try {
 					Session session = SessionFactory.getFactory().getSession(SessionType.CITIZEN,
 							citizen.getEmailAddress());
@@ -203,8 +221,12 @@ public class CreateProfileController {
 	private void showError(String message) {
 		JOptionPane.showMessageDialog(view.getFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	private void showInfo(String message) {
 		JOptionPane.showMessageDialog(view.getFrame(), message);
+	}
+
+	private String breakTextIntoLines(String text) {
+		return "<html>" + String.join("<br>", text.split(","));
 	}
 }

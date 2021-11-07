@@ -23,10 +23,12 @@ public final class RouteController {
 	private View currentView;
 	private LoginController loginController;
 	private CreateProfileController createProfileController;
+	private ApplyForPassportController applyForPassportController;
 
 	private RouteController() {
 		loginController = new LoginController(new CitizenLoginViewImpl());
 		createProfileController = new CreateProfileController(new ProfileCreationViewImpl());
+		applyForPassportController = new ApplyForPassportController(new ApplicationFormViewImpl());
 		currentView = null;
 	}
 
@@ -69,7 +71,7 @@ public final class RouteController {
 			displayView(new OfficerLoginViewImpl());
 			break;
 		case APPLICATION_FORM:
-			displayView(new ApplicationFormViewImpl());
+			displayView(applyForPassportController.getApplicationFormView());
 			break;
 		case CITIZEN_DASHBOARD:
 			displayView(new CitizenDashboardViewImpl());

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.manipal.icas.simple.databases.ApplicationDatabase;
+import edu.manipal.icas.simple.impl.apis.MockPaymentApi;
 import edu.manipal.icas.simple.impl.databases.MsAccessApplicationDatabase;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.models.Document;
@@ -89,7 +90,7 @@ public abstract class Application {
 	private Payment payment;
 
 	/** Fee to process applications */
-	private static final Double APPLICATION_PAYMENT_AMOUNT = 700.50;
+	public static final Double APPLICATION_PAYMENT_AMOUNT = 700.50;
 
 	private static final ApplicationDatabase db = MsAccessApplicationDatabase.getDatabase();
 
@@ -159,7 +160,7 @@ public abstract class Application {
 			questions = new HashMap<>();
 			biometrics = new HashMap<>();
 			documents = new HashMap<>();
-			setPayment(new Payment(APPLICATION_PAYMENT_AMOUNT));
+			setPayment(new MockPaymentApi().createPayment(APPLICATION_PAYMENT_AMOUNT));
 			dateCreated = db.fetchDateCreated(applicationId);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -406,6 +407,7 @@ public abstract class Application {
 	 */
 	public void setDateOfAppointment(Date date) {
 		dateOfAppointment = date;
+		applicant.getPassportOffice().blockSlot(date);
 		try {
 			db.saveDateOfAppointment(applicationId, date);
 		} catch (IOException e) {

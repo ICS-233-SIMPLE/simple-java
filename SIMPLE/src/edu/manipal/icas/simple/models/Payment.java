@@ -2,7 +2,9 @@ package edu.manipal.icas.simple.models;
 
 import java.io.IOException;
 
+import edu.manipal.icas.simple.apis.PaymentApi;
 import edu.manipal.icas.simple.databases.PaymentDatabase;
+import edu.manipal.icas.simple.impl.apis.MockPaymentApi;
 import edu.manipal.icas.simple.impl.databases.MsAccessPaymentDatabase;
 
 /**
@@ -16,6 +18,7 @@ public class Payment {
 	private Double amount;
 	private Boolean paymentSuccessful;
 	private PaymentDatabase db;
+	private static final PaymentApi paymentHandlerApi = new MockPaymentApi();
 
 	/**
 	 * Creates a new payment and stores it in the database.
@@ -54,6 +57,7 @@ public class Payment {
 	 * Fulfils the payment by communicating with the bank.
 	 */
 	public void fulfil() {
+		paymentHandlerApi.processPayment(this);
 		paymentSuccessful = true;
 		try {
 			db.savePaymentSuccessful(paymentId, paymentSuccessful);
