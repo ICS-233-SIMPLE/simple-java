@@ -1,5 +1,6 @@
 package edu.manipal.icas.simple.controllers;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -14,6 +15,7 @@ import javax.swing.event.DocumentListener;
 
 import edu.manipal.icas.simple.impl.databases.MsAccessSessionDatabase;
 import edu.manipal.icas.simple.models.Citizen;
+import edu.manipal.icas.simple.models.PassportOffice;
 import edu.manipal.icas.simple.session.CitizenSession;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
@@ -138,10 +140,21 @@ public class CreateProfileController {
 	}
 
 	private void initStep4Fields() {
+		view.getPassportOfficeComboBox().removeAllItems();
+		for(PassportOffice office : PassportOffice.getAllPassportOffices()) {
+			view.getPassportOfficeComboBox().addItem(breakTextIntoLines(office.getOfficeAddress()));
+		}
+		
 		view.getFinishButton().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Integer passportOfficeId = view.getPassportOfficeComboBox().getSelectedIndex();
+				if (passportOfficeId == -1) {
+					showError("Select a passport office!");
+					return;
+				}
+				citizen.setPassportOffice(PassportOffice.getAllPassportOffices().get(passportOfficeId));
 				try {
 					Session session = SessionFactory.getFactory().getSession(SessionType.CITIZEN,
 							citizen.getEmailAddress());
@@ -206,5 +219,9 @@ public class CreateProfileController {
 	
 	private void showInfo(String message) {
 		JOptionPane.showMessageDialog(view.getFrame(), message);
+	}
+	
+	private String breakTextIntoLines(String text) {
+		return "<html>" + String.join("<br>", text.split(","));
 	}
 }
