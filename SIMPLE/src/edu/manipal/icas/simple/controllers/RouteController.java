@@ -5,8 +5,10 @@ import edu.manipal.icas.simple.impl.views.BiometricOfficerViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.CitizenLoginViewImpl;
 import edu.manipal.icas.simple.impl.views.OfficerLoginViewImpl;
+import edu.manipal.icas.simple.impl.views.PassportGrantingOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.PoliceDashboardViewImpl;
 import edu.manipal.icas.simple.impl.views.ProfileCreationViewImpl;
+import edu.manipal.icas.simple.impl.views.VerificationOfficerDashboardViewImpl;
 import edu.manipal.icas.simple.views.View;
 
 /**
@@ -80,6 +82,12 @@ public final class RouteController {
 			break;
 		case POLICE_DASHBOARD:
 			displayView(new PoliceDashboardViewImpl());
+			break;
+		case VERIFICATION_DASHBOARD:
+			displayView(new VerificationOfficerDashboardViewImpl());
+			break;
+		case GRANTING_DASHBOARD:
+			displayView(new PassportGrantingOfficerDashboardViewImpl());
 			break;
 
 		// TODO: Add other routes as they come
