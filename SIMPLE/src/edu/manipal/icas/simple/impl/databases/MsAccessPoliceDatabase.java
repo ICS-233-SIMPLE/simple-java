@@ -5,7 +5,7 @@ import edu.manipal.icas.simple.databases.PoliceDatabase;
 /**
  * Concrete class that implements persistence API operations from
  * {@link PoliceDatabase}
- * 
+ *
  * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
@@ -16,7 +16,7 @@ public class MsAccessPoliceDatabase extends MsAccessDatabase implements PoliceDa
 		super("Police");
 	}
 
-	public static MsAccessPoliceDatabase geDatabase() {
+	public static MsAccessPoliceDatabase getDatabase() {
 		return DATABASE;
 	}
 
