@@ -3,6 +3,7 @@ package edu.manipal.icas.simple.views;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 
 /**
  * A view that enables user to Apply for a new passport,Apply for Re-Issue,Check
@@ -27,7 +28,6 @@ public interface PoliceDashboardView extends View {
 	 *
 	 * @return the next application ID button
 	 */
-
 	JButton getNextApplicationIdButton();
 
 	/**
@@ -35,22 +35,20 @@ public interface PoliceDashboardView extends View {
 	 *
 	 * @return the application ID combo box
 	 */
-
-	JComboBox<String> getApplicationIdComboBox();
+	JComboBox<Integer> getApplicationIdComboBox();
 
 	/**
 	 * Gets the officer Id label.
 	 *
 	 * @return the officer Id label
 	 */
-	JLabel getofficerIdLabel();
+	JLabel getOfficerIdLabel();
 
 	/**
 	 * Gets the button that the officer clicks on to logout.
 	 *
 	 * @return the logout button
 	 */
-
 	JButton getLogOutButton();
 
 	/**
@@ -58,15 +56,13 @@ public interface PoliceDashboardView extends View {
 	 *
 	 * @return the view addressproof button
 	 */
-
-	JButton getviewDocumentButton();
+	JButton getViewDocumentButton();
 
 	/**
 	 * Gets the button which is used to update a citizen's address proof as adverse
 	 *
 	 * @return the adverse status button
 	 */
-
 	JButton getAdverseButton();
 
 	/**
@@ -74,7 +70,6 @@ public interface PoliceDashboardView extends View {
 	 *
 	 * @return the clear status button
 	 */
-
 	JButton getClearButton();
 
 	/**
@@ -83,16 +78,13 @@ public interface PoliceDashboardView extends View {
 	 *
 	 * @return the incomplete status button
 	 */
-
 	JButton getIncompleteButton();
 
 	/**
-	 * Gets all the entries for JTable for viewing list of pending verification
-	 * applications
+	 * Gets the JTable for viewing list of pending verification applications
 	 *
-	 * @return string array
+	 * @return table
 	 */
-
-	String[][] getPendingVerificationTableEntries();
+	JTable getPendingVerificationTable();
 
 }

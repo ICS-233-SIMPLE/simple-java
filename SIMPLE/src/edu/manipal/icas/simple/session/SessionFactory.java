@@ -3,11 +3,12 @@ package edu.manipal.icas.simple.session;
 import edu.manipal.icas.simple.models.BiometricsOfficer;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.models.PassportGrantingOfficer;
+import edu.manipal.icas.simple.models.PoliceOfficer;
 import edu.manipal.icas.simple.models.VerificationOfficer;
 
 /**
  * Singleton factory that creates new sessions.
- * 
+ *
  * @author Vishwas Adiga (vishwas.adiga@learner.manipal.edu)
  *
  */
@@ -23,7 +24,7 @@ public class SessionFactory {
 
 	/**
 	 * Gets a session of a given type and ID
-	 * 
+	 *
 	 * @param type      one of {@link SessionType}
 	 * @param sessionId ID that is used to reconstruct the session. See each
 	 *                  implementation to for details on what the ID is
@@ -39,6 +40,8 @@ public class SessionFactory {
 			return new BiometricsOfficerSession(new BiometricsOfficer(Integer.parseInt(sessionId)));
 		case GRANTING_OFFICER:
 			return new PassportGrantingOfficerSession(new PassportGrantingOfficer(Integer.parseInt(sessionId)));
+		case POLICE:
+			return new PoliceOfficerSession(new PoliceOfficer(Integer.parseInt(sessionId)));
 
 		default:
 			throw new IllegalArgumentException("Unknown session type " + type);

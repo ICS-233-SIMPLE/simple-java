@@ -2,6 +2,7 @@ package edu.manipal.icas.simple.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -9,6 +10,7 @@ import javax.swing.JTextField;
 import edu.manipal.icas.simple.models.Citizen;
 import edu.manipal.icas.simple.models.PassportOfficer;
 import edu.manipal.icas.simple.models.PassportOfficerRole;
+import edu.manipal.icas.simple.models.PoliceOfficer;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.session.SessionFactory;
 import edu.manipal.icas.simple.session.SessionType;
@@ -69,20 +71,33 @@ public class LoginController {
 					temppr = PassportOfficerRole.GRANTING;
 					st = SessionType.GRANTING_OFFICER;
 					break;
+
 				default:
 					break;
 				}
 
-				if (PassportOfficer.authenticate(officerId, temppr)) {
-					Session session = SessionFactory.getFactory().getSession(st, idString);
-					if (SessionController.getController().startSession(session))
-						RouteController.getController().routeTo(session.getDefaultRoute());
-					else
-						showError("An internal error has occurred. Please try again later.");
+				if (selectedOfficerType == "Police Officer") {
+					if (PoliceOfficer.authenticate(officerId)) {
+						st = SessionType.POLICE;
+						Session session = SessionFactory.getFactory().getSession(st, idString);
+						if (SessionController.getController().startSession(session))
+							RouteController.getController().routeTo(session.getDefaultRoute());
+						else
+							showError("An internal error has occurred. Please try again later.");
 
-				} else
-					showError("Officer doesn't exist");
+					} else
+						showError("Officer doesn't exist");
+				} else {
+					if (PassportOfficer.authenticate(officerId, temppr)) {
+						Session session = SessionFactory.getFactory().getSession(st, idString);
+						if (SessionController.getController().startSession(session))
+							RouteController.getController().routeTo(session.getDefaultRoute());
+						else
+							showError("An internal error has occurred. Please try again later.");
 
+					} else
+						showError("Officer doesn't exist");
+				}
 			}
 
 		});

@@ -1,5 +1,8 @@
 package edu.manipal.icas.simple.databases;
 
+import java.io.IOException;
+import java.util.List;
+
 /**
  * Interface that defines operations to be implemented in an API that persists
  * data about police officers in the system.
@@ -21,4 +24,14 @@ public interface PoliceDatabase {
 	 * @return {@code true} if the entry was found, {@code false} otherwise
 	 */
 	Boolean policeExists(Integer badgeId);
+
+	/**
+	 * Fetches a list of applications that a given officer is responsible for
+	 * handling.
+	 * 
+	 * @param officerId ID of the officer
+	 * @return list of applications
+	 * @throws IOException if no passport officer was found for the passed ID
+	 */
+	List<Integer> fetchApplications(Integer officerId) throws IOException;
 }
