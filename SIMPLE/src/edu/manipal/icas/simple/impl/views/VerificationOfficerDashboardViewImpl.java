@@ -104,15 +104,8 @@ public class VerificationOfficerDashboardViewImpl extends JFrame implements Veri
 		add(containerPanel);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-		setResizable(false);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
+		setResizable(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	/**

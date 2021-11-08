@@ -29,7 +29,6 @@ public class PoliceOfficerSession extends Session {
 
 	@Override
 	public Boolean hasAccess(Route route) {
-		// TODO Auto-generated method stub
 		switch (route) {
 		case POLICE_DASHBOARD:
 			return true;

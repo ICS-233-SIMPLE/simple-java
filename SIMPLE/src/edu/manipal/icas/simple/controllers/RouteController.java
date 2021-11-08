@@ -30,6 +30,7 @@ public final class RouteController {
 	private ApplyForPassportController applyForPassportController;
 	private ViewApplicationsController viewApplicationsController;
 	private ProcessApplicationController processApplicationController;
+	private PoliceDashboardViewController addressVerificationController;
 
 	private RouteController() {
 		currentView = null;
@@ -40,6 +41,7 @@ public final class RouteController {
 		viewApplicationsController = new ViewApplicationsController(new CitizenDashboardViewImpl());
 		processApplicationController = new ProcessApplicationController(new BiometricOfficerViewImpl(),
 				new VerificationOfficerDashboardViewImpl(), new PassportGrantingOfficerDashboardViewImpl());
+		addressVerificationController = new PoliceDashboardViewController(new PoliceDashboardViewImpl());
 	}
 
 	/**
@@ -90,7 +92,7 @@ public final class RouteController {
 			displayView(processApplicationController.getBiometricOfficerView());
 			break;
 		case POLICE_DASHBOARD:
-			displayView(new PoliceDashboardViewImpl());
+			displayView(addressVerificationController.getPoliceOfficerView());
 			break;
 		case VERIFICATION_DASHBOARD:
 			displayView(processApplicationController.getVerificationOfficerView());

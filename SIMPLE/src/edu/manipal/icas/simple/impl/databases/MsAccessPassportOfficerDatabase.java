@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.healthmarketscience.jackcess.CursorBuilder;
 import com.healthmarketscience.jackcess.Row;
 import com.healthmarketscience.jackcess.Table;
 
@@ -43,9 +42,9 @@ public class MsAccessPassportOfficerDatabase extends MsAccessDatabase implements
 	public List<Integer> fetchApplications(Integer officerId) throws IOException {
 		List<Integer> applicationIds = new ArrayList<>();
 		
-		Table citizensTable = MsAccessApplicationDatabase.getDatabase().table;
+		Table applicationsTable = MsAccessApplicationDatabase.getDatabase().table;
 		Row row = null;
-		while((row = citizensTable.getNextRow()) != null) {
+		while((row = applicationsTable.getNextRow()) != null) {
 			try {
 				String applicantId = row.getString(MsAccessApplicationDatabase.FIELD_APPLICANT_ID);
 				Integer officeId = MsAccessCitizenDatabase.getDatabase().fetchPassportOfficeId(applicantId);

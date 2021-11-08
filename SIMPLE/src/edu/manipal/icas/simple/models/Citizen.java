@@ -31,6 +31,7 @@ public class Citizen {
 	private PassportOffice passportOffice;
 	private List<Application> applications;
 	private OtpVerificationApi otpVerificationApi;
+	private PoliceOfficer policeOfficer;
 
 	/**
 	 * Creates a new citizen. If the email address provided does not correspond to a
@@ -67,6 +68,7 @@ public class Citizen {
 			Integer officeId = db.fetchPassportOfficeId(emailAddress);
 			if (officeId != null) {
 				passportOffice = PassportOffice.getAllPassportOffices().get(officeId);
+				policeOfficer = new PoliceOfficer(officeId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -269,12 +271,23 @@ public class Citizen {
 	 */
 	public void setPassportOffice(PassportOffice office) {
 		this.passportOffice = office;
+		this.policeOfficer = new PoliceOfficer(office.getOfficeId());
 		try {
 			db.savePassportOfficeId(emailAddress, office.getOfficeId());
+			db.savePoliceBadgeId(emailAddress, policeOfficer.getBadgeId());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Returns the officer who is responsible for verifying this citizen's address.
+	 * 
+	 * @return police officer
+	 */
+	public PoliceOfficer getPoliceOfficer() {
+		return policeOfficer;
 	}
 
 	private void initApplicationList() {

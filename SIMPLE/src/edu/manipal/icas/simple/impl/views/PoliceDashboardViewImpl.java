@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import edu.manipal.icas.simple.utils.ImageUtils;
 import edu.manipal.icas.simple.utils.ResourceConstants;
@@ -26,7 +27,7 @@ import net.miginfocom.swing.MigLayout;
 public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardView {
 
 	private JButton prevButton;
-	private JComboBox<String> applicationIdComboBox;
+	private JComboBox<Integer> applicationIdComboBox;
 	private JButton nextButton;
 	private JButton adverseButton;
 	private JButton clearButton;
@@ -35,11 +36,11 @@ public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardVi
 	private JLabel officerIdLabelHolder;
 	private JButton logoutButton;
 	private JButton viewDocumentButton;
-	private String entries[][] = { { "", "", "" } };
+	private JTable applicationTable;
 
 	public PoliceDashboardViewImpl() {
-		String appId[] = { "100013", "100343" };
-		applicationIdComboBox = new JComboBox(appId);
+		super("Police Officer Dashboard");
+		applicationIdComboBox = new JComboBox<Integer>();
 		prevButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 20, 20));
 		nextButton = new JButton(ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 20, 20));
 		adverseButton = new JButton("Adverse");
@@ -56,7 +57,7 @@ public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardVi
 		viewDocumentButton = new JButton("View Adress Proof");
 		officerIdLabelHolder = new JLabel();
 
-		officerIdLabel = new JLabel("Officer ID:");
+		officerIdLabel = new JLabel("Officer badge ID:");
 		logoutButton = new JButton("Logout");
 
 		initialisePoliceUI();
@@ -64,14 +65,11 @@ public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardVi
 
 	private void initialisePoliceUI() {
 		// TODO Auto-generated method stub
-		JFrame frame = new JFrame("Police Officer Dashboard");
 		JPanel panel = new JPanel();
 
 		JLabel officerIdLabel = new JLabel("Officer ID :");
 
-		String column[] = { "Application ID", "Name", "Address" };
-
-		JTable applicationTable = new JTable(entries, column);
+		applicationTable = new JTable(new DefaultTableModel(new Object[] { "Application ID", "Name", "Address" }, 0));
 
 		officerIdLabel.setFont(ResourceConstants.FONT_SUBHEADING_PLAIN);
 		panel.setLayout(new MigLayout("", "[] [] [grow] 30 [] [] [] 20 [] 30 [] ", "[] [] 80 [] [grow]"));
@@ -93,77 +91,64 @@ public class PoliceDashboardViewImpl extends JFrame implements PoliceDashboardVi
 		setIconImage((ResourceConstants.IMAGE_POLICE_DASHBOARD_ICON).getImage());
 		setSize(new Dimension(1500, 1000));
 		setLocationRelativeTo(null);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(true);
-		setVisible(true);
 
 	}
 
 	@Override
 	public JFrame getFrame() {
-
 		return this;
 	}
 
 	@Override
 	public JButton getPreviousApplicationIdButton() {
-
 		return prevButton;
 	}
 
 	@Override
 	public JButton getNextApplicationIdButton() {
-
 		return nextButton;
 	}
 
 	@Override
-	public JComboBox<String> getApplicationIdComboBox() {
-
+	public JComboBox<Integer> getApplicationIdComboBox() {
 		return applicationIdComboBox;
 	}
 
-
-
-
 	@Override
 	public JButton getLogOutButton() {
-
 		return logoutButton;
 	}
 
 	@Override
-	public JButton getviewDocumentButton() {
-
+	public JButton getViewDocumentButton() {
 		return viewDocumentButton;
 	}
 
 	@Override
 	public JButton getAdverseButton() {
-
 		return adverseButton;
 	}
 
 	@Override
 	public JButton getClearButton() {
-
 		return clearButton;
 	}
 
 	@Override
 	public JButton getIncompleteButton() {
-
 		return incompleteButton;
 	}
 
 	@Override
-	public String[][] getPendingVerificationTableEntries() {
-
-		return entries;
+	public JTable getPendingVerificationTable() {
+		return applicationTable;
 	}
 
 	@Override
-	public JLabel getofficerIdLabel() {
-
+	public JLabel getOfficerIdLabel() {
 		return officerIdLabelHolder;
 	}
 

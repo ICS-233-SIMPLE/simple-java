@@ -75,12 +75,9 @@ public class LoginController {
 				default:
 					break;
 				}
-				if(selectedOfficerType=="Police Officer")
 
-				{
-
-					if(PoliceOfficer.authenticate(officerId))
-					{
+				if (selectedOfficerType == "Police Officer") {
+					if (PoliceOfficer.authenticate(officerId)) {
 						st = SessionType.POLICE;
 						Session session = SessionFactory.getFactory().getSession(st, idString);
 						if (SessionController.getController().startSession(session))
@@ -88,26 +85,19 @@ public class LoginController {
 						else
 							showError("An internal error has occurred. Please try again later.");
 
-					}
-					else
+					} else
 						showError("Officer doesn't exist");
+				} else {
+					if (PassportOfficer.authenticate(officerId, temppr)) {
+						Session session = SessionFactory.getFactory().getSession(st, idString);
+						if (SessionController.getController().startSession(session))
+							RouteController.getController().routeTo(session.getDefaultRoute());
+						else
+							showError("An internal error has occurred. Please try again later.");
 
-
-
+					} else
+						showError("Officer doesn't exist");
 				}
-				else {
-
-				if (PassportOfficer.authenticate(officerId, temppr)) {
-					Session session = SessionFactory.getFactory().getSession(st, idString);
-					if (SessionController.getController().startSession(session))
-						RouteController.getController().routeTo(session.getDefaultRoute());
-					else
-						showError("An internal error has occurred. Please try again later.");
-
-				} else
-					showError("Officer doesn't exist");
-
-			   }
 			}
 
 		});
