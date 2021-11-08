@@ -1,7 +1,5 @@
 package edu.manipal.icas.simple.controllers;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,16 +14,15 @@ import edu.manipal.icas.simple.session.PoliceOfficerSession;
 import edu.manipal.icas.simple.session.Session;
 import edu.manipal.icas.simple.views.PoliceDashboardView;
 import edu.manipal.icas.simple.views.View;
+
 public class PoliceDashboardViewController {
 
-	private PoliceDashboardView poView ;
+	private PoliceDashboardView poView;
 	private Session session;
 	private Application application;
-	private PoliceOfficer  policeOfficer;
+	private PoliceOfficer policeOfficer;
 
-
-	public PoliceDashboardViewController(PoliceDashboardView poView)
-	{
+	public PoliceDashboardViewController(PoliceDashboardView poView) {
 		this.poView = poView;
 		application = null;
 
@@ -41,17 +38,16 @@ public class PoliceDashboardViewController {
 		initLogOutHandlers();
 		initAppplicationNavigationButtons();
 
-
 	}
 
 	private void initPoliceOfficerFields() {
 //		TODO Fetching of applications needs to be implemented in PoliceOfficer Model firstly
 	}
 
-
 	public View getPoliceOfficerView() {
 		return poView;
 	}
+
 	private void initLogOutHandlers() {
 		ActionListener logOutListener = new ActionListener() {
 
@@ -69,7 +65,6 @@ public class PoliceDashboardViewController {
 				.addActionListener(new NavigationListener(poView.getApplicationIdComboBox(), true));
 		poView.getPreviousApplicationIdButton()
 				.addActionListener(new NavigationListener(poView.getApplicationIdComboBox(), false));
-
 
 	}
 
@@ -96,8 +91,6 @@ public class PoliceDashboardViewController {
 			comboBox.setSelectedIndex(newIndex);
 		}
 
-
-
 	}
 
 	private void showPendingApplications(Application application)
@@ -106,9 +99,5 @@ public class PoliceDashboardViewController {
 
 //		TODO @Vishwas please Populate the JTable
 	}
-
-
-
-
 
 }
