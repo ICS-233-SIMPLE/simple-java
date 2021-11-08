@@ -3,6 +3,7 @@ package edu.manipal.icas.simple.views;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
@@ -14,7 +15,7 @@ public interface PassportGrantingOfficerDashboardView extends View {
 	 * 
 	 * @return the application ID combo box
 	 */
-	JComboBox<String> getApplicationIdComboBox();
+	JComboBox<Integer> getApplicationIdComboBox();
 
 	/**
 	 * Gets the button that is used to move to the next application ID.
@@ -151,5 +152,26 @@ public interface PassportGrantingOfficerDashboardView extends View {
 	 * @return the PDF documents controller
 	 */
 	SwingController getPdfDocumentsController();
+
+	/**
+	 * Gets the container that holds all yes/no questions for a project
+	 * 
+	 * @return questions panel
+	 */
+	JPanel getQuestionsPanel();
+
+	/**
+	 * Gets the combo box that the officer uses to select a document to preview.
+	 * 
+	 * @return combo box
+	 */
+	JComboBox<String> getDocumentTypeComboBox();
+	
+	/**
+	 * Gets the combo box that the officer uses to select a biometric to preview.
+	 * 
+	 * @return combo box
+	 */
+	JComboBox<String> getBiometricTypeComboBox();
 
 }

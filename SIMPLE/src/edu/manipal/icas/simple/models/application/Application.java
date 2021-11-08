@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import edu.manipal.icas.simple.databases.ApplicationDatabase;
 import edu.manipal.icas.simple.impl.apis.MockPaymentApi;
@@ -159,7 +160,7 @@ public abstract class Application {
 			documentsAuthentic = false;
 			questions = new HashMap<>();
 			biometrics = new HashMap<>();
-			documents = new HashMap<>();
+			documents = new TreeMap<>();
 			setPayment(new MockPaymentApi().createPayment(APPLICATION_PAYMENT_AMOUNT));
 			dateCreated = db.fetchDateCreated(applicationId);
 		} catch (IOException e) {
@@ -261,6 +262,16 @@ public abstract class Application {
 		default:
 			break;
 		}
+		try {
+			db.saveStatus(applicationId, status);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void setStatus(ApplicationStatus status) {
+		this.status = status;
 		try {
 			db.saveStatus(applicationId, status);
 		} catch (IOException e) {

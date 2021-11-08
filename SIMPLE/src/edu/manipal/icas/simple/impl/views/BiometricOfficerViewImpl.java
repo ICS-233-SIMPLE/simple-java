@@ -3,6 +3,7 @@ package edu.manipal.icas.simple.impl.views;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,8 +14,13 @@ import javax.swing.JPanel;
 
 import javax.swing.JTextField;
 
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.util.PropertiesManager;
+
 import edu.manipal.icas.simple.utils.ImageUtils;
 import edu.manipal.icas.simple.utils.ResourceConstants;
+import edu.manipal.icas.simple.utils.StringConstants;
 import edu.manipal.icas.simple.views.BiometricOfficerView;
 import net.miginfocom.swing.MigLayout;
 
@@ -26,13 +32,15 @@ import net.miginfocom.swing.MigLayout;
 
 public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficerView {
 
-	private JComboBox<String> applicationIDComboBox;
+	private JComboBox<Integer> applicationIDComboBox;
 	private JButton scanButton;
 	private JButton submitScanButton;
 	private JComboBox<String> biometricTypeComboBox;
 	private JButton logoutButton;
 	private JButton prevButton;
 	private JButton nextButton;
+	private JLabel officerIDLabel;
+	private SwingController pdfController;
 
 	/**
 	 * Instantiates all required components which need to be displayed in biometric
@@ -40,10 +48,8 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	 */
 	public BiometricOfficerViewImpl() {
 		super("Biometric Officer Dashboard");
-		String[] applicationID = new String[] { "Application ID" };
-		applicationIDComboBox = new JComboBox<>(applicationID);
-		String[] biometricType = new String[] { "Four fingers (left)", "Four fingers (right)", "Thumbs", "Photo" };
-		biometricTypeComboBox = new JComboBox<>(biometricType);
+		applicationIDComboBox = new JComboBox<>();
+		biometricTypeComboBox = new JComboBox<String>(StringConstants.ACCEPTED_BIOMETRIC_TYPE_NAMES.keySet().toArray(new String[0]));
 		logoutButton = new JButton("Logout");
 		scanButton = new JButton("Scan");
 		submitScanButton = new JButton("Submit scan");
@@ -51,6 +57,7 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 		prevButton.setIcon(ImageUtils.getScaledImage(ResourceConstants.IMAGE_PREVIOUS_BUTTON_ICON, 15, 15));
 		nextButton = new JButton();
 		nextButton.setIcon(ImageUtils.getScaledImage(ResourceConstants.IMAGE_NEXT_BUTTON_ICON, 15, 15));
+		pdfController = new SwingController();
 		initialiseBiometricUi();
 	}
 
@@ -58,10 +65,10 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	private void initialiseBiometricUi() {
 		JPanel panel = new JPanel();
 
-		JLabel officerIDLabel = new JLabel("Officer ID :");
+		officerIDLabel = new JLabel("Officer ID :");
 
 		officerIDLabel.setFont(ResourceConstants.FONT_SUBHEADING_PLAIN);
-		panel.setLayout(new MigLayout("", "[] [grow]", "[] [] 80 [] [grow]"));
+		panel.setLayout(new MigLayout("", "[] [grow]", "[] [grow]"));
 
 		panel.add(prevButton, "left");
 		panel.add(applicationIDComboBox, "growx");
@@ -71,6 +78,12 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 		panel.add(submitScanButton, "cell 4 0");
 		panel.add(officerIDLabel);
 		panel.add(logoutButton, "right, wrap");
+		
+		PropertiesManager properties = new PropertiesManager(System.getProperties(),
+				ResourceBundle.getBundle(PropertiesManager.DEFAULT_MESSAGE_BUNDLE));
+		properties.setBoolean("application.viewerpreferences.hidetoolbar", Boolean.TRUE);
+		SwingViewBuilder factory = new SwingViewBuilder(pdfController, properties);
+		panel.add(factory.buildViewerPanel(), "span 10 1, growx, growy");
 
 		add(panel);
 		setSize(new Dimension(1500, 1000));
@@ -97,7 +110,7 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	}
 
 	@Override
-	public JComboBox<String> getApplicationIdComboBox() {
+	public JComboBox<Integer> getApplicationIdComboBox() {
 		return applicationIDComboBox;
 	}
 
@@ -114,6 +127,21 @@ public class BiometricOfficerViewImpl extends JFrame implements BiometricOfficer
 	@Override
 	public JButton getLogoutButton() {
 		return logoutButton;
+	}
+
+	@Override
+	public JLabel getOfficerIdButton() {
+		return officerIDLabel;
+	}
+
+	@Override
+	public JComboBox<String> getBiometricTypeComboBox() {
+		return biometricTypeComboBox;
+	}
+
+	@Override
+	public SwingController getPdfController() {
+		return pdfController;
 	}
 
 }

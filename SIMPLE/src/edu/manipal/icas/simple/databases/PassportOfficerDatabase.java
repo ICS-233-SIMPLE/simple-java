@@ -1,6 +1,7 @@
 package edu.manipal.icas.simple.databases;
 
 import java.io.IOException;
+import java.util.List;
 
 import edu.manipal.icas.simple.models.PassportOfficerRole;
 
@@ -37,4 +38,14 @@ public interface PassportOfficerDatabase {
 	 * @throws IOException if no passport officer was found for the passed ID
 	 */
 	PassportOfficerRole fetchOfficerRole(Integer officerId) throws IOException;
+
+	/**
+	 * Fetches a list of applications that a given officer is responsible for
+	 * handling.
+	 * 
+	 * @param officerId ID of the officer
+	 * @return list of applications
+	 * @throws IOException if no passport officer was found for the passed ID
+	 */
+	List<Integer> fetchApplications(Integer officerId) throws IOException;
 }
